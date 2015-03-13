@@ -1,0 +1,58 @@
+﻿@model AstroGearsMVC.Models.CelestialObject
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CelestialObject</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CelestialObjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CelestialObjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowableOrb)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllowableOrb)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Keywords)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Keywords)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Draconic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Draconic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CelestialObjectType.CelestialObjectTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CelestialObjectType.CelestialObjectTypeName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CelestialObjectId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

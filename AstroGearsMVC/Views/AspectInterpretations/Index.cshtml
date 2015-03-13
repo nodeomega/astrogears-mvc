@@ -1,0 +1,228 @@
+﻿@*@model IEnumerable<AstroGearsMVC.Models.AspectInterpretation>*@
+
+@{
+    ViewBag.Title = "AstroGears | Aspect Interpretations | Index";
+}
+
+@section styles
+{
+    <link href="~/Content/themes/base/menu.min.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/autocomplete.min.css" rel="stylesheet" />
+    <link href="~/Content/themes/smoothness/jquery-ui.smoothness.min.css" rel="stylesheet" />
+}
+
+<h2>Index</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a href="#" onclick="AspectInterpretations.OpenCreateForm();" title="Create New Aspect Interpretation"><span class="fa fa-plus-circle"></span> Create New Aspect Interpretation</a>
+</p>
+
+<div id="listingLoading" class="ajax-loader">
+    <div style="position:relative; top:200px;">
+        <img src="~/Images/ajax-loader-red-processing-medium.gif" alt="Loading..." title="Loading..." /> Loading...
+    </div>
+</div>
+
+<div id="status"></div>
+
+<table class="table container">
+    <colgroup>
+        <col class="col-md-2" />
+        <col class="col-md-6" />
+        <col class="col-md-3" />
+        <col class="col-md-1" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>
+                Aspect
+            </th>
+            <th>
+                Interpretation
+            </th>
+            <th>
+                Source
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="listingBody"></tbody>
+</table>
+
+<div class="modal fade" id="createAspectInterpretationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Create New Aspect Interpretation</h4>
+                </div>
+                <div class="modal-body form-horizontal container">
+                    <div id="createStatus"></div>
+                    <div class="form-group">
+                        <div class="col-md-4 container">
+                            <label>First Object</label>
+                            <select id="createAspectInterpretationTypeId1" class="form-control aspect-input"></select>
+                            <input id="createSelectFirstCelestialObject" type="radio" name="createFirstAspectSelection" checked="checked" value="celestialObject1" class="col-xs-1" />
+                            <div class="ui-widget col-xs-11"><input id="createCelestialObject1" class="form-control aspect-input celestial-object" /></div>
+                            <input id="createCelestialObject1Id" type="hidden" />
+                            <input id="createCelestialObject1Selected" type="hidden" />
+                            <div style="width:100%;text-align:center;"><label>-- OR Angle --</label></div>
+                            <input id="createSelectFirstChartAngle" type="radio" name="createFirstAspectSelection" value="angle1" class="col-xs-1" />
+                            <select id="createAngle1Id" class="form-control aspect-input col-xs-11"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Aspect</label>
+                            <select id="createAspectId" class="form-control aspect-input"></select>
+                        </div>
+                        <div class="col-md-4 container">
+                            <label class="col-xs-12">Second Object</label>
+                            <select id="createAspectInterpretationTypeId2" class="form-control aspect-input"></select>
+                            <input id="createSelectSecondCelestialObject" type="radio" name="createSecondAspectSelection" checked="checked" value="celestialObject2" class="col-xs-1" />
+                            <div class="ui-widget col-xs-11"><input id="createCelestialObject2" class="form-control aspect-input celestial-object" /></div>
+                            <input id="createCelestialObject2Id" type="hidden" />
+                            <input id="createCelestialObject2Selected" type="hidden" />
+                            <div style="width:100%;text-align:center;"><label>-- OR Angle --</label></div>
+                            <input id="createSelectSecondChartAngle" type="radio" name="createSecondAspectSelection" value="angle2" class="col-xs-1" />
+                            <select id="createAngle2Id" class="form-control aspect-input col-xs-11"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Interpretation</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control aspect-input interpretation" id="createInterpretation" rows="6" cols="80"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Citation URL</label>
+                        <div class="col-md-10">
+                            <input id="createCitationUrl" type="text" class="form-control aspect-input citation-url" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <input type="button" class="btn btn-primary" id="confirmAspectInterpretationCreate" value="Confirm Entry" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-6">
+        Results per page:
+        <select id="resultsPerPage">
+            <option selected="selected">10</option>
+            <option>25</option>
+            <option>50</option>
+            <option>100</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        Page
+        <select id="pageNumber"></select> of <span id="totalPages"></span>
+    </div>
+</div>
+
+<div class="modal fade" id="editAspectInterpretationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Update Aspect Interpretation</h4>
+                </div>
+                <div class="modal-body form-horizontal container">
+                    <div id="editStatus"></div>
+                    <div class="form-group">
+                        <div class="col-md-4 container">
+                            <label>First Object</label>
+                            <select id="editAspectInterpretationTypeId1" class="form-control aspect-input"></select>
+                            <input id="editSelectFirstCelestialObject" type="radio" name="editFirstAspectSelection" checked="checked" value="celestialObject1" class="col-xs-1" />
+                            <div class="ui-widget col-xs-11"><input id="editCelestialObject1" class="form-control aspect-input celestial-object" /></div>
+                            <input id="editCelestialObject1Id" type="hidden" />
+                            <input id="editCelestialObject1Selected" type="hidden" />
+                            <div style="width:100%;text-align:center;"><label>-- OR Angle --</label></div>
+                            <input id="editSelectFirstChartAngle" type="radio" name="editFirstAspectSelection" value="angle1" class="col-xs-1" />
+                            <select id="editAngle1Id" class="form-control aspect-input col-xs-11"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Aspect</label>
+                            <select id="editAspectId" class="form-control aspect-input"></select>
+                        </div>
+                        <div class="col-md-4 container">
+                            <label class="col-xs-12">Second Object</label>
+                            <select id="editAspectInterpretationTypeId2" class="form-control aspect-input"></select>
+                            <input id="editSelectSecondCelestialObject" type="radio" name="editSecondAspectSelection" checked="checked" value="celestialObject2" class="col-xs-1" />
+                            <div class="ui-widget col-xs-11"><input id="editCelestialObject2" class="form-control aspect-input celestial-object" /></div>
+                            <input id="editCelestialObject2Id" type="hidden" />
+                            <input id="editCelestialObject2Selected" type="hidden" />
+                            <div style="width:100%;text-align:center;"><label>-- OR Angle --</label></div>
+                            <input id="editSelectSecondChartAngle" type="radio" name="editSecondAspectSelection" value="angle2" class="col-xs-1" />
+                            <select id="editAngle2Id" class="form-control aspect-input col-xs-11"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Interpretation</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control aspect-input interpretation" id="editInterpretation" rows="6" cols="80"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Citation URL</label>
+                        <div class="col-md-10">
+                            <input id="editCitationUrl" type="text" class="form-control aspect-input citation-url" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <input type="button" class="btn btn-primary" id="confirmAspectInterpretationEdit" value="Confirm Entry" />
+                    <input id="editAspectInterpretationId" type="hidden" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteAspectInterpretationModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Delete Aspect Interpretation</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="interface-warning">
+                        <span class="fa fa-exclamation-triangle error"></span> This will be PERMANENTLY deleted!<br />Continue?
+                    </div>
+                    <hr />
+                    <div>
+                        <label id="deleteFirstObject"></label> <label id="deleteAspect"></label> <label id="deleteSecondObject"></label>
+                    </div>
+                    <div id="deleteInterpretation"></div>
+                    <hr />
+                    <div id="deleteCitationUrl"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <input type="button" class="btn btn-primary" id="confirmAspectInterpretationDelete" value="Confirm Delete" />
+                    <input id="deleteAspectInterpretationId" type="hidden" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery-ui")
+    <script src="~/Scripts/aspect-interpretations.min.js"></script>
+}

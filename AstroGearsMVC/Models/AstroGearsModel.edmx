@@ -1,0 +1,1931 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AstroGearsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspectInterpretations">
+          <Key>
+            <PropertyRef Name="AspectInterpretationId" />
+          </Key>
+          <Property Name="AspectInterpretationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AspectInterpretationTypeId1" Type="tinyint" Nullable="false" />
+          <Property Name="CelestialObjectId1" Type="int" />
+          <Property Name="AngleId1" Type="tinyint" />
+          <Property Name="AspectId" Type="tinyint" Nullable="false" />
+          <Property Name="AspectInterpretationTypeId2" Type="tinyint" Nullable="false" />
+          <Property Name="CelestialObjectId2" Type="int" />
+          <Property Name="AngleId2" Type="tinyint" />
+          <Property Name="Interpretation" Type="nvarchar(max)" />
+          <Property Name="CitationUrl" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="AspectInterpretationTypes">
+          <Key>
+            <PropertyRef Name="AspectInterpretationTypeId" />
+          </Key>
+          <Property Name="AspectInterpretationTypeId" Type="tinyint" Nullable="false" />
+          <Property Name="AspectInterpretationTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Aspects">
+          <Key>
+            <PropertyRef Name="AspectId" />
+          </Key>
+          <Property Name="AspectId" Type="tinyint" Nullable="false" />
+          <Property Name="AspectName" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="HtmlTextCssClass" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CelestialObjects">
+          <Key>
+            <PropertyRef Name="CelestialObjectId" />
+          </Key>
+          <Property Name="CelestialObjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CelestialObjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AlternateName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CelestialObjectTypeId" Type="tinyint" Nullable="false" />
+          <Property Name="AllowableOrb" Type="decimal" Precision="4" Scale="1" Nullable="false" />
+          <Property Name="Keywords" Type="nvarchar(max)" />
+          <Property Name="Draconic" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CelestialObjectTypes">
+          <Key>
+            <PropertyRef Name="CelestialObjectTypeId" />
+          </Key>
+          <Property Name="CelestialObjectTypeId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CelestialObjectTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChartAngles">
+          <Key>
+            <PropertyRef Name="ChartAngleId" />
+          </Key>
+          <Property Name="ChartAngleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EnteredChartId" Type="int" Nullable="false" />
+          <Property Name="AngleId" Type="tinyint" Nullable="false" />
+          <Property Name="SignId" Type="tinyint" Nullable="false" />
+          <Property Name="Degrees" Type="tinyint" Nullable="false" />
+          <Property Name="Minutes" Type="tinyint" Nullable="false" />
+          <Property Name="Seconds" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChartHouses">
+          <Key>
+            <PropertyRef Name="ChartHouseId" />
+          </Key>
+          <Property Name="ChartHouseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EnteredChartId" Type="int" Nullable="false" />
+          <Property Name="HouseSystemId" Type="tinyint" Nullable="false" />
+          <Property Name="HouseId" Type="tinyint" Nullable="false" />
+          <Property Name="SignId" Type="tinyint" Nullable="false" />
+          <Property Name="Degrees" Type="tinyint" Nullable="false" />
+          <Property Name="Minutes" Type="tinyint" Nullable="false" />
+          <Property Name="Seconds" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChartObjects">
+          <Key>
+            <PropertyRef Name="ChartObjectId" />
+          </Key>
+          <Property Name="ChartObjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CelestialObjectId" Type="int" Nullable="false" />
+          <Property Name="EnteredChartID" Type="int" Nullable="false" />
+          <Property Name="SignId" Type="tinyint" Nullable="false" />
+          <Property Name="Degrees" Type="tinyint" Nullable="false" />
+          <Property Name="Minutes" Type="tinyint" Nullable="false" />
+          <Property Name="Seconds" Type="tinyint" Nullable="false" />
+          <Property Name="OrientationId" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ChartTypes">
+          <Key>
+            <PropertyRef Name="ChartTypeId" />
+          </Key>
+          <Property Name="ChartTypeId" Type="tinyint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ChartTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Elements">
+          <Key>
+            <PropertyRef Name="ElementId" />
+          </Key>
+          <Property Name="ElementId" Type="tinyint" Nullable="false" />
+          <Property Name="ElementName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="HtmlTextCssClass" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EnteredCharts">
+          <Key>
+            <PropertyRef Name="EnteredChartId" />
+          </Key>
+          <Property Name="EnteredChartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="SubjectLocation" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="OriginDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ChartTypeId" Type="tinyint" Nullable="false" />
+          <Property Name="OriginDateTimeUnknown" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HouseAngles">
+          <Key>
+            <PropertyRef Name="AngleId" />
+          </Key>
+          <Property Name="AngleId" Type="tinyint" Nullable="false" />
+          <Property Name="AngleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HouseCusps">
+          <Key>
+            <PropertyRef Name="HouseId" />
+          </Key>
+          <Property Name="HouseId" Type="tinyint" Nullable="false" />
+          <Property Name="HouseName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HouseCuspName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HouseSystems">
+          <Key>
+            <PropertyRef Name="HouseSystemId" />
+          </Key>
+          <Property Name="HouseSystemId" Type="tinyint" Nullable="false" />
+          <Property Name="HouseSystemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orientations">
+          <Key>
+            <PropertyRef Name="OrientationId" />
+          </Key>
+          <Property Name="OrientationId" Type="tinyint" Nullable="false" />
+          <Property Name="OrientationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrientationAbbreviation" Type="nvarchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="Qualities">
+          <Key>
+            <PropertyRef Name="QualityId" />
+          </Key>
+          <Property Name="QualityId" Type="tinyint" Nullable="false" />
+          <Property Name="QualityName" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelocatedChartAngles">
+          <Key>
+            <PropertyRef Name="RelocatedAngleId" />
+          </Key>
+          <Property Name="RelocatedAngleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EnteredChartId" Type="int" Nullable="false" />
+          <Property Name="RelocatedChartId" Type="int" Nullable="false" />
+          <Property Name="AngleId" Type="tinyint" Nullable="false" />
+          <Property Name="SignId" Type="tinyint" Nullable="false" />
+          <Property Name="Degrees" Type="tinyint" Nullable="false" />
+          <Property Name="Minutes" Type="tinyint" Nullable="false" />
+          <Property Name="Seconds" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelocatedChartHouses">
+          <Key>
+            <PropertyRef Name="RelocatedHouseId" />
+          </Key>
+          <Property Name="RelocatedHouseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EnteredChartId" Type="int" Nullable="false" />
+          <Property Name="RelocatedChartId" Type="int" Nullable="false" />
+          <Property Name="HouseSystemId" Type="tinyint" Nullable="false" />
+          <Property Name="HouseId" Type="tinyint" Nullable="false" />
+          <Property Name="SignId" Type="tinyint" Nullable="false" />
+          <Property Name="Degrees" Type="tinyint" Nullable="false" />
+          <Property Name="Minutes" Type="tinyint" Nullable="false" />
+          <Property Name="Seconds" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelocatedCharts">
+          <Key>
+            <PropertyRef Name="RelocatedChartId" />
+          </Key>
+          <Property Name="RelocatedChartId" Type="int" Nullable="false" />
+          <Property Name="RelocatedLocation" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="RelocatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="EnteredChartId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Signs">
+          <Key>
+            <PropertyRef Name="SignId" />
+          </Key>
+          <Property Name="SignId" Type="tinyint" Nullable="false" />
+          <Property Name="SignName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="SignAbbreviation" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="ElementId" Type="tinyint" Nullable="false" />
+          <Property Name="QualityId" Type="tinyint" Nullable="false" />
+          <Property Name="TraditionalRulerId" Type="int" />
+          <Property Name="ModernRulerId" Type="int" />
+        </EntityType>
+        <Association Name="FK_AspectInterpretations_AspectInterpretationTypes">
+          <End Role="AspectInterpretationTypes" Type="Self.AspectInterpretationTypes" Multiplicity="1" />
+          <End Role="AspectInterpretations" Type="Self.AspectInterpretations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspectInterpretationTypes">
+              <PropertyRef Name="AspectInterpretationTypeId" />
+            </Principal>
+            <Dependent Role="AspectInterpretations">
+              <PropertyRef Name="AspectInterpretationTypeId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_AspectInterpretationTypes1">
+          <End Role="AspectInterpretationTypes" Type="Self.AspectInterpretationTypes" Multiplicity="1" />
+          <End Role="AspectInterpretations" Type="Self.AspectInterpretations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspectInterpretationTypes">
+              <PropertyRef Name="AspectInterpretationTypeId" />
+            </Principal>
+            <Dependent Role="AspectInterpretations">
+              <PropertyRef Name="AspectInterpretationTypeId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_Aspects">
+          <End Role="Aspects" Type="Self.Aspects" Multiplicity="1" />
+          <End Role="AspectInterpretations" Type="Self.AspectInterpretations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aspects">
+              <PropertyRef Name="AspectId" />
+            </Principal>
+            <Dependent Role="AspectInterpretations">
+              <PropertyRef Name="AspectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_CelestialObjects1">
+          <End Role="CelestialObjects" Type="Self.CelestialObjects" Multiplicity="0..1" />
+          <End Role="AspectInterpretations" Type="Self.AspectInterpretations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CelestialObjects">
+              <PropertyRef Name="CelestialObjectId" />
+            </Principal>
+            <Dependent Role="AspectInterpretations">
+              <PropertyRef Name="CelestialObjectId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_CelestialObjects2">
+          <End Role="CelestialObjects" Type="Self.CelestialObjects" Multiplicity="0..1" />
+          <End Role="AspectInterpretations" Type="Self.AspectInterpretations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CelestialObjects">
+              <PropertyRef Name="CelestialObjectId" />
+            </Principal>
+            <Dependent Role="AspectInterpretations">
+              <PropertyRef Name="CelestialObjectId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_HouseAngles1">
+          <End Role="HouseAngles" Type="Self.HouseAngles" Multiplicity="0..1" />
+          <End Role="AspectInterpretations" Type="Self.AspectInterpretations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseAngles">
+              <PropertyRef Name="AngleId" />
+            </Principal>
+            <Dependent Role="AspectInterpretations">
+              <PropertyRef Name="AngleId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_HouseAngles2">
+          <End Role="HouseAngles" Type="Self.HouseAngles" Multiplicity="0..1" />
+          <End Role="AspectInterpretations" Type="Self.AspectInterpretations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseAngles">
+              <PropertyRef Name="AngleId" />
+            </Principal>
+            <Dependent Role="AspectInterpretations">
+              <PropertyRef Name="AngleId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CelestialObject_CelestialObjectTypes">
+          <End Role="CelestialObjectTypes" Type="Self.CelestialObjectTypes" Multiplicity="1" />
+          <End Role="CelestialObjects" Type="Self.CelestialObjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CelestialObjectTypes">
+              <PropertyRef Name="CelestialObjectTypeId" />
+            </Principal>
+            <Dependent Role="CelestialObjects">
+              <PropertyRef Name="CelestialObjectTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartAngles_EnteredCharts">
+          <End Role="EnteredCharts" Type="Self.EnteredCharts" Multiplicity="1" />
+          <End Role="ChartAngles" Type="Self.ChartAngles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredCharts">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="ChartAngles">
+              <PropertyRef Name="EnteredChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartAngles_HouseAngles">
+          <End Role="HouseAngles" Type="Self.HouseAngles" Multiplicity="1" />
+          <End Role="ChartAngles" Type="Self.ChartAngles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseAngles">
+              <PropertyRef Name="AngleId" />
+            </Principal>
+            <Dependent Role="ChartAngles">
+              <PropertyRef Name="AngleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartAngles_Signs">
+          <End Role="Signs" Type="Self.Signs" Multiplicity="1" />
+          <End Role="ChartAngles" Type="Self.ChartAngles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signs">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="ChartAngles">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartHouses_EnteredCharts">
+          <End Role="EnteredCharts" Type="Self.EnteredCharts" Multiplicity="1" />
+          <End Role="ChartHouses" Type="Self.ChartHouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredCharts">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="ChartHouses">
+              <PropertyRef Name="EnteredChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartHouses_HouseCusps">
+          <End Role="HouseCusps" Type="Self.HouseCusps" Multiplicity="1" />
+          <End Role="ChartHouses" Type="Self.ChartHouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseCusps">
+              <PropertyRef Name="HouseId" />
+            </Principal>
+            <Dependent Role="ChartHouses">
+              <PropertyRef Name="HouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartHouses_HouseSystems">
+          <End Role="HouseSystems" Type="Self.HouseSystems" Multiplicity="1" />
+          <End Role="ChartHouses" Type="Self.ChartHouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseSystems">
+              <PropertyRef Name="HouseSystemId" />
+            </Principal>
+            <Dependent Role="ChartHouses">
+              <PropertyRef Name="HouseSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartHouses_Signs">
+          <End Role="Signs" Type="Self.Signs" Multiplicity="1" />
+          <End Role="ChartHouses" Type="Self.ChartHouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signs">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="ChartHouses">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartObjects_CelestialObject">
+          <End Role="CelestialObjects" Type="Self.CelestialObjects" Multiplicity="1" />
+          <End Role="ChartObjects" Type="Self.ChartObjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CelestialObjects">
+              <PropertyRef Name="CelestialObjectId" />
+            </Principal>
+            <Dependent Role="ChartObjects">
+              <PropertyRef Name="CelestialObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartObjects_EnteredCharts">
+          <End Role="EnteredCharts" Type="Self.EnteredCharts" Multiplicity="1" />
+          <End Role="ChartObjects" Type="Self.ChartObjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredCharts">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="ChartObjects">
+              <PropertyRef Name="EnteredChartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartObjects_Orientations">
+          <End Role="Orientations" Type="Self.Orientations" Multiplicity="1" />
+          <End Role="ChartObjects" Type="Self.ChartObjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orientations">
+              <PropertyRef Name="OrientationId" />
+            </Principal>
+            <Dependent Role="ChartObjects">
+              <PropertyRef Name="OrientationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartObjects_Signs">
+          <End Role="Signs" Type="Self.Signs" Multiplicity="1" />
+          <End Role="ChartObjects" Type="Self.ChartObjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signs">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="ChartObjects">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnteredCharts_ChartTypes">
+          <End Role="ChartTypes" Type="Self.ChartTypes" Multiplicity="1" />
+          <End Role="EnteredCharts" Type="Self.EnteredCharts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChartTypes">
+              <PropertyRef Name="ChartTypeId" />
+            </Principal>
+            <Dependent Role="EnteredCharts">
+              <PropertyRef Name="ChartTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartAngles_EnteredCharts">
+          <End Role="EnteredCharts" Type="Self.EnteredCharts" Multiplicity="1" />
+          <End Role="RelocatedChartAngles" Type="Self.RelocatedChartAngles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredCharts">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="RelocatedChartAngles">
+              <PropertyRef Name="EnteredChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartAngles_HouseAngles">
+          <End Role="HouseAngles" Type="Self.HouseAngles" Multiplicity="1" />
+          <End Role="RelocatedChartAngles" Type="Self.RelocatedChartAngles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseAngles">
+              <PropertyRef Name="AngleId" />
+            </Principal>
+            <Dependent Role="RelocatedChartAngles">
+              <PropertyRef Name="AngleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartAngles_RelocatedCharts">
+          <End Role="RelocatedCharts" Type="Self.RelocatedCharts" Multiplicity="1" />
+          <End Role="RelocatedChartAngles" Type="Self.RelocatedChartAngles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelocatedCharts">
+              <PropertyRef Name="RelocatedChartId" />
+            </Principal>
+            <Dependent Role="RelocatedChartAngles">
+              <PropertyRef Name="RelocatedChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartAngles_Signs">
+          <End Role="Signs" Type="Self.Signs" Multiplicity="1" />
+          <End Role="RelocatedChartAngles" Type="Self.RelocatedChartAngles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signs">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="RelocatedChartAngles">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartHouses_EnteredCharts">
+          <End Role="EnteredCharts" Type="Self.EnteredCharts" Multiplicity="1" />
+          <End Role="RelocatedChartHouses" Type="Self.RelocatedChartHouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredCharts">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="RelocatedChartHouses">
+              <PropertyRef Name="EnteredChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartHouses_HouseAngles">
+          <End Role="HouseCusps" Type="Self.HouseCusps" Multiplicity="1" />
+          <End Role="RelocatedChartHouses" Type="Self.RelocatedChartHouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseCusps">
+              <PropertyRef Name="HouseId" />
+            </Principal>
+            <Dependent Role="RelocatedChartHouses">
+              <PropertyRef Name="HouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartHouses_HouseSystems">
+          <End Role="HouseSystems" Type="Self.HouseSystems" Multiplicity="1" />
+          <End Role="RelocatedChartHouses" Type="Self.RelocatedChartHouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseSystems">
+              <PropertyRef Name="HouseSystemId" />
+            </Principal>
+            <Dependent Role="RelocatedChartHouses">
+              <PropertyRef Name="HouseSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartHouses_RelocatedCharts">
+          <End Role="RelocatedCharts" Type="Self.RelocatedCharts" Multiplicity="1" />
+          <End Role="RelocatedChartHouses" Type="Self.RelocatedChartHouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelocatedCharts">
+              <PropertyRef Name="RelocatedChartId" />
+            </Principal>
+            <Dependent Role="RelocatedChartHouses">
+              <PropertyRef Name="RelocatedChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartHouses_Signs">
+          <End Role="Signs" Type="Self.Signs" Multiplicity="1" />
+          <End Role="RelocatedChartHouses" Type="Self.RelocatedChartHouses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Signs">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="RelocatedChartHouses">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedCharts_EnteredCharts">
+          <End Role="EnteredCharts" Type="Self.EnteredCharts" Multiplicity="1" />
+          <End Role="RelocatedCharts" Type="Self.RelocatedCharts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredCharts">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="RelocatedCharts">
+              <PropertyRef Name="EnteredChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Signs_Elements">
+          <End Role="Elements" Type="Self.Elements" Multiplicity="1" />
+          <End Role="Signs" Type="Self.Signs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Elements">
+              <PropertyRef Name="ElementId" />
+            </Principal>
+            <Dependent Role="Signs">
+              <PropertyRef Name="ElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Signs_Qualities">
+          <End Role="Qualities" Type="Self.Qualities" Multiplicity="1" />
+          <End Role="Signs" Type="Self.Signs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Qualities">
+              <PropertyRef Name="QualityId" />
+            </Principal>
+            <Dependent Role="Signs">
+              <PropertyRef Name="QualityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AutoCompleteForAspectInterpretationEntry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EnteredName" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="CelestialObjectId" Type="int" Nullable="false" />
+                <Property Name="CelestialObjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="CelestialObjectTypeId" Type="tinyint" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="AutoCompleteForEnteredChart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EnteredName" Type="nvarchar" Mode="In" />
+          <Parameter Name="EnteredChartId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="CelestialObjectId" Type="int" Nullable="false" />
+                <Property Name="CelestialObjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="ObjectExists" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="PlanetsExistInEnteredChart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EnteredChartId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="CelestialObjectId" Type="int" Nullable="false" />
+                <Property Name="CelestialObjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="ObjectExists" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="PrimariesAndSecondariesExistInEnteredChart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EnteredChartId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="AllPlanetsAndLuminariesExist" Type="bit" />
+                <Property Name="AllSecondaryObjectsExist" Type="bit" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="SecondaryObjectsExistInEnteredChart" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EnteredChartId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="CelestialObjectId" Type="int" Nullable="false" />
+                <Property Name="CelestialObjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="ObjectExists" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="AstroGearsModelStoreContainer">
+          <EntitySet Name="AspectInterpretations" EntityType="Self.AspectInterpretations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspectInterpretationTypes" EntityType="Self.AspectInterpretationTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Aspects" EntityType="Self.Aspects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CelestialObjects" EntityType="Self.CelestialObjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CelestialObjectTypes" EntityType="Self.CelestialObjectTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChartAngles" EntityType="Self.ChartAngles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChartHouses" EntityType="Self.ChartHouses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChartObjects" EntityType="Self.ChartObjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChartTypes" EntityType="Self.ChartTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Elements" EntityType="Self.Elements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EnteredCharts" EntityType="Self.EnteredCharts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HouseAngles" EntityType="Self.HouseAngles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HouseCusps" EntityType="Self.HouseCusps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HouseSystems" EntityType="Self.HouseSystems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orientations" EntityType="Self.Orientations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Qualities" EntityType="Self.Qualities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelocatedChartAngles" EntityType="Self.RelocatedChartAngles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelocatedChartHouses" EntityType="Self.RelocatedChartHouses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelocatedCharts" EntityType="Self.RelocatedCharts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Signs" EntityType="Self.Signs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspectInterpretations_AspectInterpretationTypes" Association="Self.FK_AspectInterpretations_AspectInterpretationTypes">
+            <End Role="AspectInterpretationTypes" EntitySet="AspectInterpretationTypes" />
+            <End Role="AspectInterpretations" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_AspectInterpretationTypes1" Association="Self.FK_AspectInterpretations_AspectInterpretationTypes1">
+            <End Role="AspectInterpretationTypes" EntitySet="AspectInterpretationTypes" />
+            <End Role="AspectInterpretations" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_Aspects" Association="Self.FK_AspectInterpretations_Aspects">
+            <End Role="Aspects" EntitySet="Aspects" />
+            <End Role="AspectInterpretations" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_CelestialObjects1" Association="Self.FK_AspectInterpretations_CelestialObjects1">
+            <End Role="CelestialObjects" EntitySet="CelestialObjects" />
+            <End Role="AspectInterpretations" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_CelestialObjects2" Association="Self.FK_AspectInterpretations_CelestialObjects2">
+            <End Role="CelestialObjects" EntitySet="CelestialObjects" />
+            <End Role="AspectInterpretations" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_HouseAngles1" Association="Self.FK_AspectInterpretations_HouseAngles1">
+            <End Role="HouseAngles" EntitySet="HouseAngles" />
+            <End Role="AspectInterpretations" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_HouseAngles2" Association="Self.FK_AspectInterpretations_HouseAngles2">
+            <End Role="HouseAngles" EntitySet="HouseAngles" />
+            <End Role="AspectInterpretations" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CelestialObject_CelestialObjectTypes" Association="Self.FK_CelestialObject_CelestialObjectTypes">
+            <End Role="CelestialObjectTypes" EntitySet="CelestialObjectTypes" />
+            <End Role="CelestialObjects" EntitySet="CelestialObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartAngles_EnteredCharts" Association="Self.FK_ChartAngles_EnteredCharts">
+            <End Role="EnteredCharts" EntitySet="EnteredCharts" />
+            <End Role="ChartAngles" EntitySet="ChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartAngles_HouseAngles" Association="Self.FK_ChartAngles_HouseAngles">
+            <End Role="HouseAngles" EntitySet="HouseAngles" />
+            <End Role="ChartAngles" EntitySet="ChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartAngles_Signs" Association="Self.FK_ChartAngles_Signs">
+            <End Role="Signs" EntitySet="Signs" />
+            <End Role="ChartAngles" EntitySet="ChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartHouses_EnteredCharts" Association="Self.FK_ChartHouses_EnteredCharts">
+            <End Role="EnteredCharts" EntitySet="EnteredCharts" />
+            <End Role="ChartHouses" EntitySet="ChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartHouses_HouseCusps" Association="Self.FK_ChartHouses_HouseCusps">
+            <End Role="HouseCusps" EntitySet="HouseCusps" />
+            <End Role="ChartHouses" EntitySet="ChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartHouses_HouseSystems" Association="Self.FK_ChartHouses_HouseSystems">
+            <End Role="HouseSystems" EntitySet="HouseSystems" />
+            <End Role="ChartHouses" EntitySet="ChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartHouses_Signs" Association="Self.FK_ChartHouses_Signs">
+            <End Role="Signs" EntitySet="Signs" />
+            <End Role="ChartHouses" EntitySet="ChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartObjects_CelestialObject" Association="Self.FK_ChartObjects_CelestialObject">
+            <End Role="CelestialObjects" EntitySet="CelestialObjects" />
+            <End Role="ChartObjects" EntitySet="ChartObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartObjects_EnteredCharts" Association="Self.FK_ChartObjects_EnteredCharts">
+            <End Role="EnteredCharts" EntitySet="EnteredCharts" />
+            <End Role="ChartObjects" EntitySet="ChartObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartObjects_Orientations" Association="Self.FK_ChartObjects_Orientations">
+            <End Role="Orientations" EntitySet="Orientations" />
+            <End Role="ChartObjects" EntitySet="ChartObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartObjects_Signs" Association="Self.FK_ChartObjects_Signs">
+            <End Role="Signs" EntitySet="Signs" />
+            <End Role="ChartObjects" EntitySet="ChartObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EnteredCharts_ChartTypes" Association="Self.FK_EnteredCharts_ChartTypes">
+            <End Role="ChartTypes" EntitySet="ChartTypes" />
+            <End Role="EnteredCharts" EntitySet="EnteredCharts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartAngles_EnteredCharts" Association="Self.FK_RelocatedChartAngles_EnteredCharts">
+            <End Role="EnteredCharts" EntitySet="EnteredCharts" />
+            <End Role="RelocatedChartAngles" EntitySet="RelocatedChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartAngles_HouseAngles" Association="Self.FK_RelocatedChartAngles_HouseAngles">
+            <End Role="HouseAngles" EntitySet="HouseAngles" />
+            <End Role="RelocatedChartAngles" EntitySet="RelocatedChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartAngles_RelocatedCharts" Association="Self.FK_RelocatedChartAngles_RelocatedCharts">
+            <End Role="RelocatedCharts" EntitySet="RelocatedCharts" />
+            <End Role="RelocatedChartAngles" EntitySet="RelocatedChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartAngles_Signs" Association="Self.FK_RelocatedChartAngles_Signs">
+            <End Role="Signs" EntitySet="Signs" />
+            <End Role="RelocatedChartAngles" EntitySet="RelocatedChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartHouses_EnteredCharts" Association="Self.FK_RelocatedChartHouses_EnteredCharts">
+            <End Role="EnteredCharts" EntitySet="EnteredCharts" />
+            <End Role="RelocatedChartHouses" EntitySet="RelocatedChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartHouses_HouseAngles" Association="Self.FK_RelocatedChartHouses_HouseAngles">
+            <End Role="HouseCusps" EntitySet="HouseCusps" />
+            <End Role="RelocatedChartHouses" EntitySet="RelocatedChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartHouses_HouseSystems" Association="Self.FK_RelocatedChartHouses_HouseSystems">
+            <End Role="HouseSystems" EntitySet="HouseSystems" />
+            <End Role="RelocatedChartHouses" EntitySet="RelocatedChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartHouses_RelocatedCharts" Association="Self.FK_RelocatedChartHouses_RelocatedCharts">
+            <End Role="RelocatedCharts" EntitySet="RelocatedCharts" />
+            <End Role="RelocatedChartHouses" EntitySet="RelocatedChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartHouses_Signs" Association="Self.FK_RelocatedChartHouses_Signs">
+            <End Role="Signs" EntitySet="Signs" />
+            <End Role="RelocatedChartHouses" EntitySet="RelocatedChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedCharts_EnteredCharts" Association="Self.FK_RelocatedCharts_EnteredCharts">
+            <End Role="EnteredCharts" EntitySet="EnteredCharts" />
+            <End Role="RelocatedCharts" EntitySet="RelocatedCharts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Signs_Elements" Association="Self.FK_Signs_Elements">
+            <End Role="Elements" EntitySet="Elements" />
+            <End Role="Signs" EntitySet="Signs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Signs_Qualities" Association="Self.FK_Signs_Qualities">
+            <End Role="Qualities" EntitySet="Qualities" />
+            <End Role="Signs" EntitySet="Signs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AstroGearsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AstroGearsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aspects" EntityType="AstroGearsModel.Aspect" />
+          <EntitySet Name="CelestialObjects" EntityType="AstroGearsModel.CelestialObject" />
+          <EntitySet Name="CelestialObjectTypes" EntityType="AstroGearsModel.CelestialObjectType" />
+          <EntitySet Name="ChartAngles" EntityType="AstroGearsModel.ChartAngle" />
+          <EntitySet Name="ChartHouses" EntityType="AstroGearsModel.ChartHouse" />
+          <EntitySet Name="ChartObjects" EntityType="AstroGearsModel.ChartObject" />
+          <EntitySet Name="ChartTypes" EntityType="AstroGearsModel.ChartType" />
+          <EntitySet Name="Elements" EntityType="AstroGearsModel.Element" />
+          <EntitySet Name="EnteredCharts" EntityType="AstroGearsModel.EnteredChart" />
+          <EntitySet Name="HouseAngles" EntityType="AstroGearsModel.HouseAngle" />
+          <EntitySet Name="HouseCusps" EntityType="AstroGearsModel.HouseCusp" />
+          <EntitySet Name="HouseSystems" EntityType="AstroGearsModel.HouseSystem" />
+          <EntitySet Name="Orientations" EntityType="AstroGearsModel.Orientation" />
+          <EntitySet Name="Qualities" EntityType="AstroGearsModel.Quality" />
+          <EntitySet Name="RelocatedChartAngles" EntityType="AstroGearsModel.RelocatedChartAngle" />
+          <EntitySet Name="RelocatedChartHouses" EntityType="AstroGearsModel.RelocatedChartHous" />
+          <EntitySet Name="RelocatedCharts" EntityType="AstroGearsModel.RelocatedChart" />
+          <EntitySet Name="Signs" EntityType="AstroGearsModel.Sign" />
+          <AssociationSet Name="FK_CelestialObject_CelestialObjectTypes" Association="AstroGearsModel.FK_CelestialObject_CelestialObjectTypes">
+            <End Role="CelestialObjectType" EntitySet="CelestialObjectTypes" />
+            <End Role="CelestialObject" EntitySet="CelestialObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartObjects_CelestialObject" Association="AstroGearsModel.FK_ChartObjects_CelestialObject">
+            <End Role="CelestialObject" EntitySet="CelestialObjects" />
+            <End Role="ChartObject" EntitySet="ChartObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartAngles_EnteredCharts" Association="AstroGearsModel.FK_ChartAngles_EnteredCharts">
+            <End Role="EnteredChart" EntitySet="EnteredCharts" />
+            <End Role="ChartAngle" EntitySet="ChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartAngles_HouseAngles" Association="AstroGearsModel.FK_ChartAngles_HouseAngles">
+            <End Role="HouseAngle" EntitySet="HouseAngles" />
+            <End Role="ChartAngle" EntitySet="ChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartAngles_Signs" Association="AstroGearsModel.FK_ChartAngles_Signs">
+            <End Role="Sign" EntitySet="Signs" />
+            <End Role="ChartAngle" EntitySet="ChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartHouses_EnteredCharts" Association="AstroGearsModel.FK_ChartHouses_EnteredCharts">
+            <End Role="EnteredChart" EntitySet="EnteredCharts" />
+            <End Role="ChartHous" EntitySet="ChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartHouses_HouseCusps" Association="AstroGearsModel.FK_ChartHouses_HouseCusps">
+            <End Role="HouseCusp" EntitySet="HouseCusps" />
+            <End Role="ChartHous" EntitySet="ChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartHouses_HouseSystems" Association="AstroGearsModel.FK_ChartHouses_HouseSystems">
+            <End Role="HouseSystem" EntitySet="HouseSystems" />
+            <End Role="ChartHous" EntitySet="ChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartHouses_Signs" Association="AstroGearsModel.FK_ChartHouses_Signs">
+            <End Role="Sign" EntitySet="Signs" />
+            <End Role="ChartHous" EntitySet="ChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartObjects_EnteredCharts" Association="AstroGearsModel.FK_ChartObjects_EnteredCharts">
+            <End Role="EnteredChart" EntitySet="EnteredCharts" />
+            <End Role="ChartObject" EntitySet="ChartObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartObjects_Orientations" Association="AstroGearsModel.FK_ChartObjects_Orientations">
+            <End Role="Orientation" EntitySet="Orientations" />
+            <End Role="ChartObject" EntitySet="ChartObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChartObjects_Signs" Association="AstroGearsModel.FK_ChartObjects_Signs">
+            <End Role="Sign" EntitySet="Signs" />
+            <End Role="ChartObject" EntitySet="ChartObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EnteredCharts_ChartTypes" Association="AstroGearsModel.FK_EnteredCharts_ChartTypes">
+            <End Role="ChartType" EntitySet="ChartTypes" />
+            <End Role="EnteredChart" EntitySet="EnteredCharts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Signs_Elements" Association="AstroGearsModel.FK_Signs_Elements">
+            <End Role="Element" EntitySet="Elements" />
+            <End Role="Sign" EntitySet="Signs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartAngles_EnteredCharts" Association="AstroGearsModel.FK_RelocatedChartAngles_EnteredCharts">
+            <End Role="EnteredChart" EntitySet="EnteredCharts" />
+            <End Role="RelocatedChartAngle" EntitySet="RelocatedChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartHouses_EnteredCharts" Association="AstroGearsModel.FK_RelocatedChartHouses_EnteredCharts">
+            <End Role="EnteredChart" EntitySet="EnteredCharts" />
+            <End Role="RelocatedChartHous" EntitySet="RelocatedChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedCharts_EnteredCharts" Association="AstroGearsModel.FK_RelocatedCharts_EnteredCharts">
+            <End Role="EnteredChart" EntitySet="EnteredCharts" />
+            <End Role="RelocatedChart" EntitySet="RelocatedCharts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartAngles_HouseAngles" Association="AstroGearsModel.FK_RelocatedChartAngles_HouseAngles">
+            <End Role="HouseAngle" EntitySet="HouseAngles" />
+            <End Role="RelocatedChartAngle" EntitySet="RelocatedChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartHouses_HouseAngles" Association="AstroGearsModel.FK_RelocatedChartHouses_HouseAngles">
+            <End Role="HouseCusp" EntitySet="HouseCusps" />
+            <End Role="RelocatedChartHous" EntitySet="RelocatedChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartHouses_HouseSystems" Association="AstroGearsModel.FK_RelocatedChartHouses_HouseSystems">
+            <End Role="HouseSystem" EntitySet="HouseSystems" />
+            <End Role="RelocatedChartHous" EntitySet="RelocatedChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Signs_Qualities" Association="AstroGearsModel.FK_Signs_Qualities">
+            <End Role="Quality" EntitySet="Qualities" />
+            <End Role="Sign" EntitySet="Signs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartAngles_RelocatedCharts" Association="AstroGearsModel.FK_RelocatedChartAngles_RelocatedCharts">
+            <End Role="RelocatedChart" EntitySet="RelocatedCharts" />
+            <End Role="RelocatedChartAngle" EntitySet="RelocatedChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartAngles_Signs" Association="AstroGearsModel.FK_RelocatedChartAngles_Signs">
+            <End Role="Sign" EntitySet="Signs" />
+            <End Role="RelocatedChartAngle" EntitySet="RelocatedChartAngles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartHouses_RelocatedCharts" Association="AstroGearsModel.FK_RelocatedChartHouses_RelocatedCharts">
+            <End Role="RelocatedChart" EntitySet="RelocatedCharts" />
+            <End Role="RelocatedChartHous" EntitySet="RelocatedChartHouses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelocatedChartHouses_Signs" Association="AstroGearsModel.FK_RelocatedChartHouses_Signs">
+            <End Role="Sign" EntitySet="Signs" />
+            <End Role="RelocatedChartHous" EntitySet="RelocatedChartHouses" />
+          </AssociationSet>
+          <FunctionImport Name="SecondaryObjectsExistInEnteredChart" IsComposable="true" ReturnType="Collection(AstroGearsModel.SecondaryObjectsExistInEnteredChart_Result)">
+          <Parameter Name="EnteredChartId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlanetsExistInEnteredChart" IsComposable="true" ReturnType="Collection(AstroGearsModel.PlanetsExistInEnteredChart_Result)">
+          <Parameter Name="EnteredChartId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AutoCompleteForEnteredChart" IsComposable="true" ReturnType="Collection(AstroGearsModel.AutoCompleteForEnteredChart_Result)">
+            <Parameter Name="EnteredName" Mode="In" Type="String" />
+            <Parameter Name="EnteredChartId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PrimariesAndSecondariesExistInEnteredChart" IsComposable="true" ReturnType="Collection(AstroGearsModel.PrimariesAndSecondariesExistInEnteredChart_Result)">
+          <Parameter Name="EnteredChartId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="AspectInterpretationTypes" EntityType="AstroGearsModel.AspectInterpretationType" />
+          <FunctionImport Name="AutoCompleteForAspectInterpretationEntry" IsComposable="true" ReturnType="Collection(AstroGearsModel.AutoCompleteForAspectInterpretationEntry_Result)">
+          <Parameter Name="EnteredName" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="AspectInterpretations" EntityType="AstroGearsModel.AspectInterpretation" />
+          <AssociationSet Name="FK_AspectInterpretations_AspectInterpretationTypes" Association="AstroGearsModel.FK_AspectInterpretations_AspectInterpretationTypes">
+            <End Role="AspectInterpretationType" EntitySet="AspectInterpretationTypes" />
+            <End Role="AspectInterpretation" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_AspectInterpretationTypes1" Association="AstroGearsModel.FK_AspectInterpretations_AspectInterpretationTypes1">
+            <End Role="AspectInterpretationType" EntitySet="AspectInterpretationTypes" />
+            <End Role="AspectInterpretation" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_Aspects" Association="AstroGearsModel.FK_AspectInterpretations_Aspects">
+            <End Role="Aspect" EntitySet="Aspects" />
+            <End Role="AspectInterpretation" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_CelestialObjects1" Association="AstroGearsModel.FK_AspectInterpretations_CelestialObjects1">
+            <End Role="CelestialObject" EntitySet="CelestialObjects" />
+            <End Role="AspectInterpretation" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_CelestialObjects2" Association="AstroGearsModel.FK_AspectInterpretations_CelestialObjects2">
+            <End Role="CelestialObject" EntitySet="CelestialObjects" />
+            <End Role="AspectInterpretation" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_HouseAngles1" Association="AstroGearsModel.FK_AspectInterpretations_HouseAngles1">
+            <End Role="HouseAngle" EntitySet="HouseAngles" />
+            <End Role="AspectInterpretation" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspectInterpretations_HouseAngles2" Association="AstroGearsModel.FK_AspectInterpretations_HouseAngles2">
+            <End Role="HouseAngle" EntitySet="HouseAngles" />
+            <End Role="AspectInterpretation" EntitySet="AspectInterpretations" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Aspect">
+          <Key>
+            <PropertyRef Name="AspectId" />
+          </Key>
+          <Property Name="AspectId" Type="Byte" Nullable="false" />
+          <Property Name="AspectName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="HtmlTextCssClass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspectInterpretations" Relationship="AstroGearsModel.FK_AspectInterpretations_Aspects" FromRole="Aspect" ToRole="AspectInterpretation" />
+        </EntityType>
+        <EntityType Name="CelestialObject">
+          <Key>
+            <PropertyRef Name="CelestialObjectId" />
+          </Key>
+          <Property Name="CelestialObjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CelestialObjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlternateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CelestialObjectTypeId" Type="Byte" Nullable="false" />
+          <Property Name="AllowableOrb" Type="Decimal" Nullable="false" Precision="4" Scale="1" />
+          <Property Name="Keywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Draconic" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CelestialObjectType" Relationship="AstroGearsModel.FK_CelestialObject_CelestialObjectTypes" FromRole="CelestialObject" ToRole="CelestialObjectType" />
+          <NavigationProperty Name="ChartObjects" Relationship="AstroGearsModel.FK_ChartObjects_CelestialObject" FromRole="CelestialObject" ToRole="ChartObject" />
+          <NavigationProperty Name="AspectInterpretations" Relationship="AstroGearsModel.FK_AspectInterpretations_CelestialObjects1" FromRole="CelestialObject" ToRole="AspectInterpretation" />
+          <NavigationProperty Name="AspectInterpretations1" Relationship="AstroGearsModel.FK_AspectInterpretations_CelestialObjects2" FromRole="CelestialObject" ToRole="AspectInterpretation" />
+        </EntityType>
+        <EntityType Name="CelestialObjectType">
+          <Key>
+            <PropertyRef Name="CelestialObjectTypeId" />
+          </Key>
+          <Property Name="CelestialObjectTypeId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CelestialObjectTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CelestialObjects" Relationship="AstroGearsModel.FK_CelestialObject_CelestialObjectTypes" FromRole="CelestialObjectType" ToRole="CelestialObject" />
+        </EntityType>
+        <EntityType Name="ChartAngle">
+          <Key>
+            <PropertyRef Name="ChartAngleId" />
+          </Key>
+          <Property Name="ChartAngleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnteredChartId" Type="Int32" Nullable="false" />
+          <Property Name="AngleId" Type="Byte" Nullable="false" />
+          <Property Name="SignId" Type="Byte" Nullable="false" />
+          <Property Name="Degrees" Type="Byte" Nullable="false" />
+          <Property Name="Minutes" Type="Byte" Nullable="false" />
+          <Property Name="Seconds" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="EnteredChart" Relationship="AstroGearsModel.FK_ChartAngles_EnteredCharts" FromRole="ChartAngle" ToRole="EnteredChart" />
+          <NavigationProperty Name="HouseAngle" Relationship="AstroGearsModel.FK_ChartAngles_HouseAngles" FromRole="ChartAngle" ToRole="HouseAngle" />
+          <NavigationProperty Name="Sign" Relationship="AstroGearsModel.FK_ChartAngles_Signs" FromRole="ChartAngle" ToRole="Sign" />
+        </EntityType>
+        <EntityType Name="ChartHouse">
+          <Key>
+            <PropertyRef Name="ChartHouseId" />
+          </Key>
+          <Property Name="ChartHouseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnteredChartId" Type="Int32" Nullable="false" />
+          <Property Name="HouseSystemId" Type="Byte" Nullable="false" />
+          <Property Name="HouseId" Type="Byte" Nullable="false" />
+          <Property Name="SignId" Type="Byte" Nullable="false" />
+          <Property Name="Degrees" Type="Byte" Nullable="false" />
+          <Property Name="Minutes" Type="Byte" Nullable="false" />
+          <Property Name="Seconds" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="EnteredChart" Relationship="AstroGearsModel.FK_ChartHouses_EnteredCharts" FromRole="ChartHous" ToRole="EnteredChart" />
+          <NavigationProperty Name="HouseCusp" Relationship="AstroGearsModel.FK_ChartHouses_HouseCusps" FromRole="ChartHous" ToRole="HouseCusp" />
+          <NavigationProperty Name="HouseSystem" Relationship="AstroGearsModel.FK_ChartHouses_HouseSystems" FromRole="ChartHous" ToRole="HouseSystem" />
+          <NavigationProperty Name="Sign" Relationship="AstroGearsModel.FK_ChartHouses_Signs" FromRole="ChartHous" ToRole="Sign" />
+        </EntityType>
+        <EntityType Name="ChartObject">
+          <Key>
+            <PropertyRef Name="ChartObjectId" />
+          </Key>
+          <Property Name="ChartObjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CelestialObjectId" Type="Int32" Nullable="false" />
+          <Property Name="EnteredChartID" Type="Int32" Nullable="false" />
+          <Property Name="SignId" Type="Byte" Nullable="false" />
+          <Property Name="Degrees" Type="Byte" Nullable="false" />
+          <Property Name="Minutes" Type="Byte" Nullable="false" />
+          <Property Name="Seconds" Type="Byte" Nullable="false" />
+          <Property Name="OrientationId" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="CelestialObject" Relationship="AstroGearsModel.FK_ChartObjects_CelestialObject" FromRole="ChartObject" ToRole="CelestialObject" />
+          <NavigationProperty Name="EnteredChart" Relationship="AstroGearsModel.FK_ChartObjects_EnteredCharts" FromRole="ChartObject" ToRole="EnteredChart" />
+          <NavigationProperty Name="Orientation" Relationship="AstroGearsModel.FK_ChartObjects_Orientations" FromRole="ChartObject" ToRole="Orientation" />
+          <NavigationProperty Name="Sign" Relationship="AstroGearsModel.FK_ChartObjects_Signs" FromRole="ChartObject" ToRole="Sign" />
+        </EntityType>
+        <EntityType Name="ChartType">
+          <Key>
+            <PropertyRef Name="ChartTypeId" />
+          </Key>
+          <Property Name="ChartTypeId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ChartTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EnteredCharts" Relationship="AstroGearsModel.FK_EnteredCharts_ChartTypes" FromRole="ChartType" ToRole="EnteredChart" />
+        </EntityType>
+        <EntityType Name="Element">
+          <Key>
+            <PropertyRef Name="ElementId" />
+          </Key>
+          <Property Name="ElementId" Type="Byte" Nullable="false" />
+          <Property Name="ElementName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="HtmlTextCssClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Signs" Relationship="AstroGearsModel.FK_Signs_Elements" FromRole="Element" ToRole="Sign" />
+        </EntityType>
+        <EntityType Name="EnteredChart">
+          <Key>
+            <PropertyRef Name="EnteredChartId" />
+          </Key>
+          <Property Name="EnteredChartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SubjectLocation" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="OriginDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ChartTypeId" Type="Byte" Nullable="false" />
+          <Property Name="OriginDateTimeUnknown" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ChartAngles" Relationship="AstroGearsModel.FK_ChartAngles_EnteredCharts" FromRole="EnteredChart" ToRole="ChartAngle" />
+          <NavigationProperty Name="ChartHouses" Relationship="AstroGearsModel.FK_ChartHouses_EnteredCharts" FromRole="EnteredChart" ToRole="ChartHous" />
+          <NavigationProperty Name="ChartObjects" Relationship="AstroGearsModel.FK_ChartObjects_EnteredCharts" FromRole="EnteredChart" ToRole="ChartObject" />
+          <NavigationProperty Name="ChartType" Relationship="AstroGearsModel.FK_EnteredCharts_ChartTypes" FromRole="EnteredChart" ToRole="ChartType" />
+          <NavigationProperty Name="RelocatedChartAngles" Relationship="AstroGearsModel.FK_RelocatedChartAngles_EnteredCharts" FromRole="EnteredChart" ToRole="RelocatedChartAngle" />
+          <NavigationProperty Name="RelocatedChartHouses" Relationship="AstroGearsModel.FK_RelocatedChartHouses_EnteredCharts" FromRole="EnteredChart" ToRole="RelocatedChartHous" />
+          <NavigationProperty Name="RelocatedCharts" Relationship="AstroGearsModel.FK_RelocatedCharts_EnteredCharts" FromRole="EnteredChart" ToRole="RelocatedChart" />
+        </EntityType>
+        <EntityType Name="HouseAngle">
+          <Key>
+            <PropertyRef Name="AngleId" />
+          </Key>
+          <Property Name="AngleId" Type="Byte" Nullable="false" />
+          <Property Name="AngleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChartAngles" Relationship="AstroGearsModel.FK_ChartAngles_HouseAngles" FromRole="HouseAngle" ToRole="ChartAngle" />
+          <NavigationProperty Name="RelocatedChartAngles" Relationship="AstroGearsModel.FK_RelocatedChartAngles_HouseAngles" FromRole="HouseAngle" ToRole="RelocatedChartAngle" />
+          <NavigationProperty Name="AspectInterpretations" Relationship="AstroGearsModel.FK_AspectInterpretations_HouseAngles1" FromRole="HouseAngle" ToRole="AspectInterpretation" />
+          <NavigationProperty Name="AspectInterpretations1" Relationship="AstroGearsModel.FK_AspectInterpretations_HouseAngles2" FromRole="HouseAngle" ToRole="AspectInterpretation" />
+          </EntityType>
+        <EntityType Name="HouseCusp">
+          <Key>
+            <PropertyRef Name="HouseId" />
+          </Key>
+          <Property Name="HouseId" Type="Byte" Nullable="false" />
+          <Property Name="HouseName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HouseCuspName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChartHouses" Relationship="AstroGearsModel.FK_ChartHouses_HouseCusps" FromRole="HouseCusp" ToRole="ChartHous" />
+          <NavigationProperty Name="RelocatedChartHouses" Relationship="AstroGearsModel.FK_RelocatedChartHouses_HouseAngles" FromRole="HouseCusp" ToRole="RelocatedChartHous" />
+        </EntityType>
+        <EntityType Name="HouseSystem">
+          <Key>
+            <PropertyRef Name="HouseSystemId" />
+          </Key>
+          <Property Name="HouseSystemId" Type="Byte" Nullable="false" />
+          <Property Name="HouseSystemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChartHouses" Relationship="AstroGearsModel.FK_ChartHouses_HouseSystems" FromRole="HouseSystem" ToRole="ChartHous" />
+          <NavigationProperty Name="RelocatedChartHouses" Relationship="AstroGearsModel.FK_RelocatedChartHouses_HouseSystems" FromRole="HouseSystem" ToRole="RelocatedChartHous" />
+        </EntityType>
+        <EntityType Name="Orientation">
+          <Key>
+            <PropertyRef Name="OrientationId" />
+          </Key>
+          <Property Name="OrientationId" Type="Byte" Nullable="false" />
+          <Property Name="OrientationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrientationAbbreviation" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChartObjects" Relationship="AstroGearsModel.FK_ChartObjects_Orientations" FromRole="Orientation" ToRole="ChartObject" />
+        </EntityType>
+        <EntityType Name="Quality">
+          <Key>
+            <PropertyRef Name="QualityId" />
+          </Key>
+          <Property Name="QualityId" Type="Byte" Nullable="false" />
+          <Property Name="QualityName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Signs" Relationship="AstroGearsModel.FK_Signs_Qualities" FromRole="Quality" ToRole="Sign" />
+        </EntityType>
+        <EntityType Name="RelocatedChartAngle">
+          <Key>
+            <PropertyRef Name="RelocatedAngleId" />
+          </Key>
+          <Property Name="RelocatedAngleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnteredChartId" Type="Int32" Nullable="false" />
+          <Property Name="RelocatedChartId" Type="Int32" Nullable="false" />
+          <Property Name="AngleId" Type="Byte" Nullable="false" />
+          <Property Name="SignId" Type="Byte" Nullable="false" />
+          <Property Name="Degrees" Type="Byte" Nullable="false" />
+          <Property Name="Minutes" Type="Byte" Nullable="false" />
+          <Property Name="Seconds" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="EnteredChart" Relationship="AstroGearsModel.FK_RelocatedChartAngles_EnteredCharts" FromRole="RelocatedChartAngle" ToRole="EnteredChart" />
+          <NavigationProperty Name="HouseAngle" Relationship="AstroGearsModel.FK_RelocatedChartAngles_HouseAngles" FromRole="RelocatedChartAngle" ToRole="HouseAngle" />
+          <NavigationProperty Name="RelocatedChart" Relationship="AstroGearsModel.FK_RelocatedChartAngles_RelocatedCharts" FromRole="RelocatedChartAngle" ToRole="RelocatedChart" />
+          <NavigationProperty Name="Sign" Relationship="AstroGearsModel.FK_RelocatedChartAngles_Signs" FromRole="RelocatedChartAngle" ToRole="Sign" />
+        </EntityType>
+        <EntityType Name="RelocatedChartHous">
+          <Key>
+            <PropertyRef Name="RelocatedHouseId" />
+          </Key>
+          <Property Name="RelocatedHouseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnteredChartId" Type="Int32" Nullable="false" />
+          <Property Name="RelocatedChartId" Type="Int32" Nullable="false" />
+          <Property Name="HouseSystemId" Type="Byte" Nullable="false" />
+          <Property Name="HouseId" Type="Byte" Nullable="false" />
+          <Property Name="SignId" Type="Byte" Nullable="false" />
+          <Property Name="Degrees" Type="Byte" Nullable="false" />
+          <Property Name="Minutes" Type="Byte" Nullable="false" />
+          <Property Name="Seconds" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="EnteredChart" Relationship="AstroGearsModel.FK_RelocatedChartHouses_EnteredCharts" FromRole="RelocatedChartHous" ToRole="EnteredChart" />
+          <NavigationProperty Name="HouseCusp" Relationship="AstroGearsModel.FK_RelocatedChartHouses_HouseAngles" FromRole="RelocatedChartHous" ToRole="HouseCusp" />
+          <NavigationProperty Name="HouseSystem" Relationship="AstroGearsModel.FK_RelocatedChartHouses_HouseSystems" FromRole="RelocatedChartHous" ToRole="HouseSystem" />
+          <NavigationProperty Name="RelocatedChart" Relationship="AstroGearsModel.FK_RelocatedChartHouses_RelocatedCharts" FromRole="RelocatedChartHous" ToRole="RelocatedChart" />
+          <NavigationProperty Name="Sign" Relationship="AstroGearsModel.FK_RelocatedChartHouses_Signs" FromRole="RelocatedChartHous" ToRole="Sign" />
+        </EntityType>
+        <EntityType Name="RelocatedChart">
+          <Key>
+            <PropertyRef Name="RelocatedChartId" />
+          </Key>
+          <Property Name="RelocatedChartId" Type="Int32" Nullable="false" />
+          <Property Name="RelocatedLocation" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="RelocatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EnteredChartId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EnteredChart" Relationship="AstroGearsModel.FK_RelocatedCharts_EnteredCharts" FromRole="RelocatedChart" ToRole="EnteredChart" />
+          <NavigationProperty Name="RelocatedChartAngles" Relationship="AstroGearsModel.FK_RelocatedChartAngles_RelocatedCharts" FromRole="RelocatedChart" ToRole="RelocatedChartAngle" />
+          <NavigationProperty Name="RelocatedChartHouses" Relationship="AstroGearsModel.FK_RelocatedChartHouses_RelocatedCharts" FromRole="RelocatedChart" ToRole="RelocatedChartHous" />
+        </EntityType>
+        <EntityType Name="Sign">
+          <Key>
+            <PropertyRef Name="SignId" />
+          </Key>
+          <Property Name="SignId" Type="Byte" Nullable="false" />
+          <Property Name="SignName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SignAbbreviation" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="ElementId" Type="Byte" Nullable="false" />
+          <Property Name="QualityId" Type="Byte" Nullable="false" />
+          <Property Name="TraditionalRulerId" Type="Int32" />
+          <Property Name="ModernRulerId" Type="Int32" />
+          <NavigationProperty Name="ChartAngles" Relationship="AstroGearsModel.FK_ChartAngles_Signs" FromRole="Sign" ToRole="ChartAngle" />
+          <NavigationProperty Name="ChartHouses" Relationship="AstroGearsModel.FK_ChartHouses_Signs" FromRole="Sign" ToRole="ChartHous" />
+          <NavigationProperty Name="ChartObjects" Relationship="AstroGearsModel.FK_ChartObjects_Signs" FromRole="Sign" ToRole="ChartObject" />
+          <NavigationProperty Name="Element" Relationship="AstroGearsModel.FK_Signs_Elements" FromRole="Sign" ToRole="Element" />
+          <NavigationProperty Name="Quality" Relationship="AstroGearsModel.FK_Signs_Qualities" FromRole="Sign" ToRole="Quality" />
+          <NavigationProperty Name="RelocatedChartAngles" Relationship="AstroGearsModel.FK_RelocatedChartAngles_Signs" FromRole="Sign" ToRole="RelocatedChartAngle" />
+          <NavigationProperty Name="RelocatedChartHouses" Relationship="AstroGearsModel.FK_RelocatedChartHouses_Signs" FromRole="Sign" ToRole="RelocatedChartHous" />
+        </EntityType>
+        <Association Name="FK_CelestialObject_CelestialObjectTypes">
+          <End Type="AstroGearsModel.CelestialObjectType" Role="CelestialObjectType" Multiplicity="1" />
+          <End Type="AstroGearsModel.CelestialObject" Role="CelestialObject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CelestialObjectType">
+              <PropertyRef Name="CelestialObjectTypeId" />
+            </Principal>
+            <Dependent Role="CelestialObject">
+              <PropertyRef Name="CelestialObjectTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartObjects_CelestialObject">
+          <End Type="AstroGearsModel.CelestialObject" Role="CelestialObject" Multiplicity="1" />
+          <End Type="AstroGearsModel.ChartObject" Role="ChartObject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CelestialObject">
+              <PropertyRef Name="CelestialObjectId" />
+            </Principal>
+            <Dependent Role="ChartObject">
+              <PropertyRef Name="CelestialObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartAngles_EnteredCharts">
+          <End Type="AstroGearsModel.EnteredChart" Role="EnteredChart" Multiplicity="1" />
+          <End Type="AstroGearsModel.ChartAngle" Role="ChartAngle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredChart">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="ChartAngle">
+              <PropertyRef Name="EnteredChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartAngles_HouseAngles">
+          <End Type="AstroGearsModel.HouseAngle" Role="HouseAngle" Multiplicity="1" />
+          <End Type="AstroGearsModel.ChartAngle" Role="ChartAngle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseAngle">
+              <PropertyRef Name="AngleId" />
+            </Principal>
+            <Dependent Role="ChartAngle">
+              <PropertyRef Name="AngleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartAngles_Signs">
+          <End Type="AstroGearsModel.Sign" Role="Sign" Multiplicity="1" />
+          <End Type="AstroGearsModel.ChartAngle" Role="ChartAngle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sign">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="ChartAngle">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartHouses_EnteredCharts">
+          <End Type="AstroGearsModel.EnteredChart" Role="EnteredChart" Multiplicity="1" />
+          <End Type="AstroGearsModel.ChartHouse" Role="ChartHous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredChart">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="ChartHous">
+              <PropertyRef Name="EnteredChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartHouses_HouseCusps">
+          <End Type="AstroGearsModel.HouseCusp" Role="HouseCusp" Multiplicity="1" />
+          <End Type="AstroGearsModel.ChartHouse" Role="ChartHous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseCusp">
+              <PropertyRef Name="HouseId" />
+            </Principal>
+            <Dependent Role="ChartHous">
+              <PropertyRef Name="HouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartHouses_HouseSystems">
+          <End Type="AstroGearsModel.HouseSystem" Role="HouseSystem" Multiplicity="1" />
+          <End Type="AstroGearsModel.ChartHouse" Role="ChartHous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseSystem">
+              <PropertyRef Name="HouseSystemId" />
+            </Principal>
+            <Dependent Role="ChartHous">
+              <PropertyRef Name="HouseSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartHouses_Signs">
+          <End Type="AstroGearsModel.Sign" Role="Sign" Multiplicity="1" />
+          <End Type="AstroGearsModel.ChartHouse" Role="ChartHous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sign">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="ChartHous">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartObjects_EnteredCharts">
+          <End Type="AstroGearsModel.EnteredChart" Role="EnteredChart" Multiplicity="1" />
+          <End Type="AstroGearsModel.ChartObject" Role="ChartObject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredChart">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="ChartObject">
+              <PropertyRef Name="EnteredChartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartObjects_Orientations">
+          <End Type="AstroGearsModel.Orientation" Role="Orientation" Multiplicity="1" />
+          <End Type="AstroGearsModel.ChartObject" Role="ChartObject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orientation">
+              <PropertyRef Name="OrientationId" />
+            </Principal>
+            <Dependent Role="ChartObject">
+              <PropertyRef Name="OrientationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChartObjects_Signs">
+          <End Type="AstroGearsModel.Sign" Role="Sign" Multiplicity="1" />
+          <End Type="AstroGearsModel.ChartObject" Role="ChartObject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sign">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="ChartObject">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EnteredCharts_ChartTypes">
+          <End Type="AstroGearsModel.ChartType" Role="ChartType" Multiplicity="1" />
+          <End Type="AstroGearsModel.EnteredChart" Role="EnteredChart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChartType">
+              <PropertyRef Name="ChartTypeId" />
+            </Principal>
+            <Dependent Role="EnteredChart">
+              <PropertyRef Name="ChartTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Signs_Elements">
+          <End Type="AstroGearsModel.Element" Role="Element" Multiplicity="1" />
+          <End Type="AstroGearsModel.Sign" Role="Sign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Element">
+              <PropertyRef Name="ElementId" />
+            </Principal>
+            <Dependent Role="Sign">
+              <PropertyRef Name="ElementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartAngles_EnteredCharts">
+          <End Type="AstroGearsModel.EnteredChart" Role="EnteredChart" Multiplicity="1" />
+          <End Type="AstroGearsModel.RelocatedChartAngle" Role="RelocatedChartAngle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredChart">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="RelocatedChartAngle">
+              <PropertyRef Name="EnteredChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartHouses_EnteredCharts">
+          <End Type="AstroGearsModel.EnteredChart" Role="EnteredChart" Multiplicity="1" />
+          <End Type="AstroGearsModel.RelocatedChartHous" Role="RelocatedChartHous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredChart">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="RelocatedChartHous">
+              <PropertyRef Name="EnteredChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedCharts_EnteredCharts">
+          <End Type="AstroGearsModel.EnteredChart" Role="EnteredChart" Multiplicity="1" />
+          <End Type="AstroGearsModel.RelocatedChart" Role="RelocatedChart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnteredChart">
+              <PropertyRef Name="EnteredChartId" />
+            </Principal>
+            <Dependent Role="RelocatedChart">
+              <PropertyRef Name="EnteredChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartAngles_HouseAngles">
+          <End Type="AstroGearsModel.HouseAngle" Role="HouseAngle" Multiplicity="1" />
+          <End Type="AstroGearsModel.RelocatedChartAngle" Role="RelocatedChartAngle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseAngle">
+              <PropertyRef Name="AngleId" />
+            </Principal>
+            <Dependent Role="RelocatedChartAngle">
+              <PropertyRef Name="AngleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartHouses_HouseAngles">
+          <End Type="AstroGearsModel.HouseCusp" Role="HouseCusp" Multiplicity="1" />
+          <End Type="AstroGearsModel.RelocatedChartHous" Role="RelocatedChartHous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseCusp">
+              <PropertyRef Name="HouseId" />
+            </Principal>
+            <Dependent Role="RelocatedChartHous">
+              <PropertyRef Name="HouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartHouses_HouseSystems">
+          <End Type="AstroGearsModel.HouseSystem" Role="HouseSystem" Multiplicity="1" />
+          <End Type="AstroGearsModel.RelocatedChartHous" Role="RelocatedChartHous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseSystem">
+              <PropertyRef Name="HouseSystemId" />
+            </Principal>
+            <Dependent Role="RelocatedChartHous">
+              <PropertyRef Name="HouseSystemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Signs_Qualities">
+          <End Type="AstroGearsModel.Quality" Role="Quality" Multiplicity="1" />
+          <End Type="AstroGearsModel.Sign" Role="Sign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quality">
+              <PropertyRef Name="QualityId" />
+            </Principal>
+            <Dependent Role="Sign">
+              <PropertyRef Name="QualityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartAngles_RelocatedCharts">
+          <End Type="AstroGearsModel.RelocatedChart" Role="RelocatedChart" Multiplicity="1" />
+          <End Type="AstroGearsModel.RelocatedChartAngle" Role="RelocatedChartAngle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelocatedChart">
+              <PropertyRef Name="RelocatedChartId" />
+            </Principal>
+            <Dependent Role="RelocatedChartAngle">
+              <PropertyRef Name="RelocatedChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartAngles_Signs">
+          <End Type="AstroGearsModel.Sign" Role="Sign" Multiplicity="1" />
+          <End Type="AstroGearsModel.RelocatedChartAngle" Role="RelocatedChartAngle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sign">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="RelocatedChartAngle">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartHouses_RelocatedCharts">
+          <End Type="AstroGearsModel.RelocatedChart" Role="RelocatedChart" Multiplicity="1" />
+          <End Type="AstroGearsModel.RelocatedChartHous" Role="RelocatedChartHous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelocatedChart">
+              <PropertyRef Name="RelocatedChartId" />
+            </Principal>
+            <Dependent Role="RelocatedChartHous">
+              <PropertyRef Name="RelocatedChartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelocatedChartHouses_Signs">
+          <End Type="AstroGearsModel.Sign" Role="Sign" Multiplicity="1" />
+          <End Type="AstroGearsModel.RelocatedChartHous" Role="RelocatedChartHous" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sign">
+              <PropertyRef Name="SignId" />
+            </Principal>
+            <Dependent Role="RelocatedChartHous">
+              <PropertyRef Name="SignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="SecondaryObjectsExistInEnteredChart_Result">
+          <Property Type="Int32" Name="CelestialObjectId" Nullable="false" />
+          <Property Type="String" Name="CelestialObjectName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ObjectExists" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="PlanetsExistInEnteredChart_Result">
+          <Property Type="Int32" Name="CelestialObjectId" Nullable="false" />
+          <Property Type="String" Name="CelestialObjectName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ObjectExists" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="AutoCompleteForEnteredChart_Result">
+          <Property Type="Int32" Name="CelestialObjectId" Nullable="false" />
+          <Property Type="String" Name="CelestialObjectName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ObjectExists" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="PrimariesAndSecondariesExistInEnteredChart_Result">
+          <Property Type="Boolean" Name="AllPlanetsAndLuminariesExist" Nullable="true" />
+          <Property Type="Boolean" Name="AllSecondaryObjectsExist" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="AspectInterpretationType">
+          <Key>
+            <PropertyRef Name="AspectInterpretationTypeId" />
+          </Key>
+          <Property Name="AspectInterpretationTypeId" Type="Byte" Nullable="false" />
+          <Property Name="AspectInterpretationTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspectInterpretations" Relationship="AstroGearsModel.FK_AspectInterpretations_AspectInterpretationTypes" FromRole="AspectInterpretationType" ToRole="AspectInterpretation" />
+          <NavigationProperty Name="AspectInterpretations1" Relationship="AstroGearsModel.FK_AspectInterpretations_AspectInterpretationTypes1" FromRole="AspectInterpretationType" ToRole="AspectInterpretation" />
+          </EntityType>
+        <ComplexType Name="AutoCompleteForAspectInterpretationEntry_Result">
+          <Property Type="Int32" Name="CelestialObjectId" Nullable="false" />
+          <Property Type="String" Name="CelestialObjectName" Nullable="false" MaxLength="50" />
+          <Property Type="Byte" Name="CelestialObjectTypeId" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="AspectInterpretation">
+          <Key>
+            <PropertyRef Name="AspectInterpretationId" />
+          </Key>
+          <Property Name="AspectInterpretationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AspectInterpretationTypeId1" Type="Byte" Nullable="false" />
+          <Property Name="CelestialObjectId1" Type="Int32" />
+          <Property Name="AngleId1" Type="Byte" />
+          <Property Name="AspectId" Type="Byte" Nullable="false" />
+          <Property Name="AspectInterpretationTypeId2" Type="Byte" Nullable="false" />
+          <Property Name="CelestialObjectId2" Type="Int32" />
+          <Property Name="AngleId2" Type="Byte" />
+          <Property Name="Interpretation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CitationUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspectInterpretationType" Relationship="AstroGearsModel.FK_AspectInterpretations_AspectInterpretationTypes" FromRole="AspectInterpretation" ToRole="AspectInterpretationType" />
+          <NavigationProperty Name="AspectInterpretationType1" Relationship="AstroGearsModel.FK_AspectInterpretations_AspectInterpretationTypes1" FromRole="AspectInterpretation" ToRole="AspectInterpretationType" />
+          <NavigationProperty Name="Aspect" Relationship="AstroGearsModel.FK_AspectInterpretations_Aspects" FromRole="AspectInterpretation" ToRole="Aspect" />
+          <NavigationProperty Name="CelestialObject" Relationship="AstroGearsModel.FK_AspectInterpretations_CelestialObjects1" FromRole="AspectInterpretation" ToRole="CelestialObject" />
+          <NavigationProperty Name="CelestialObject1" Relationship="AstroGearsModel.FK_AspectInterpretations_CelestialObjects2" FromRole="AspectInterpretation" ToRole="CelestialObject" />
+          <NavigationProperty Name="HouseAngle" Relationship="AstroGearsModel.FK_AspectInterpretations_HouseAngles1" FromRole="AspectInterpretation" ToRole="HouseAngle" />
+          <NavigationProperty Name="HouseAngle1" Relationship="AstroGearsModel.FK_AspectInterpretations_HouseAngles2" FromRole="AspectInterpretation" ToRole="HouseAngle" />
+        </EntityType>
+        <Association Name="FK_AspectInterpretations_AspectInterpretationTypes">
+          <End Type="AstroGearsModel.AspectInterpretationType" Role="AspectInterpretationType" Multiplicity="1" />
+          <End Type="AstroGearsModel.AspectInterpretation" Role="AspectInterpretation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspectInterpretationType">
+              <PropertyRef Name="AspectInterpretationTypeId" />
+            </Principal>
+            <Dependent Role="AspectInterpretation">
+              <PropertyRef Name="AspectInterpretationTypeId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_AspectInterpretationTypes1">
+          <End Type="AstroGearsModel.AspectInterpretationType" Role="AspectInterpretationType" Multiplicity="1" />
+          <End Type="AstroGearsModel.AspectInterpretation" Role="AspectInterpretation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspectInterpretationType">
+              <PropertyRef Name="AspectInterpretationTypeId" />
+            </Principal>
+            <Dependent Role="AspectInterpretation">
+              <PropertyRef Name="AspectInterpretationTypeId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_Aspects">
+          <End Type="AstroGearsModel.Aspect" Role="Aspect" Multiplicity="1" />
+          <End Type="AstroGearsModel.AspectInterpretation" Role="AspectInterpretation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aspect">
+              <PropertyRef Name="AspectId" />
+            </Principal>
+            <Dependent Role="AspectInterpretation">
+              <PropertyRef Name="AspectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_CelestialObjects1">
+          <End Type="AstroGearsModel.CelestialObject" Role="CelestialObject" Multiplicity="0..1" />
+          <End Type="AstroGearsModel.AspectInterpretation" Role="AspectInterpretation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CelestialObject">
+              <PropertyRef Name="CelestialObjectId" />
+            </Principal>
+            <Dependent Role="AspectInterpretation">
+              <PropertyRef Name="CelestialObjectId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_CelestialObjects2">
+          <End Type="AstroGearsModel.CelestialObject" Role="CelestialObject" Multiplicity="0..1" />
+          <End Type="AstroGearsModel.AspectInterpretation" Role="AspectInterpretation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CelestialObject">
+              <PropertyRef Name="CelestialObjectId" />
+            </Principal>
+            <Dependent Role="AspectInterpretation">
+              <PropertyRef Name="CelestialObjectId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_HouseAngles1">
+          <End Type="AstroGearsModel.HouseAngle" Role="HouseAngle" Multiplicity="0..1" />
+          <End Type="AstroGearsModel.AspectInterpretation" Role="AspectInterpretation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseAngle">
+              <PropertyRef Name="AngleId" />
+            </Principal>
+            <Dependent Role="AspectInterpretation">
+              <PropertyRef Name="AngleId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspectInterpretations_HouseAngles2">
+          <End Type="AstroGearsModel.HouseAngle" Role="HouseAngle" Multiplicity="0..1" />
+          <End Type="AstroGearsModel.AspectInterpretation" Role="AspectInterpretation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HouseAngle">
+              <PropertyRef Name="AngleId" />
+            </Principal>
+            <Dependent Role="AspectInterpretation">
+              <PropertyRef Name="AngleId2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AstroGearsModelStoreContainer" CdmEntityContainer="AstroGearsEntities">
+          <EntitySetMapping Name="Aspects">
+            <EntityTypeMapping TypeName="AstroGearsModel.Aspect">
+              <MappingFragment StoreEntitySet="Aspects">
+                <ScalarProperty Name="HtmlTextCssClass" ColumnName="HtmlTextCssClass" />
+                <ScalarProperty Name="AspectName" ColumnName="AspectName" />
+                <ScalarProperty Name="AspectId" ColumnName="AspectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CelestialObjects">
+            <EntityTypeMapping TypeName="AstroGearsModel.CelestialObject">
+              <MappingFragment StoreEntitySet="CelestialObjects">
+                <ScalarProperty Name="Draconic" ColumnName="Draconic" />
+                <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+                <ScalarProperty Name="AllowableOrb" ColumnName="AllowableOrb" />
+                <ScalarProperty Name="CelestialObjectTypeId" ColumnName="CelestialObjectTypeId" />
+                <ScalarProperty Name="AlternateName" ColumnName="AlternateName" />
+                <ScalarProperty Name="CelestialObjectName" ColumnName="CelestialObjectName" />
+                <ScalarProperty Name="CelestialObjectId" ColumnName="CelestialObjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CelestialObjectTypes">
+            <EntityTypeMapping TypeName="AstroGearsModel.CelestialObjectType">
+              <MappingFragment StoreEntitySet="CelestialObjectTypes">
+                <ScalarProperty Name="CelestialObjectTypeName" ColumnName="CelestialObjectTypeName" />
+                <ScalarProperty Name="CelestialObjectTypeId" ColumnName="CelestialObjectTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChartAngles">
+            <EntityTypeMapping TypeName="AstroGearsModel.ChartAngle">
+              <MappingFragment StoreEntitySet="ChartAngles">
+                <ScalarProperty Name="Seconds" ColumnName="Seconds" />
+                <ScalarProperty Name="Minutes" ColumnName="Minutes" />
+                <ScalarProperty Name="Degrees" ColumnName="Degrees" />
+                <ScalarProperty Name="SignId" ColumnName="SignId" />
+                <ScalarProperty Name="AngleId" ColumnName="AngleId" />
+                <ScalarProperty Name="EnteredChartId" ColumnName="EnteredChartId" />
+                <ScalarProperty Name="ChartAngleId" ColumnName="ChartAngleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChartHouses">
+            <EntityTypeMapping TypeName="AstroGearsModel.ChartHouse">
+              <MappingFragment StoreEntitySet="ChartHouses">
+                <ScalarProperty Name="Seconds" ColumnName="Seconds" />
+                <ScalarProperty Name="Minutes" ColumnName="Minutes" />
+                <ScalarProperty Name="Degrees" ColumnName="Degrees" />
+                <ScalarProperty Name="SignId" ColumnName="SignId" />
+                <ScalarProperty Name="HouseId" ColumnName="HouseId" />
+                <ScalarProperty Name="HouseSystemId" ColumnName="HouseSystemId" />
+                <ScalarProperty Name="EnteredChartId" ColumnName="EnteredChartId" />
+                <ScalarProperty Name="ChartHouseId" ColumnName="ChartHouseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChartObjects">
+            <EntityTypeMapping TypeName="AstroGearsModel.ChartObject">
+              <MappingFragment StoreEntitySet="ChartObjects">
+                <ScalarProperty Name="OrientationId" ColumnName="OrientationId" />
+                <ScalarProperty Name="Seconds" ColumnName="Seconds" />
+                <ScalarProperty Name="Minutes" ColumnName="Minutes" />
+                <ScalarProperty Name="Degrees" ColumnName="Degrees" />
+                <ScalarProperty Name="SignId" ColumnName="SignId" />
+                <ScalarProperty Name="EnteredChartID" ColumnName="EnteredChartID" />
+                <ScalarProperty Name="CelestialObjectId" ColumnName="CelestialObjectId" />
+                <ScalarProperty Name="ChartObjectId" ColumnName="ChartObjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChartTypes">
+            <EntityTypeMapping TypeName="AstroGearsModel.ChartType">
+              <MappingFragment StoreEntitySet="ChartTypes">
+                <ScalarProperty Name="ChartTypeName" ColumnName="ChartTypeName" />
+                <ScalarProperty Name="ChartTypeId" ColumnName="ChartTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Elements">
+            <EntityTypeMapping TypeName="AstroGearsModel.Element">
+              <MappingFragment StoreEntitySet="Elements">
+                <ScalarProperty Name="HtmlTextCssClass" ColumnName="HtmlTextCssClass" />
+                <ScalarProperty Name="ElementName" ColumnName="ElementName" />
+                <ScalarProperty Name="ElementId" ColumnName="ElementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnteredCharts">
+            <EntityTypeMapping TypeName="AstroGearsModel.EnteredChart">
+              <MappingFragment StoreEntitySet="EnteredCharts">
+                <ScalarProperty Name="OriginDateTimeUnknown" ColumnName="OriginDateTimeUnknown" />
+                <ScalarProperty Name="ChartTypeId" ColumnName="ChartTypeId" />
+                <ScalarProperty Name="OriginDateTime" ColumnName="OriginDateTime" />
+                <ScalarProperty Name="SubjectLocation" ColumnName="SubjectLocation" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="EnteredChartId" ColumnName="EnteredChartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HouseAngles">
+            <EntityTypeMapping TypeName="AstroGearsModel.HouseAngle">
+              <MappingFragment StoreEntitySet="HouseAngles">
+                <ScalarProperty Name="AngleName" ColumnName="AngleName" />
+                <ScalarProperty Name="AngleId" ColumnName="AngleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HouseCusps">
+            <EntityTypeMapping TypeName="AstroGearsModel.HouseCusp">
+              <MappingFragment StoreEntitySet="HouseCusps">
+                <ScalarProperty Name="HouseCuspName" ColumnName="HouseCuspName" />
+                <ScalarProperty Name="HouseName" ColumnName="HouseName" />
+                <ScalarProperty Name="HouseId" ColumnName="HouseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HouseSystems">
+            <EntityTypeMapping TypeName="AstroGearsModel.HouseSystem">
+              <MappingFragment StoreEntitySet="HouseSystems">
+                <ScalarProperty Name="HouseSystemName" ColumnName="HouseSystemName" />
+                <ScalarProperty Name="HouseSystemId" ColumnName="HouseSystemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orientations">
+            <EntityTypeMapping TypeName="AstroGearsModel.Orientation">
+              <MappingFragment StoreEntitySet="Orientations">
+                <ScalarProperty Name="OrientationAbbreviation" ColumnName="OrientationAbbreviation" />
+                <ScalarProperty Name="OrientationName" ColumnName="OrientationName" />
+                <ScalarProperty Name="OrientationId" ColumnName="OrientationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Qualities">
+            <EntityTypeMapping TypeName="AstroGearsModel.Quality">
+              <MappingFragment StoreEntitySet="Qualities">
+                <ScalarProperty Name="QualityName" ColumnName="QualityName" />
+                <ScalarProperty Name="QualityId" ColumnName="QualityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelocatedChartAngles">
+            <EntityTypeMapping TypeName="AstroGearsModel.RelocatedChartAngle">
+              <MappingFragment StoreEntitySet="RelocatedChartAngles">
+                <ScalarProperty Name="Seconds" ColumnName="Seconds" />
+                <ScalarProperty Name="Minutes" ColumnName="Minutes" />
+                <ScalarProperty Name="Degrees" ColumnName="Degrees" />
+                <ScalarProperty Name="SignId" ColumnName="SignId" />
+                <ScalarProperty Name="AngleId" ColumnName="AngleId" />
+                <ScalarProperty Name="RelocatedChartId" ColumnName="RelocatedChartId" />
+                <ScalarProperty Name="EnteredChartId" ColumnName="EnteredChartId" />
+                <ScalarProperty Name="RelocatedAngleId" ColumnName="RelocatedAngleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelocatedChartHouses">
+            <EntityTypeMapping TypeName="AstroGearsModel.RelocatedChartHous">
+              <MappingFragment StoreEntitySet="RelocatedChartHouses">
+                <ScalarProperty Name="Seconds" ColumnName="Seconds" />
+                <ScalarProperty Name="Minutes" ColumnName="Minutes" />
+                <ScalarProperty Name="Degrees" ColumnName="Degrees" />
+                <ScalarProperty Name="SignId" ColumnName="SignId" />
+                <ScalarProperty Name="HouseId" ColumnName="HouseId" />
+                <ScalarProperty Name="HouseSystemId" ColumnName="HouseSystemId" />
+                <ScalarProperty Name="RelocatedChartId" ColumnName="RelocatedChartId" />
+                <ScalarProperty Name="EnteredChartId" ColumnName="EnteredChartId" />
+                <ScalarProperty Name="RelocatedHouseId" ColumnName="RelocatedHouseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelocatedCharts">
+            <EntityTypeMapping TypeName="AstroGearsModel.RelocatedChart">
+              <MappingFragment StoreEntitySet="RelocatedCharts">
+                <ScalarProperty Name="EnteredChartId" ColumnName="EnteredChartId" />
+                <ScalarProperty Name="RelocatedDateTime" ColumnName="RelocatedDateTime" />
+                <ScalarProperty Name="RelocatedLocation" ColumnName="RelocatedLocation" />
+                <ScalarProperty Name="RelocatedChartId" ColumnName="RelocatedChartId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Signs">
+            <EntityTypeMapping TypeName="AstroGearsModel.Sign">
+              <MappingFragment StoreEntitySet="Signs">
+                <ScalarProperty Name="ModernRulerId" ColumnName="ModernRulerId" />
+                <ScalarProperty Name="TraditionalRulerId" ColumnName="TraditionalRulerId" />
+                <ScalarProperty Name="QualityId" ColumnName="QualityId" />
+                <ScalarProperty Name="ElementId" ColumnName="ElementId" />
+                <ScalarProperty Name="SignAbbreviation" ColumnName="SignAbbreviation" />
+                <ScalarProperty Name="SignName" ColumnName="SignName" />
+                <ScalarProperty Name="SignId" ColumnName="SignId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SecondaryObjectsExistInEnteredChart" FunctionName="AstroGearsModel.Store.SecondaryObjectsExistInEnteredChart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AstroGearsModel.SecondaryObjectsExistInEnteredChart_Result">
+                <ScalarProperty Name="CelestialObjectId" ColumnName="CelestialObjectId" />
+                <ScalarProperty Name="CelestialObjectName" ColumnName="CelestialObjectName" />
+                <ScalarProperty Name="ObjectExists" ColumnName="ObjectExists" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PlanetsExistInEnteredChart" FunctionName="AstroGearsModel.Store.PlanetsExistInEnteredChart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AstroGearsModel.PlanetsExistInEnteredChart_Result">
+                <ScalarProperty Name="CelestialObjectId" ColumnName="CelestialObjectId" />
+                <ScalarProperty Name="CelestialObjectName" ColumnName="CelestialObjectName" />
+                <ScalarProperty Name="ObjectExists" ColumnName="ObjectExists" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AutoCompleteForEnteredChart" FunctionName="AstroGearsModel.Store.AutoCompleteForEnteredChart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AstroGearsModel.AutoCompleteForEnteredChart_Result">
+                <ScalarProperty Name="CelestialObjectId" ColumnName="CelestialObjectId" />
+                <ScalarProperty Name="CelestialObjectName" ColumnName="CelestialObjectName" />
+                <ScalarProperty Name="ObjectExists" ColumnName="ObjectExists" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PrimariesAndSecondariesExistInEnteredChart" FunctionName="AstroGearsModel.Store.PrimariesAndSecondariesExistInEnteredChart">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AstroGearsModel.PrimariesAndSecondariesExistInEnteredChart_Result">
+                <ScalarProperty Name="AllPlanetsAndLuminariesExist" ColumnName="AllPlanetsAndLuminariesExist" />
+                <ScalarProperty Name="AllSecondaryObjectsExist" ColumnName="AllSecondaryObjectsExist" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="AspectInterpretationTypes">
+            <EntityTypeMapping TypeName="AstroGearsModel.AspectInterpretationType">
+              <MappingFragment StoreEntitySet="AspectInterpretationTypes">
+                <ScalarProperty Name="AspectInterpretationTypeName" ColumnName="AspectInterpretationTypeName" />
+                <ScalarProperty Name="AspectInterpretationTypeId" ColumnName="AspectInterpretationTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AutoCompleteForAspectInterpretationEntry" FunctionName="AstroGearsModel.Store.AutoCompleteForAspectInterpretationEntry">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AstroGearsModel.AutoCompleteForAspectInterpretationEntry_Result">
+                <ScalarProperty Name="CelestialObjectId" ColumnName="CelestialObjectId" />
+                <ScalarProperty Name="CelestialObjectName" ColumnName="CelestialObjectName" />
+                <ScalarProperty Name="CelestialObjectTypeId" ColumnName="CelestialObjectTypeId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="AspectInterpretations">
+            <EntityTypeMapping TypeName="AstroGearsModel.AspectInterpretation">
+              <MappingFragment StoreEntitySet="AspectInterpretations">
+                <ScalarProperty Name="CitationUrl" ColumnName="CitationUrl" />
+                <ScalarProperty Name="Interpretation" ColumnName="Interpretation" />
+                <ScalarProperty Name="AngleId2" ColumnName="AngleId2" />
+                <ScalarProperty Name="CelestialObjectId2" ColumnName="CelestialObjectId2" />
+                <ScalarProperty Name="AspectInterpretationTypeId2" ColumnName="AspectInterpretationTypeId2" />
+                <ScalarProperty Name="AspectId" ColumnName="AspectId" />
+                <ScalarProperty Name="AngleId1" ColumnName="AngleId1" />
+                <ScalarProperty Name="CelestialObjectId1" ColumnName="CelestialObjectId1" />
+                <ScalarProperty Name="AspectInterpretationTypeId1" ColumnName="AspectInterpretationTypeId1" />
+                <ScalarProperty Name="AspectInterpretationId" ColumnName="AspectInterpretationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

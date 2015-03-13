@@ -1,0 +1,9 @@
+﻿@model string[,]
+
+@for (var i = 0; i < Model.GetLength(0); i++)
+{
+    <div class="col-sm-6 col-md-3 draconic">
+        <label class="col-sm-6 col-md-4">@(Model[i, 1])</label>
+        <div id="@(Model[i, 0])Draconic" class="col-sm-6 col-md-8"></div>
+    </div>
+}

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AstroGearsMVC.Models.HouseAngle>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HouseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HouseAngleName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HouseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HouseAngleName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.HouseId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.HouseId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.HouseId })
+        </td>
+    </tr>
+}
+
+</table>

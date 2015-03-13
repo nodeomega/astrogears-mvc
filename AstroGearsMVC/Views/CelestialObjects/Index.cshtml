@@ -1,0 +1,76 @@
+﻿@model IEnumerable<AstroGearsMVC.Models.CelestialObject>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-celestial-objects">
+    <thead>
+        <tr>
+            <th>
+                Object Name
+            </th>
+            <th>
+                Allowable Orb
+            </th>
+            <th>
+                Keywords
+            </th>
+            <th>
+                Object Type
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(m => !m.Draconic))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CelestialObjectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AllowableOrb)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Keywords)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CelestialObjectType.CelestialObjectTypeName)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "CelestialObjects", new { id = item.CelestialObjectId })" title="Edit"><span class="fa fa-edit"></span></a> |
+                    <a href="@Url.Action("Details", "CelestialObjects", new { id = item.CelestialObjectId })" title="Details"><span class="fa fa-search"></span></a> |
+                    <a href="@Url.Action("Delete", "CelestialObjects", new { id = item.CelestialObjectId })" title="Delete"><span class="fa fa-remove"></span></a>
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model.Where(m => m.Draconic))
+        {
+            <tr class="draconic">
+                <td>
+                    @Html.DisplayFor(modelItem => item.CelestialObjectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AllowableOrb)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Keywords)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CelestialObjectType.CelestialObjectTypeName)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "CelestialObjects", new { id = item.CelestialObjectId })" title="Edit"><span class="fa fa-edit"></span></a> |
+                    <a href="@Url.Action("Details", "CelestialObjects", new { id = item.CelestialObjectId })" title="Details"><span class="fa fa-search"></span></a> |
+                    <a href="@Url.Action("Delete", "CelestialObjects", new { id = item.CelestialObjectId })" title="Delete"><span class="fa fa-remove"></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,24 @@
+﻿@model int
+
+@for (var i = 0; i < Model; i++)
+{
+    <div class="row">
+        <div class="ui-widget col-md-5">
+            <input id="newAsteroid@(i)CoordinatesObjectName" type="text" class="coordinate-text asteroid-fixed-star-name" />
+            <input id="newAsteroid@(i)CoordinatesSelectedObjectName" type="hidden" />
+        </div>
+        <div class="col-md-7">
+            <input id="newAsteroid@(i)CoordinatesDegrees" type="text" class="coordinate-text degree" />
+            &deg;
+            <select id="newAsteroid@(i)CoordinatesSigns" class="coordinate-select">
+                @Html.Partial("_SignsOptions")
+            </select>
+            <input id="newAsteroid@(i)CoordinatesMinutes" type="text" class="coordinate-text minutes" />&apos;
+            <input id="newAsteroid@(i)CoordinatesSeconds" type="text" class="coordinate-text seconds" />&quot;
+            <select id="newAsteroid@(i)CoordinatesOrientations" class="coordinate-select">
+                @Html.Partial("_OrientationsOptions")
+            </select>
+            <input id="newAsteroid@(i)CoordinatesCelestialObjectId" type="hidden" />
+        </div>
+    </div>
+}

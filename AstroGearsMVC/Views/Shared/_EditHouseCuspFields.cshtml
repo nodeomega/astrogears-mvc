@@ -1,0 +1,15 @@
+﻿@model string[,]
+
+@for (var i = 0; i < Model.GetLength(0); i++)
+{
+    <div class="col-md-6">
+        <input type="hidden" id="edit@(Model[i, 0])ChartHouseId" />
+        <label id="edit@(Model[i, 0])CoordinatesObjectName">@(Model[i, 1])</label>
+        <input id="edit@(Model[i, 0])CoordinatesDegrees" type="text" class="coordinate-text degree" />&deg;
+        <select id="edit@(Model[i, 0])CoordinatesSigns">
+            @Html.Partial("_SignsOptions")
+        </select>
+        <input id="edit@(Model[i, 0])CoordinatesMinutes" type="text" class="coordinate-text minutes" />&apos;
+        <input id="edit@(Model[i, 0])CoordinatesSeconds" type="text" class="coordinate-text seconds" />&quot;
+    </div>
+}

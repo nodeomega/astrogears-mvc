@@ -1,0 +1,267 @@
+﻿@model AstroGearsMVC.Models.EnteredChart
+
+@{
+    ViewBag.Title = "AstroGears | Entered Chart | Details";
+}
+
+@section styles
+{
+<link href="~/Content/themes/base/menu.min.css" rel="stylesheet" />
+<link href="~/Content/themes/base/autocomplete.min.css" rel="stylesheet" />
+<link href="~/Content/themes/smoothness/jquery-ui.smoothness.min.css" rel="stylesheet" />
+}
+
+<h2>Details</h2>
+@Html.HiddenFor(model => model.EnteredChartId, new { id = "enteredchartid" })
+@Html.HiddenFor(model => model.ChartType.ChartTypeName, new { id = "charttype" })
+
+<div class="container">
+    <h4>@Html.DisplayFor(model => model.ChartType.ChartTypeName) Chart for @Html.DisplayFor(model => model.SubjectName)</h4>
+    <hr />
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                Birth/Event Location
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SubjectLocation)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                Birth/Event Time
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OriginDateTimeString)
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="container">
+    <form>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includedraconic" /> Include Draconic
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includearabic" /> Include Arabic Parts
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includeasteroids" /> Include Asteroids
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includestars" /> Include Fixed Stars
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <label>House System</label>
+            <select id="charthousesystems">
+                @Html.Partial("_HouseSystemsOptions")
+            </select>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="button" id="refreshchart" onclick="EnteredChartDetails.GetListing(@Html.DisplayFor(model => model.EnteredChartId));EnteredChartDetails.GetHouseListing(@Html.DisplayFor(model => model.EnteredChartId))" value="Refresh" />
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="button" id="editHouses" value="Edit House Cusps" />
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <div id="houses" class="row">
+        @Html.Partial("_HouseDisplayItem", new[,] { { "firstHouse", "1st" }, { "secondHouse", "2nd" }, { "thirdHouse", "3rd" }, { "fourthHouse", "4th" }, { "fifthHouse", "5th" }, { "sixthHouse", "6th" },
+   { "seventhHouse", "7th" }, { "eighthHouse", "8th" }, { "ninthHouse", "9th" }, { "tenthHouse", "10th" }, { "eleventhHouse", "11th" }, { "twelfthHouse", "12th" },
+   { "ascendant", "ASC" }, { "descendant", "DESC" }, { "midheaven", "M.C." }, { "imumCoeli", "I.C." }, { "vertex", "Vertex" }, { "antivertex", "Antivertex" }})
+        <div class="col-md-6"></div>
+    </div>
+    <div id="draconicHouses" class="row" style="display:none;">
+        <div class="col-md-11 draconic"><label>Draconic Houses</label></div><div class="col-md-1"></div>
+        @Html.Partial("_DraconicHouseDisplayItem", new[,] { { "firstHouse", "1st" }, { "secondHouse", "2nd" }, { "thirdHouse", "3rd" }, { "fourthHouse", "4th" }, { "fifthHouse", "5th" }, { "sixthHouse", "6th" },
+   { "seventhHouse", "7th" }, { "eighthHouse", "8th" }, { "ninthHouse", "9th" }, { "tenthHouse", "10th" }, { "eleventhHouse", "11th" }, { "twelfthHouse", "12th" },
+   { "ascendant", "ASC" }, { "descendant", "DESC" }, { "midheaven", "M.C." }, { "imumCoeli", "I.C." }, { "vertex", "Vertex" }, { "antivertex", "Antivertex" }})
+    </div>
+    <div id="chart" class="col-md-6" style="overflow-y:scroll; height:600px;position: relative">
+        <input type="button" id="addPlanets" value="Add Planets" />
+        <input type="button" id="addSecondaries" value="Add Secondary Objects" title="Mean/True North Nodes, Ceres, Vesta, Juno, Pallas" />
+        <input type="button" id="addAsteroids" value="Add Asteroids/Fixed Stars" />
+        <div id="chartloading" style="font-size: 2em;display:none;position: absolute;width: 100%;height:600px;left: 0;top:0;text-align: center;">
+            <div style="position:relative; top:200px;">
+                <img src="~/Images/ajax-loader-red-processing-medium.gif" alt="Loading..." title="Loading..." /> Loading...
+            </div>
+        </div>
+        <table class="table table-celestial-objects">
+            <thead>
+                <tr>
+                    <th>
+                        Object Name
+                    </th>
+                    <th>
+                        Placement
+                    </th>
+                    <th>
+                        House
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="chartbody"></tbody>
+        </table>
+    </div>
+    <div id="aspects" class="col-md-6" style="overflow-y:scroll; height:600px;">
+        <div id="aspectloading" style="font-size: 2em;display:none;position: absolute;width: 100%;height:600px;left: 0;top:0;text-align: center;">
+            <div style="position:relative; top:200px;">
+                <img src="~/Images/ajax-loader-red-processing-medium.gif" alt="Loading..." title="Loading..." /> Loading...
+            </div>
+        </div>
+        <div id="aspecttarget" style="font-size:1.5em;"></div>
+        <ul id="aspectlist"></ul>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<div class="modal fade" id="editCoordinatesModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Edit Coordinates</h4>
+                </div>
+                <div class="modal-body">
+                    <label id="editCoordinatesObjectName"></label>
+                    <input id="editCoordinatesDegrees" type="text" class="coordinate-text degree" />&deg;
+                    <select id="editCoordinatesSigns">
+                        @Html.Partial("_SignsOptions")
+                    </select>
+                    <input id="editCoordinatesMinutes" type="text" class="coordinate-text minutes" />&apos;
+                    <input id="editCoordinatesSeconds" type="text" class="coordinate-text seconds" />&quot;
+                    <select id="editCoordinatesOrientations">
+                        @Html.Partial("_OrientationsOptions")
+                    </select>
+                    <input id="editCoordinatesChartObjectId" type="hidden" />
+                    <input id="editCoordinatesEnteredChartId" type="hidden" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveCoordinateChanges">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="newPlanetCoordinatesModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">New Planet Coordinates</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        @Html.Partial("_NewCelestialObjectCoordinates", new[,] { { "Sun", "Sun", "1" }, { "Moon", "Moon", "2" }, { "Mercury", "Mercury", "3" }, { "Venus", "Venus", "4" }, { "Earth", "Earth", "5" },
+                                                                                 { "Mars", "Mars", "6" },{ "Jupiter", "Jupiter", "7" },{ "Saturn", "Saturn", "8" },{ "Uranus", "Uranus", "9" },{ "Neptune", "Neptune", "10" },
+                                                                                 { "Pluto", "Pluto", "11" }})
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveNewPlanets">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="newSecondaryCoordinatesModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">New Secondary Coordinates</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        @Html.Partial("_NewCelestialObjectCoordinates", new[,] { { "MeanNode", "Mean Node", "12" },{ "TrueNode", "True Node", "13" },{ "Chiron", "Chiron", "14" },
+                                                                                 { "Lilith", "Lilith", "15" },{ "Ceres", "Ceres", "106" },{ "Pallas", "Pallas", "107" },
+                                                                                 { "Juno", "Juno", "108" },{ "Vesta", "Vesta", "109" } })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveNewSecondaries">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="newAsteroidCoordinatesModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">New Asteroid/Fixed Star Coordinates</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <em>(Start all Fixed Stars with *, otherwise it will be saved as an asteroid.)</em>
+                    </p>
+                    <div class="container">
+                        @Html.Partial("_NewAsteroidCoordinates", 10)
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveNewAsteroids">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="editHouseModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" style="width:700px;">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Edit House Cusps/Angles</h4>
+                </div>
+                <div class="modal-body container">
+                    <div class="col-md-12">
+                        <label id="editHouseSystemLabel">House System</label>
+                        <select id="editHouseSystem" disabled="disabled">
+                            @Html.Partial("_HouseSystemsOptions")
+                        </select>
+                    </div>
+                    @Html.Partial("_EditHouseCuspFields", new[,] {{"FirstHouse","1st"},{"SecondHouse","2nd"},{"ThirdHouse","3rd"},{"FourthHouse","4th"},
+                                                                  {"FifthHouse","5th"},{"SixthHouse","6th"},{"SeventhHouse","7th"},{"EighthHouse","8th"},{"NinthHouse","9th"},{"TenthHouse","10th"},{"EleventhHouse","11th"},{"TwelfthHouse","12th"}})
+                    @Html.Partial("_EditAngleFields", new[,] { { "Ascendant", "ASC" }, { "Midheaven", "M.C." }, { "Vertex", "Vertex" } })
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="EnteredChartDetails.SaveHouseSystemChanges()">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery-ui")
+
+    <script src="~/Scripts/entered-chart-details.js"></script>
+}

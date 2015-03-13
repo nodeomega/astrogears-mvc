@@ -1,0 +1,80 @@
+﻿@model AstroGearsMVC.Models.AspectInterpretation
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AspectInterpretation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Interpretation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Interpretation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CitationUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CitationUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspectInterpretationType.AspectInterpretationType1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspectInterpretationType.AspectInterpretationType1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aspect.AspectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aspect.AspectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CelestialObject.CelestialObjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CelestialObject.CelestialObjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CelestialObject1.CelestialObjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CelestialObject1.CelestialObjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HouseAngle.AngleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HouseAngle.AngleName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

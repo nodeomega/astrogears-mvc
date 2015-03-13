@@ -1,0 +1,221 @@
+﻿@model AstroGearsMVC.Models.EnteredChart
+
+@{
+    ViewBag.Title = "AstroGears | Entered Charts | Synastry";
+}
+
+<h2>Synastry</h2>
+@Html.HiddenFor(model => model.EnteredChartId, new { id = "firstEnteredChartId" })
+<input id="secondEnteredChartId" type="hidden" />
+
+<div class="container">
+    <h4>
+        @Html.DisplayFor(model => model.ChartType.ChartTypeName) Chart for <span id="firstEnteredChartSubjectName">@Html.DisplayFor(model => model.SubjectName)</span><br />
+        Comparing to <select id="secondEnteredChartSelection">
+            <option value="-">--- Select a chart ---</option>
+        </select>
+    </h4>
+    <hr />
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayFor(model => model.SubjectName) Birth/Event Location
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SubjectLocation)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayFor(model => model.SubjectName) Birth/Event Time
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OriginDateTimeString)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                <span id="secondEnteredChartSubjectLocationLabel"></span> Birth/Event Location
+            </dt>
+            <dd>
+                <span id="secondEnteredChartSubjectLocation"></span>
+            </dd>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                <span id="secondEnteredChartOriginDateTimeLabel"></span> Birth/Event Time
+            </dt>
+
+            <dd>
+                <span id="secondEnteredChartOriginDateTime"></span>
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="container">
+    <form>
+        <div>
+            <strong>@Html.DisplayFor(model => model.SubjectName)</strong>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includeDraconicForFirst" /> Include Draconic
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includeArabicForFirst" /> Include Arabic Parts
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includeAsteroidsForFirst" /> Include Asteroids
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includeStarsForFirst" /> Include Fixed Stars
+        </div>
+        <div>
+            <strong id="secondEnteredChartOptions"></strong>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includeDraconicForSecond" /> Include Draconic
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includeArabicForSecond" /> Include Arabic Parts
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includeAsteroidsForSecond" /> Include Asteroids
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="checkbox" id="includeStarsForSecond" /> Include Fixed Stars
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <label>House System</label>
+            <select id="charthousesystems">
+                @Html.Partial("_HouseSystemsOptions")
+            </select>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <input type="button" id="refreshchart" onclick="SynastryDetails.RefreshCharts($('#firstEnteredChartId').val(), $('#secondEnteredChartSelection').val());" value="Refresh" />
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <div class="row">
+        <strong>@Html.DisplayFor(model => model.SubjectName)</strong>
+    </div>
+    <div id="firstChartHouses" class="row">
+        @Html.Partial("_HouseDisplayItem", new[,] { { "firstHouseForFirstChart", "1st" }, { "secondHouseForFirstChart", "2nd" }, { "thirdHouseForFirstChart", "3rd" }, { "fourthHouseForFirstChart", "4th" },
+                                                    { "fifthHouseForFirstChart", "5th" }, { "sixthHouseForFirstChart", "6th" },{ "seventhHouseForFirstChart", "7th" }, { "eighthHouseForFirstChart", "8th" }, { "ninthHouseForFirstChart", "9th" },
+                                                    { "tenthHouseForFirstChart", "10th" }, { "eleventhHouseForFirstChart", "11th" }, { "twelfthHouseForFirstChart", "12th" },{ "ascendantForFirstChart", "ASC" }, { "descendantForFirstChart", "DESC" },
+                                                    { "midheavenForFirstChart", "M.C." }, { "imumCoeliForFirstChart", "I.C." }, { "vertexForFirstChart", "Vertex" }, { "antivertexForFirstChart", "Antivertex" }})
+        <div class="col-md-6"></div>
+    </div>
+    <div id="firstChartDraconicHouses" class="row" style="display:none;">
+        <div class="col-md-11 draconic"><label>Draconic Houses</label></div><div class="col-md-1"></div>
+        @Html.Partial("_DraconicHouseDisplayItem", new[,] { { "firstHouseForFirstChart", "1st" }, { "secondHouseForFirstChart", "2nd" }, { "thirdHouseForFirstChart", "3rd" }, { "fourthHouseForFirstChart", "4th" },
+                                                            { "fifthHouseForFirstChart", "5th" }, { "sixthHouseForFirstChart", "6th" },{ "seventhHouseForFirstChart", "7th" }, { "eighthHouseForFirstChart", "8th" }, { "ninthHouseForFirstChart", "9th" },
+                                                            { "tenthHouseForFirstChart", "10th" }, { "eleventhHouseForFirstChart", "11th" }, { "twelfthHouseForFirstChart", "12th" },{ "ascendantForFirstChart", "ASC" }, { "descendantForFirstChart", "DESC" },
+                                                            { "midheavenForFirstChart", "M.C." }, { "imumCoeliForFirstChart", "I.C." }, { "vertexForFirstChart", "Vertex" }, { "antivertexForFirstChart", "Antivertex" }})
+    </div>
+    <div class="row">
+        <strong id="secondEnteredChartHouseAngles"></strong>
+    </div>
+    <div id="secondChartHouses" class="row" style="display:none;">
+        @Html.Partial("_HouseDisplayItem", new[,] { { "firstHouseForSecondChart", "1st" }, { "secondHouseForSecondChart", "2nd" }, { "thirdHouseForSecondChart", "3rd" }, { "fourthHouseForSecondChart", "4th" },
+                                                    { "fifthHouseForSecondChart", "5th" }, { "sixthHouseForSecondChart", "6th" },{ "seventhHouseForSecondChart", "7th" }, { "eighthHouseForSecondChart", "8th" }, { "ninthHouseForSecondChart", "9th" },
+                                                    { "tenthHouseForSecondChart", "10th" }, { "eleventhHouseForSecondChart", "11th" }, { "twelfthHouseForSecondChart", "12th" },{ "ascendantForSecondChart", "ASC" }, { "descendantForSecondChart", "DESC" },
+                                                    { "midheavenForSecondChart", "M.C." }, { "imumCoeliForSecondChart", "I.C." }, { "vertexForSecondChart", "Vertex" }, { "antivertexForSecondChart", "Antivertex" }})
+        <div class="col-md-6"></div>
+    </div>
+    <div id="secondChartDraconicHouses" class="row" style="display:none;">
+        <div class="col-md-11 draconic"><label>Draconic Houses</label></div><div class="col-md-1"></div>
+        @Html.Partial("_DraconicHouseDisplayItem", new[,] { { "firstHouseForSecondChart", "1st" }, { "secondHouseForSecondChart", "2nd" }, { "thirdHouseForSecondChart", "3rd" }, { "fourthHouseForSecondChart", "4th" },
+                                                            { "fifthHouseForSecondChart", "5th" }, { "sixthHouseForSecondChart", "6th" },{ "seventhHouseForSecondChart", "7th" }, { "eighthHouseForSecondChart", "8th" }, { "ninthHouseForSecondChart", "9th" },
+                                                            { "tenthHouseForSecondChart", "10th" }, { "eleventhHouseForSecondChart", "11th" }, { "twelfthHouseForSecondChart", "12th" },{ "ascendantForSecondChart", "ASC" }, { "descendantForSecondChart", "DESC" },
+                                                            { "midheavenForSecondChart", "M.C." }, { "imumCoeliForSecondChart", "I.C." }, { "vertexForSecondChart", "Vertex" }, { "antivertexForSecondChart", "Antivertex" }})
+    </div>
+    <div id="firstChart" class="col-md-6" style="overflow-y:scroll; height:600px;position: relative">
+        <div id="firstChartLoading" style="font-size: 2em;display:none;position: absolute;width: 100%;height:600px;left: 0;top:0;text-align: center;">
+            <div style="position:relative; top:200px;">
+                <img src="~/Images/ajax-loader-blue-processing-medium.gif" alt="Loading..." title="Loading..." /> Loading...
+            </div>
+        </div>
+        <div><strong id="firstChartTableHeading"></strong></div>
+        <table class="table table-celestial-objects">
+            <thead>
+                <tr>
+                    <th>
+                        Object Name
+                    </th>
+                    <th>
+                        Placement
+                    </th>
+                    <th>
+                        House
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="firstChartBody"></tbody>
+        </table>
+    </div>
+    <div id="secondChart" class="col-md-6" style="overflow-y:scroll; height:600px;position: relative">
+        <div id="secondChartLoading" style="font-size: 2em;display:none;position: absolute;width: 100%;height:600px;left: 0;top:0;text-align: center;">
+            <div style="position:relative; top:200px;">
+                <img src="~/Images/ajax-loader-blue-processing-medium.gif" alt="Loading..." title="Loading..." /> Loading...
+            </div>
+        </div>
+        <div><strong id="secondChartTableHeading"></strong></div>
+        <table class="table table-celestial-objects">
+            <thead>
+                <tr>
+                    <th>
+                        Object Name
+                    </th>
+                    <th>
+                        Placement
+                    </th>
+                    <th>
+                        House
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="secondChartBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="synastryAspectListModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Aspects for <span id="firstChartSynastrySubject"></span>'s <span id="firstChartSynastryObject"></span> to <span id="secondChartSynastrySubject"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <div id="synastryAspects" style="overflow-y:scroll; height:600px;">
+                        <div id="synastryAspectsLoading" style="font-size: 2em;display:none;position: absolute;width: 100%;height:600px;left: 0;top:0;text-align: center;">
+                            <div style="position:relative; top:200px;">
+                                <img src="~/Images/ajax-loader-green-processing-medium.gif" alt="Loading..." title="Loading..." /> Loading...
+                            </div>
+                        </div>
+                        <ul id="synastryAspectlist"></ul>
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/synastry-details.js"></script>
+}

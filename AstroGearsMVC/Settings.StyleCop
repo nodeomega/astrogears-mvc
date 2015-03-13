@@ -1,0 +1,33 @@
+<StyleCopSettings Version="105">
+  <GlobalSettings>
+    <CollectionProperty Name="RecognizedWords">
+      <Value>biquintile</Value>
+      <Value>biseptile</Value>
+      <Value>decile</Value>
+      <Value>novile</Value>
+      <Value>quintile</Value>
+      <Value>semisextile</Value>
+      <Value>semisquare</Value>
+      <Value>septile</Value>
+      <Value>sesquiquadrate</Value>
+      <Value>sextile</Value>
+      <Value>synastry</Value>
+      <Value>triseptile</Value>
+    </CollectionProperty>
+  </GlobalSettings>
+  <Parsers>
+    <Parser ParserId="StyleCop.CSharp.CsParser">
+      <ParserSettings>
+        <BooleanProperty Name="AnalyzeDesignerFiles">False</BooleanProperty>
+      </ParserSettings>
+    </Parser>
+  </Parsers>
+  <Analyzers>
+    <Analyzer AnalyzerId="StyleCop.CSharp.DocumentationRules">
+      <AnalyzerSettings>
+        <StringProperty Name="CompanyName">Jonathan Russell</StringProperty>
+        <StringProperty Name="Copyright">Copyright (c) Jonathan Russell - All Rights Reserved</StringProperty>
+      </AnalyzerSettings>
+    </Analyzer>
+  </Analyzers>
+</StyleCopSettings>

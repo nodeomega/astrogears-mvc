@@ -1,0 +1,20 @@
+﻿@model string[,]
+
+@for (var i = 0; i < Model.GetLength(0); i++)
+{
+    <div class="row" id="new@(Model[i, 0])Coordinates">
+        <div class="col-md-2"><label id="new@(Model[i, 0])CoordinatesObjectName">@(Model[i, 1])</label></div>
+        <div class="col-md-10">
+            <input id="new@(Model[i, 0])CoordinatesDegrees" type="text" class="coordinate-text degree" />&deg;
+            <select id="new@(Model[i, 0])CoordinatesSigns">
+                @Html.Partial("_SignsOptions")
+            </select>
+            <input id="new@(Model[i, 0])CoordinatesMinutes" type="text" class="coordinate-text minutes" />&apos;
+            <input id="new@(Model[i, 0])CoordinatesSeconds" type="text" class="coordinate-text seconds" />&quot;
+            <select id="new@(Model[i, 0])CoordinatesOrientations">
+                @Html.Partial("_OrientationsOptions")
+            </select>
+            <input id="new@(Model[i, 0])CoordinatesCelestialObjectId" type="hidden" value="@(Model[i, 2])" />
+        </div>
+    </div>
+}

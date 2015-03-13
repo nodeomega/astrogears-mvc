@@ -1,0 +1,265 @@
+﻿@model IEnumerable<AstroGearsMVC.Models.EnteredChart>
+
+@{
+    ViewBag.Title = "AstroGears | Entered Charts";
+}
+
+<h2>Index</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a href="#" onclick="EnteredCharts.OpenCreateForm(); return false;" title="Create New Entered Chart"><span class="fa fa-plus-circle"></span> Create New Entered Chart</a>
+</p>
+
+<div id="listingLoading" class="ajax-loader">
+    <div style="position:relative; top:200px;">
+        <img src="~/Images/ajax-loader-red-processing-medium.gif" alt="Loading..." title="Loading..." /> Loading...
+    </div>
+</div>
+
+<div id="status"></div>
+
+<table class="table table-standard">
+    <thead>
+        <tr>
+            <th>
+                Subject Name
+            </th>
+            <th>
+                Birth/Event Location
+            </th>
+            <th>
+                Birth/Event Time
+            </th>
+            <th>
+                Chart Type
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="listingBody"></tbody>
+
+    @*@foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OriginDateTimeString)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChartType.ChartTypeName)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "EnteredCharts", new { id = item.EnteredChartId })" title="Edit"><span class="fa fa-edit"></span></a> | 
+                <a href="@Url.Action("Details", "EnteredCharts", new { id = item.EnteredChartId })" title="Details"><span class="fa fa-search"></span></a> | 
+                <a href="@Url.Action("Transits", "EnteredCharts", new { id = item.EnteredChartId })" title="Transits"><span class="fa fa-arrows-alt"></span></a> | 
+                <a href="@Url.Action("Synastry", "EnteredCharts", new { id = item.EnteredChartId })" title="Synastry"><span class="fa fa-star-half-o"></span></a> | 
+                <a href="@Url.Action("Delete", "EnteredCharts", new { id = item.EnteredChartId })" title="Delete"><span class="fa fa-remove"></span></a> 
+            </td>
+        </tr>
+    }*@
+
+</table>
+
+<div class="container">
+    <div class="col-md-6">
+        Results per page:
+        <select id="resultsPerPage">
+            <option selected="selected">10</option>
+            <option>25</option>
+            <option>50</option>
+            <option>100</option>
+        </select>
+    </div>
+    <div class="col-md-6">
+        Page
+        <select id="pageNumber"></select> of <span id="totalPages"></span>
+    </div>
+</div>
+
+<div class="modal fade" id="createEnteredChartModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Create New Entered Chart Data</h4>
+                </div>
+                <div class="modal-body form-horizontal container">
+                    <div id="createStatus"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Subject Name
+                        </label>
+                        <div class="col-md-10">
+                            <input id="createSubjectName" type="text" class="form-control entered-chart-data" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Birth/Event Location
+                        </label>
+                        <div class="col-md-10">
+                            <input id="createSubjectLocation" type="text" class="form-control entered-chart-data" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Birth/Event Date/Time
+                        </label>
+                        <div class="col-md-10">
+                            <input id="createOriginDateTime" type="text" class="form-control entered-chart-data" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Birth/Event Time Unknown
+                        </label>
+                        <div class="col-md-10">
+                            <input id="createOriginDateTimeUnknown" type="checkbox" class="form-control entered-chart-data" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Chart Type
+                        </label>
+                        <div class="col-md-10">
+                            <select id="createChartTypeId" class="form-control entered-chart-data"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <input type="button" class="btn btn-primary" id="confirmEnteredChartCreate" value="Confirm Entry" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="editEnteredChartModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Update Entered Chart Data</h4>
+                </div>
+                <div class="modal-body form-horizontal container">
+                    <div id="editStatus"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Subject Name
+                        </label>
+                        <div class="col-md-10">
+                            <input id="editSubjectName" type="text" class="form-control entered-chart-data" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Birth/Event Location
+                        </label>
+                        <div class="col-md-10">
+                            <input id="editSubjectLocation" type="text" class="form-control entered-chart-data" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Birth/Event Date/Time
+                        </label>
+                        <div class="col-md-10">
+                            <input id="editOriginDateTime" type="text" class="form-control entered-chart-data" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Birth/Event Time Unknown
+                        </label>
+                        <div class="col-md-10">
+                            <input id="editOriginDateTimeUnknown" type="checkbox" class="form-control entered-chart-data" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Chart Type
+                        </label>
+                        <div class="col-md-10">
+                            <select id="editChartTypeId" class="form-control entered-chart-data"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <input type="button" class="btn btn-primary" id="confirmEnteredChartEdit" value="Confirm Entry" />
+                    <input id="editEnteredChartId" type="hidden" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteEnteredChartModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Delete Entered Chart Data</h4>
+                </div>
+                <div class="modal-body form-horizontal container">
+                    <div class="interface-warning">
+                        <span class="fa fa-exclamation-triangle error"></span> This will be PERMANENTLY deleted!<br />Continue?
+                    </div>
+                    <hr />
+                    <div id="deleteStatus"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Subject Name
+                        </label>
+                        <div class="col-md-10" id="deleteSubjectName"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Birth/Event Location
+                        </label>
+                        <div class="col-md-10" id="deleteSubjectLocation"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Birth/Event Date/Time
+                        </label>
+                        <div class="col-md-10" id="deleteOriginDateTime"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            Chart Type
+                        </label>
+                        <div class="col-md-10" id="deleteChartType"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            # of Chart Objects
+                        </label>
+                        <div class="col-md-10" id="deleteChartObjectsCount"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <input type="button" class="btn btn-primary" id="confirmEnteredChartDelete" value="Confirm Delete" />
+                    <input id="deleteEnteredChartId" type="hidden" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery-ui")
+    <script src="~/Scripts/entered-charts.min.js"></script>
+}
