@@ -1167,7 +1167,8 @@ namespace AstroGearsMVC.Controllers
                             houseSystemId))
                     .OrderBy(x => x.CalculatedCoordinate);
 
-            var aspectList = this.db.Aspects.OrderBy(a => a.AspectId).ToList();
+            ////var aspectList = this.db.Aspects.OrderBy(a => a.AspectId).ToList();
+            var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
 
             var aspectObjectLists = this.GetAspectObjectLists(thisChart, thisObject, chartId, houseSystemId); 
 
@@ -1248,7 +1249,7 @@ namespace AstroGearsMVC.Controllers
                     .Union(this.GetDraconicChartObjects(chartId, draconic, arabic, asteroids, houseSystemId))
                     .OrderBy(x => x.CalculatedCoordinate);
 
-            var aspectList = this.db.Aspects.OrderBy(a => a.AspectId).ToList();
+            var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
 
             var aspectObjectLists = this.GetAspectObjectLists(thisChart, thisObject, chartId, houseSystemId);
 
@@ -1329,7 +1330,7 @@ namespace AstroGearsMVC.Controllers
                     .Union(this.GetDraconicChartObjects(chartId, draconic, arabic, asteroids, houseSystemId))
                     .OrderBy(x => x.CalculatedCoordinate);
 
-            var aspectList = this.db.Aspects.OrderBy(a => a.AspectId).ToList();
+            var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
 
             var aspectObjectLists = this.GetAspectObjectLists(thisChart, thisObject, chartId, houseSystemId);
 
@@ -1338,7 +1339,13 @@ namespace AstroGearsMVC.Controllers
             for (var i = 0; i < aspectList.Count; i++)
             {
                 thisList.Add(
-                    new { aspectList[i].AspectId, aspectList[i].AspectName, aspectList[i].HtmlTextCssClass, aspectList = aspectObjectLists[i] });
+                    new
+                        {
+                            aspectList[i].AspectId,
+                            aspectList[i].AspectName,
+                            aspectList[i].HtmlTextCssClass,
+                            aspectList = aspectObjectLists[i]
+                        });
             }
 
             return this.Json(thisList, JsonRequestBehavior.AllowGet);
@@ -1405,7 +1412,7 @@ namespace AstroGearsMVC.Controllers
                     .Union(draconicObjects.Where(ap => ap.CelestialObject.CelestialObjectName != draconicName))
                     .OrderBy(x => x.CalculatedCoordinate);
 
-            var aspectList = this.db.Aspects.OrderBy(a => a.AspectId).ToList();
+            var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
 
             var aspectObjectLists = this.GetAspectObjectLists(thisChart, thisObject, chartId, houseSystemId);
 
@@ -1414,7 +1421,13 @@ namespace AstroGearsMVC.Controllers
             for (var i = 0; i < aspectList.Count; i++)
             {
                 thisList.Add(
-                    new { aspectList[i].AspectId, aspectList[i].AspectName, aspectList[i].HtmlTextCssClass, aspectList = aspectObjectLists[i] });
+                    new
+                        {
+                            aspectList[i].AspectId,
+                            aspectList[i].AspectName,
+                            aspectList[i].HtmlTextCssClass,
+                            aspectList = aspectObjectLists[i]
+                        });
             }
 
             return this.Json(thisList, JsonRequestBehavior.AllowGet);
@@ -1479,6 +1492,11 @@ namespace AstroGearsMVC.Controllers
                                chartId,
                                houseSystemId),
                            this.CreateAspectChartEnumerable(
+                               thisObject,
+                               thisChart.Where(x => thisObject != null && x.IsQuindecile(thisObject)).ToList(),
+                               chartId,
+                               houseSystemId),
+                            this.CreateAspectChartEnumerable(
                                thisObject,
                                thisChart.Where(x => thisObject != null && x.IsQuintile(thisObject)).ToList(),
                                chartId,
@@ -2165,15 +2183,15 @@ namespace AstroGearsMVC.Controllers
             var listing = (page != null)
                               ? page.Select(
                                   x =>
-                                  new
+                                  new EnteredChartListingItem
                                       {
-                                          x.SubjectName,
-                                          x.SubjectLocation,
-                                          x.OriginDateTimeString,
-                                          x.ChartType.ChartTypeName,
-                                          x.EnteredChartId
-                                      })
-                              : null;
+                                          SubjectName = x.SubjectName,
+                                          SubjectLocation = x.SubjectLocation,
+                                          OriginDateTimeString = x.OriginDateTimeString,
+                                          ChartTypeName = x.ChartType.ChartTypeName,
+                                          EnteredChartId = x.EnteredChartId
+                                      }).ToList()
+                              : new List<EnteredChartListingItem>();
 
             var returnObj = new object[] { listing, Math.Ceiling((decimal)total / entriesPerPage) };
 

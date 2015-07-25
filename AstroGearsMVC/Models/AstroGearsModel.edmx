@@ -34,6 +34,7 @@
           <Property Name="AspectId" Type="tinyint" Nullable="false" />
           <Property Name="AspectName" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="HtmlTextCssClass" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayOrder" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="CelestialObjects">
           <Key>
@@ -124,6 +125,7 @@
           </Key>
           <Property Name="AngleId" Type="tinyint" Nullable="false" />
           <Property Name="AngleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PreferredOrder" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="HouseCusps">
           <Key>
@@ -975,6 +977,7 @@
           <Property Name="AspectName" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="HtmlTextCssClass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspectInterpretations" Relationship="AstroGearsModel.FK_AspectInterpretations_Aspects" FromRole="Aspect" ToRole="AspectInterpretation" />
+          <Property Name="DisplayOrder" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="CelestialObject">
           <Key>
@@ -1094,6 +1097,7 @@
           <NavigationProperty Name="RelocatedChartAngles" Relationship="AstroGearsModel.FK_RelocatedChartAngles_HouseAngles" FromRole="HouseAngle" ToRole="RelocatedChartAngle" />
           <NavigationProperty Name="AspectInterpretations" Relationship="AstroGearsModel.FK_AspectInterpretations_HouseAngles1" FromRole="HouseAngle" ToRole="AspectInterpretation" />
           <NavigationProperty Name="AspectInterpretations1" Relationship="AstroGearsModel.FK_AspectInterpretations_HouseAngles2" FromRole="HouseAngle" ToRole="AspectInterpretation" />
+          <Property Name="PreferredOrder" Type="Byte" Nullable="false" />
           </EntityType>
         <EntityType Name="HouseCusp">
           <Key>
@@ -1646,6 +1650,7 @@
           <EntitySetMapping Name="Aspects">
             <EntityTypeMapping TypeName="AstroGearsModel.Aspect">
               <MappingFragment StoreEntitySet="Aspects">
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
                 <ScalarProperty Name="HtmlTextCssClass" ColumnName="HtmlTextCssClass" />
                 <ScalarProperty Name="AspectName" ColumnName="AspectName" />
                 <ScalarProperty Name="AspectId" ColumnName="AspectId" />
@@ -1746,6 +1751,7 @@
           <EntitySetMapping Name="HouseAngles">
             <EntityTypeMapping TypeName="AstroGearsModel.HouseAngle">
               <MappingFragment StoreEntitySet="HouseAngles">
+                <ScalarProperty Name="PreferredOrder" ColumnName="PreferredOrder" />
                 <ScalarProperty Name="AngleName" ColumnName="AngleName" />
                 <ScalarProperty Name="AngleId" ColumnName="AngleId" />
               </MappingFragment>

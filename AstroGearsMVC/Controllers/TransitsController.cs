@@ -106,7 +106,7 @@ namespace AstroGearsMVC.Controllers
                             houseSystemId))
                     .OrderBy(x => x.CalculatedCoordinate);
 
-            var aspectList = this.db.Aspects.OrderBy(a => a.AspectId).ToList();
+            var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
 
             var aspectObjectLists = chartCon.GetAspectObjectLists(thisChart, firstChartObject, secondChartId, houseSystemId);
 
@@ -115,7 +115,13 @@ namespace AstroGearsMVC.Controllers
             for (var i = 0; i < aspectList.Count; i++)
             {
                 thisList.Add(
-                    new { aspectList[i].AspectId, aspectList[i].AspectName, aspectList[i].HtmlTextCssClass, aspectList = aspectObjectLists[i] });
+                    new
+                        {
+                            aspectList[i].AspectId,
+                            aspectList[i].AspectName,
+                            aspectList[i].HtmlTextCssClass,
+                            aspectList = aspectObjectLists[i]
+                        });
             }
 
             return this.Json(thisList, JsonRequestBehavior.AllowGet);
@@ -187,7 +193,7 @@ namespace AstroGearsMVC.Controllers
                     .Union(chartCon.GetDraconicChartObjects(secondChartId, draconic, arabic, asteroids, houseSystemId))
                     .OrderBy(x => x.CalculatedCoordinate);
 
-            var aspectList = this.db.Aspects.OrderBy(a => a.AspectId).ToList();
+            var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
 
             var aspectObjectLists = chartCon.GetAspectObjectLists(thisChart, thisObject, secondChartId, houseSystemId);
 
@@ -196,7 +202,13 @@ namespace AstroGearsMVC.Controllers
             for (var i = 0; i < aspectList.Count; i++)
             {
                 thisList.Add(
-                    new { aspectList[i].AspectId, aspectList[i].AspectName, aspectList[i].HtmlTextCssClass, aspectList = aspectObjectLists[i] });
+                    new
+                        {
+                            aspectList[i].AspectId,
+                            aspectList[i].AspectName,
+                            aspectList[i].HtmlTextCssClass,
+                            aspectList = aspectObjectLists[i]
+                        });
             }
 
             return this.Json(thisList, JsonRequestBehavior.AllowGet);
@@ -270,7 +282,7 @@ namespace AstroGearsMVC.Controllers
                     .Union(chartCon.GetDraconicChartObjects(secondChartId, draconic, arabic, asteroids, houseSystemId))
                     .OrderBy(x => x.CalculatedCoordinate);
 
-            var aspectList = this.db.Aspects.OrderBy(a => a.AspectId).ToList();
+            var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
 
             var aspectObjectLists = chartCon.GetAspectObjectLists(thisChart, thisObject, secondChartId, houseSystemId);
 
@@ -279,7 +291,13 @@ namespace AstroGearsMVC.Controllers
             for (var i = 0; i < aspectList.Count; i++)
             {
                 thisList.Add(
-                    new { aspectList[i].AspectId, aspectList[i].AspectName, aspectList[i].HtmlTextCssClass, aspectList = aspectObjectLists[i] });
+                    new
+                        {
+                            aspectList[i].AspectId,
+                            aspectList[i].AspectName,
+                            aspectList[i].HtmlTextCssClass,
+                            aspectList = aspectObjectLists[i]
+                        });
             }
 
             return this.Json(thisList, JsonRequestBehavior.AllowGet);
@@ -352,7 +370,7 @@ namespace AstroGearsMVC.Controllers
                     .Union(secondDraconicObjects)
                     .OrderBy(x => x.CalculatedCoordinate);
 
-            var aspectList = this.db.Aspects.OrderBy(a => a.AspectId).ToList();
+            var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
 
             var aspectObjectLists = chartCon.GetAspectObjectLists(thisChart, thisObject, secondChartId, houseSystemId);
 
@@ -361,7 +379,13 @@ namespace AstroGearsMVC.Controllers
             for (var i = 0; i < aspectList.Count; i++)
             {
                 thisList.Add(
-                    new { aspectList[i].AspectId, aspectList[i].AspectName, aspectList[i].HtmlTextCssClass, aspectList = aspectObjectLists[i] });
+                    new
+                        {
+                            aspectList[i].AspectId,
+                            aspectList[i].AspectName,
+                            aspectList[i].HtmlTextCssClass,
+                            aspectList = aspectObjectLists[i]
+                        });
             }
 
             return this.Json(thisList, JsonRequestBehavior.AllowGet);

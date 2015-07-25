@@ -1,12 +1,34 @@
 ﻿/// <reference path="typings/jquery/jquery.d.ts" />
 /// <reference path="typings/jqueryui/jqueryui.d.ts" />
 /// <reference path="typings/bootstrap/bootstrap.d.ts" />
+/// <reference path="typings/knockout/knockout.d.ts" />
+/// <reference path="typings/knockout.viewmodel/knockout.viewmodel.d.ts" />
 /// <reference path="common-library.ts" />
 
 module EnteredCharts {
     "use strict";
 
     var listing: boolean = false;
+
+    export class EnteredChartListingResult {
+        listing: KnockoutObservable<any>;
+        noResults: KnockoutComputed<boolean>;
+        pages: KnockoutObservable<number>;
+        constructor() {
+            var self = this;
+            self.listing = ko.observableArray([]);
+            self.noResults = ko.computed(function () {
+                if (self.listing() !== null && typeof (self.listing()) !== "undefined") {
+                    return (self.listing().length === 0);
+                } else {
+                    return false;
+                }                
+            });
+            self.pages = ko.observable(0);
+        }
+    }
+
+    export var listingResult = new EnteredChartListingResult();
 
     var $listingLoading = $("#listingLoading").hide();
     $(document)
@@ -30,58 +52,64 @@ module EnteredCharts {
             pageNum: page,
             entriesPerPage: numberPerPage
         }).done(function (data: any) {
-            $.each(data[0], function (i: any, item: any) {
-                var listingLine = $("<tr/>");
+            listingResult.listing(data[0]);
 
-                listingLine.append($("<td/>").html(item.SubjectName));
+            if (data[0].length !== null) {
+                $.each(data[0], function (i: any, item: any) {
+                    var listingLine = $("<tr/>");
 
-                listingLine.append($("<td/>").html(item.SubjectLocation));
+                    listingLine.append($("<td/>").html(item.SubjectName));
 
-                listingLine.append($("<td/>").html(item.OriginDateTimeString));
+                    listingLine.append($("<td/>").html(item.SubjectLocation));
 
-                listingLine.append($("<td/>").html(item.ChartTypeName));
+                    listingLine.append($("<td/>").html(item.OriginDateTimeString));
 
-                listingLine
-                    .append(
-                    $("<td/>")
+                    listingLine.append($("<td/>").html(item.ChartTypeName));
+
+                    listingLine
                         .append(
-                        $("<a href=\"#\" onclick=\"EnteredCharts.OpenEditForm("
-                            + item.EnteredChartId
-                            + ");return false;\" title=\"Edit Entered Chart Data\"/>")
-                            .append("<span class=\"fa fa-edit\"/>")
-                            .append(" Edit")
-                        )
-                        .append($("<br/>"))
-                        .append(
-                        $("<a href=\"/EnteredCharts/Details/" + item.EnteredChartId + "\" title=\"Details\"/>")
-                            .append("<span class=\"fa fa-search\"/>")
-                            .append(" Details")
-                        )
-                        .append($("<br/>"))
-                        .append(
-                        $("<a href=\"/EnteredCharts/Transits/" + item.EnteredChartId + "\" title=\"Transits\"/>")
-                            .append("<span class=\"fa fa-arrows-alt\"/>")
-                            .append(" Transits")
-                        )
-                        .append($("<br/>"))
-                        .append(
-                        $("<a href=\"/EnteredCharts/Synastry/" + item.EnteredChartId + "\" title=\"Synastry\"/>")
-                            .append("<span class=\"fa fa-star-half-o\"/>")
-                            .append(" Synastry")
-                        )
-                        .append($("<br/>"))
-                        .append(
-                        $("<a href=\"#\" onclick=\"EnteredCharts.OpenDeleteForm("
-                            + item.EnteredChartId
-                            + ");return false;\" title=\"Delete Entered Chart\"/>")
-                            .append("<span class=\"fa fa-remove error\"/>")
-                            .append($("<span class=\"error\"/>").html(" Delete")
+                        $("<td/>")
+                            .append(
+                            $("<a href=\"#\" onclick=\"EnteredCharts.OpenEditForm("
+                                + item.EnteredChartId
+                                + ");return false;\" title=\"Edit Entered Chart Data\"/>")
+                                .append("<span class=\"fa fa-edit\"/>")
+                                .append(" Edit")
                             )
-                        )
-                    );
+                            .append($("<br/>"))
+                            .append(
+                            $("<a href=\"/EnteredCharts/Details/" + item.EnteredChartId + "\" title=\"Details\"/>")
+                                .append("<span class=\"fa fa-search\"/>")
+                                .append(" Details")
+                            )
+                            .append($("<br/>"))
+                            .append(
+                            $("<a href=\"/EnteredCharts/Transits/" + item.EnteredChartId + "\" title=\"Transits\"/>")
+                                .append("<span class=\"fa fa-arrows-alt\"/>")
+                                .append(" Transits")
+                            )
+                            .append($("<br/>"))
+                            .append(
+                            $("<a href=\"/EnteredCharts/Synastry/" + item.EnteredChartId + "\" title=\"Synastry\"/>")
+                                .append("<span class=\"fa fa-star-half-o\"/>")
+                                .append(" Synastry")
+                            )
+                            .append($("<br/>"))
+                            .append(
+                            $("<a href=\"#\" onclick=\"EnteredCharts.OpenDeleteForm("
+                                + item.EnteredChartId
+                                + ");return false;\" title=\"Delete Entered Chart\"/>")
+                                .append("<span class=\"fa fa-remove error\"/>")
+                                .append($("<span class=\"error\"/>").html(" Delete")
+                                )
+                            )
+                        );
 
-                $("#listingBody").append(listingLine);
-            });
+                    $("#listingBody").append(listingLine);
+                });
+            } else {
+
+            }
 
             $("#pageNumber").empty();
             $("#totalPages").text(data[1]);

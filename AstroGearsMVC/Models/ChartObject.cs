@@ -521,6 +521,53 @@ namespace AstroGearsMVC.Models
         }
 
         /// <summary>
+        /// Determines whether the specified compare is quindecile.
+        /// </summary>
+        /// <param name="compare">
+        /// The compare.
+        /// </param>
+        /// <returns>
+        /// True if quindecile; false otherwise.
+        /// </returns>
+        public bool IsQuindecile([NotNull] ChartObject compare)
+        {
+            // If fixed star is either of the objects, automatic false (Only conjunctions and possibly oppositions count).
+            if (compare == null)
+            {
+                throw new ArgumentNullException("compare");
+            }
+
+            if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.FixedStar)
+                || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.FixedStar))
+            {
+                return false;
+            }
+
+            decimal thisOrb;
+
+            if (compare.CelestialObject.CelestialObjectTypeId == this.CelestialObject.CelestialObjectTypeId)
+            {
+                thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
+            }
+            else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+            {
+                thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
+            }
+            else
+            {
+                thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
+            }
+
+            thisOrb = thisOrb > 2M ? 2M : thisOrb;
+
+            var difference = Math.Abs(compare.CalculatedCoordinate - this.CalculatedCoordinate);
+            const decimal DegreeCheck = 165M;
+            return ((difference >= DegreeCheck - thisOrb) && (difference <= DegreeCheck + thisOrb))
+                   || ((difference >= (360 - DegreeCheck) - thisOrb) && (difference <= (360 - DegreeCheck) + thisOrb));
+        }
+
+        /// <summary>
         /// Determines whether the specified compare is quintile.
         /// </summary>
         /// <param name="compare">

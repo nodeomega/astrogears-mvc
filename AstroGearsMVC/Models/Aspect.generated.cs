@@ -22,6 +22,7 @@ namespace AstroGearsMVC.Models
         public byte AspectId { get; set; }
         public string AspectName { get; set; }
         public string HtmlTextCssClass { get; set; }
+        public byte DisplayOrder { get; set; }
     
         public virtual ICollection<AspectInterpretation> AspectInterpretations { get; set; }
     }

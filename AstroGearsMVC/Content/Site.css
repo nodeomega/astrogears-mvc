@@ -1,260 +1,216 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-
 .navbar-inverse {
-    /*background-color: #602a2a;*/
-    background: linear-gradient(#602a2a, #300);
+  /*background-color: #602a2a;*/
+  background: linear-gradient(#602a2a, #330000);
 }
-
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
 .dl-horizontal dt {
-    white-space: normal;
+  white-space: normal;
 }
-
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+  max-width: 280px;
 }
-
 /* Editing forms */
 .error {
-    color: #e01a1a;
+  color: #e01a1a;
 }
-
 .action-successful {
-    color: #07a407;
+  color: #07a407;
 }
-
 .interface-warning {
-    font-size: 2.0em;
-    color: #e01a1a;
-    text-align: center;
+  font-size: 2.0em;
+  color: #e01a1a;
+  text-align: center;
 }
-
 /* Custom Table Formatting */
 .index-buttons {
-    width: 60px;
+  width: 60px;
 }
-
-.table-standard tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-.table-standard tr:nth-child(even) {
-    background-color: #eee;
-}
-
-.table-standard tr:nth-child(odd):hover, .table-standard tr:nth-child(even):hover {
-    background-color: #fafad2;
-}
-
+.table-standard tr:nth-child(odd),
 .table-celestial-objects tr:nth-child(odd) {
-    background-color: #fff;
+  background-color: #ffffff;
 }
-
+.table-standard tr:nth-child(even),
 .table-celestial-objects tr:nth-child(even) {
-    background-color: #eee;
+  background-color: #eeeeee;
 }
-
-.table-celestial-objects tr:nth-child(odd):hover, .table-celestial-objects tr:nth-child(even):hover {
-    background-color: #fafad2;
+.table-standard tr:nth-child(odd):hover,
+.table-standard tr:nth-child(even):hover,
+.table-celestial-objects tr:nth-child(odd):hover,
+.table-celestial-objects tr:nth-child(even):hover {
+  background-color: #d9d9d9;
 }
-
 .table-celestial-objects tr.draconic:nth-child(odd) {
-    background-color: #fee;
+  background-color: #ffeeee;
 }
-
 .table-celestial-objects tr.draconic:nth-child(even) {
-    background-color: #edd;
+  background-color: #eedddd;
 }
-
-.table-celestial-objects tr.draconic:nth-child(odd):hover, .table-celestial-objects tr.draconic:nth-child(even):hover {
-    background-color: #fdd;
+.table-celestial-objects tr.draconic:nth-child(odd):hover,
+.table-celestial-objects tr.draconic:nth-child(even):hover {
+  background-color: #ffbbbb;
 }
-
 /* Sign Element Colors */
 .fire-sign {
-    color: #c00;
+  color: #cc0000;
 }
-
 .earth-sign {
-    color: #0c0;
+  color: #00cc00;
 }
-
 .air-sign {
-    color: #990;
+  color: #cccc00;
 }
-
 .water-sign {
-    color: #00c;
+  color: #0000cc;
 }
-
 /* Aspect Colors */
 .conjunct-aspect {
-    color: #0c0;
+  color: #00cc00;
 }
-
 .opposition-aspect {
-    color: #f00;
+  color: #ff0000;
 }
-
 .square-aspect {
-    color: #900;
+  color: #990000;
 }
-
 .semisquare-aspect {
-    color: #c00;
+  color: #cc0000;
 }
-
 .sesquiquadrate-aspect {
-    color: #600;
+  color: #660000;
 }
-
 .trine-aspect {
-    color: #009;
+  color: #000099;
 }
-
 .sextile-aspect {
-    color: #00c;
+  color: #000066;
 }
-
 .quincunx-aspect {
-    color: #990;
+  color: #999900;
 }
-
 .quintile-aspect {
-    color: #606;
+  color: #660066;
 }
-
 .biquintile-aspect {
-    color: #909;
+  color: #990099;
 }
-
 .semisextile-aspect {
-    color: #660;
+  color: #666600;
 }
-
 .septile-aspect {
-    color: #0cc;
+  color: #00cccc;
 }
-
 .biseptile-aspect {
-    color: #099;
+  color: #009999;
 }
-
-.triseptile-aspect{
-    color: #066;
+.triseptile-aspect {
+  color: #006666;
 }
-
-.novile-aspect{
-    color: #060;
+.novile-aspect {
+  color: #006600;
 }
-
-.decile-aspect{
-    color: #030;
+.decile-aspect {
+  color: #003300;
 }
-
+.quindecile-aspect {
+  color: #e60000;
+}
 /* Aspect List Styles */
-.arabic-part
-{
-    font-style:italic;
+.arabic-part {
+  font-style: italic;
 }
-
-.planet-luminary
-{
-    font-weight:bold;
+.planet-luminary {
+  font-weight: bold;
 }
-
-.fixed-star
-{
-    font-style:italic;
-    color:#999;
+.fixed-star {
+  font-style: italic;
+  color: #999;
 }
-
 .house-cusp {
-    font-weight:bold;
-    font-style: italic;
-    color: #009;
+  font-weight: bold;
+  font-style: italic;
+  color: #000099;
 }
-
-.draconic
-{
-    color:#900;
+.draconic {
+  color: #990000;
 }
-
-.coordinate-text, .coordinate-select, .aspect-input, .celestial-object, .entered-chart-data {
-    border:solid 1px #0000cd;
+.coordinate-text,
+.coordinate-select,
+.aspect-input,
+.celestial-object,
+.entered-chart-data {
+  border: solid 1px #0000cd;
 }
-
-.degree, .minutes, .seconds {
-    width:30px;
+.degree,
+.minutes,
+.seconds {
+  width: 30px;
 }
-
-.asteroid-fixed-star-name, .interpretation, .citation-url {
-    width: 99%;
+.asteroid-fixed-star-name,
+.interpretation,
+.citation-url {
+  width: 99%;
 }
-
-.interpretation, .citation-url {
-    max-width: 99%;
+.interpretation,
+.citation-url {
+  max-width: 99%;
 }
-
 .detail-interpretation {
-    text-decoration: none;
-    color: #000;
-    font-style: normal;
-    font-weight: normal;
-    word-wrap: break-word;
+  text-decoration: none;
+  color: #000;
+  font-style: normal;
+  font-weight: normal;
+  word-wrap: break-word;
 }
-
 .ajax-loader {
-    font-size: 2em;
-    display: none;
-    position: absolute;
-    width: 100%;
-    height: 600px;
-    left: 0;
-    top: 0;
-    text-align: center;
+  font-size: 2em;
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 600px;
+  left: 0;
+  top: 0;
+  text-align: center;
 }
-
 /* Autocomplete */
-
 .ui-autocomplete-loading {
-    /*background: white url("../Images/ajax-loader-goldenrod-processing.gif") right center no-repeat;*/
-    background: white
-                url('data:image/gif;base64,R0lGODlhEAAQAPIAAP///8aOF/Djx9SrU8aOF9u5cOLHjebOmyH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==')
-                right center no-repeat;
+  /*background: white url("../Images/ajax-loader-goldenrod-processing.gif") right center no-repeat;*/
+  background: white url('data:image/gif;base64,R0lGODlhEAAQAPIAAP///8aOF/Djx9SrU8aOF9u5cOLHjebOmyH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==') right center no-repeat;
 }
-
-.ui-autocomplete { z-index:2147483647; }
-
-.ui-helper-hidden-accessible { position: absolute; left:-999em; }
-
+.ui-autocomplete {
+  z-index: 2147483647;
+}
+.ui-helper-hidden-accessible {
+  position: absolute;
+  left: -999em;
+}
 /* Page Specific */
-#firstChartTableHeading, #secondChartTableHeading {
-    font-size: 1.25em;
-    font-style: italic;
+#firstChartTableHeading,
+#secondChartTableHeading {
+  font-size: 1.25em;
+  font-style: italic;
 }
-
 /* Page Specific (for Media) */
 @media (min-width: 992px) {
-    #newAsteroidCoordinatesModal .modal-dialog {
-        width: 750px;
-    }
-
-    #createAspectInterpretationModal .modal-dialog, #editAspectInterpretationModal .modal-dialog {
-        width: 950px;
-    }
+  #newAsteroidCoordinatesModal .modal-dialog {
+    width: 750px;
+  }
+  #createAspectInterpretationModal .modal-dialog,
+  #editAspectInterpretationModal .modal-dialog {
+    width: 950px;
+  }
 }
+/*# sourceMappingURL=Site.css.map */

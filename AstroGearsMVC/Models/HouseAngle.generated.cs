@@ -24,6 +24,7 @@ namespace AstroGearsMVC.Models
     
         public byte AngleId { get; set; }
         public string AngleName { get; set; }
+        public byte PreferredOrder { get; set; }
     
         public virtual ICollection<ChartAngle> ChartAngles { get; set; }
         public virtual ICollection<RelocatedChartAngle> RelocatedChartAngles { get; set; }

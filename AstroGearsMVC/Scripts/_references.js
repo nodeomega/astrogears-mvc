@@ -14,3 +14,4 @@
 /// <reference path="entered-charts.js" />
 /// <reference path="synastry-details.js" />
 /// <reference path="transit-details.js" />
+/// <reference path="knockout-3.3.0.js" />

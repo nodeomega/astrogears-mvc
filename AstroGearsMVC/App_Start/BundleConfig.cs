@@ -54,6 +54,8 @@ namespace AstroGearsMVC
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/knockout").Include("~/Scripts/knockout-{version}.js"));
+
             bundles.Add(
                 new StyleBundle("~/Content/css").Include("~/Content/bootstrap.min.css", new CssRewriteUrlTransform())
                     .Include("~/Content/site.css")

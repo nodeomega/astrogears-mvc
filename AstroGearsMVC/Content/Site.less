@@ -1,0 +1,274 @@
+﻿@error: #e01a1a;
+@success: #07a407;
+@white: #fff;
+@offwhite: #eee;
+@oddDraconic: #fee;
+@evenDraconic: #edd;
+@standardHover: darken(white, 15%); //#fafad2;
+@draconicHover: darken(@oddDraconic, 10%); //#fdd;
+
+@earth: #0c0;
+@air: #cc0;
+@fire: #c00;
+@water: #00c;
+
+@conjunct: #0c0;
+@hardAspect: #f00;
+@easyAspect: #00f;
+@inconjunct: #990;
+@septileSeries: #0cc;
+@quintileSeries: #606;
+@otherAspect: #060;
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.navbar-inverse {
+    /*background-color: #602a2a;*/
+    background: linear-gradient(#602a2a, #300);
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Editing forms */
+.error {
+    color: @error;
+}
+
+.action-successful {
+    color: @success;
+}
+
+.interface-warning {
+    font-size: 2.0em;
+    color: @error;
+    text-align: center;
+}
+
+/* Custom Table Formatting */
+.index-buttons {
+    width: 60px;
+}
+
+.table-standard tr:nth-child(odd), .table-celestial-objects tr:nth-child(odd) {
+    background-color: @white;
+}
+
+.table-standard tr:nth-child(even), .table-celestial-objects tr:nth-child(even) {
+    background-color: @offwhite;
+}
+
+.table-standard tr:nth-child(odd):hover, .table-standard tr:nth-child(even):hover, .table-celestial-objects tr:nth-child(odd):hover, .table-celestial-objects tr:nth-child(even):hover {
+    background-color: @standardHover;
+}
+
+.table-celestial-objects tr.draconic:nth-child(odd) {
+    background-color: @oddDraconic;
+}
+
+.table-celestial-objects tr.draconic:nth-child(even) {
+    background-color: @evenDraconic;
+}
+
+.table-celestial-objects tr.draconic:nth-child(odd):hover, .table-celestial-objects tr.draconic:nth-child(even):hover {
+    background-color: @draconicHover;
+}
+
+/* Sign Element Colors */
+.fire-sign {
+    color: @fire;
+}
+
+.earth-sign {
+    color: @earth;
+}
+
+.air-sign {
+    color: @air;
+}
+
+.water-sign {
+    color: @water;
+}
+
+/* Aspect Colors */
+.conjunct-aspect {
+    color: @conjunct;
+}
+
+.opposition-aspect {
+    color: @hardAspect;
+}
+
+.square-aspect {
+    color: darken(@hardAspect, 20%);
+}
+
+.semisquare-aspect {
+    color: darken(@hardAspect, 10%);
+}
+
+.sesquiquadrate-aspect {
+    color: darken(@hardAspect, 30%);
+}
+
+.trine-aspect {
+    color: darken(@easyAspect, 20%);
+}
+
+.sextile-aspect {
+    color: darken(@easyAspect, 30%);
+}
+
+.quincunx-aspect {
+    color: @inconjunct;
+}
+
+.quintile-aspect {
+    color: @quintileSeries;
+}
+
+.biquintile-aspect {
+    color: lighten(@quintileSeries, 10%);
+}
+
+.semisextile-aspect {
+    color: darken(@inconjunct, 10%);
+}
+
+.septile-aspect {
+    color: @septileSeries;
+}
+
+.biseptile-aspect {
+    color: darken(@septileSeries, 10%);
+}
+
+.triseptile-aspect{
+    color: darken(@septileSeries, 20%);
+}
+
+.novile-aspect{
+    color: @otherAspect;
+}
+
+.decile-aspect{
+    color: darken(@otherAspect, 10%);
+}
+
+.quindecile-aspect {
+    color: darken(@hardAspect, 5%);
+}
+
+/* Aspect List Styles */
+.arabic-part
+{
+    font-style:italic;
+}
+
+.planet-luminary
+{
+    font-weight:bold;
+}
+
+.fixed-star
+{
+    font-style:italic;
+    color:#999;
+}
+
+.house-cusp {
+    font-weight:bold;
+    font-style: italic;
+    color: darken(@water, 10%);
+}
+
+.draconic
+{
+    color: darken(@fire, 10%);
+}
+
+.coordinate-text, .coordinate-select, .aspect-input, .celestial-object, .entered-chart-data {
+    border:solid 1px #0000cd;
+}
+
+.degree, .minutes, .seconds {
+    width:30px;
+}
+
+.asteroid-fixed-star-name, .interpretation, .citation-url {
+    width: 99%;
+}
+
+.interpretation, .citation-url {
+    max-width: 99%;
+}
+
+.detail-interpretation {
+    text-decoration: none;
+    color: #000;
+    font-style: normal;
+    font-weight: normal;
+    word-wrap: break-word;
+}
+
+.ajax-loader {
+    font-size: 2em;
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 600px;
+    left: 0;
+    top: 0;
+    text-align: center;
+}
+
+/* Autocomplete */
+
+.ui-autocomplete-loading {
+    /*background: white url("../Images/ajax-loader-goldenrod-processing.gif") right center no-repeat;*/
+    background: white
+                url('data:image/gif;base64,R0lGODlhEAAQAPIAAP///8aOF/Djx9SrU8aOF9u5cOLHjebOmyH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==')
+                right center no-repeat;
+}
+
+.ui-autocomplete { z-index:2147483647; }
+
+.ui-helper-hidden-accessible { position: absolute; left:-999em; }
+
+/* Page Specific */
+#firstChartTableHeading, #secondChartTableHeading {
+    font-size: 1.25em;
+    font-style: italic;
+}
+
+/* Page Specific (for Media) */
+@media (min-width: 992px) {
+    #newAsteroidCoordinatesModal .modal-dialog {
+        width: 750px;
+    }
+
+    #createAspectInterpretationModal .modal-dialog, #editAspectInterpretationModal .modal-dialog {
+        width: 950px;
+    }
+}

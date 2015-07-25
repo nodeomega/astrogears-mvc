@@ -14,7 +14,7 @@ namespace AstroGearsMVC.Models
         #region Enums
 
         /// <summary>
-        ///     Aspect Types
+        /// Aspect Types
         /// </summary>
         public enum AspectTypes : byte
         {
@@ -56,47 +56,52 @@ namespace AstroGearsMVC.Models
             /// <summary>
             /// The quincunx.
             /// </summary>
-            Quincunx = 7, 
+            Quincunx = 7,
+
+            /// <summary>
+            /// The quindecile
+            /// </summary>
+            Quindecile = 8,
 
             /// <summary>
             /// The quintile.
             /// </summary>
-            Quintile = 8, 
+            Quintile = 9, 
 
             /// <summary>
             /// The biquintile.
             /// </summary>
-            Biquintile = 9, 
+            Biquintile = 10, 
 
             /// <summary>
             /// The semisextile.
             /// </summary>
-            Semisextile = 10, 
+            Semisextile = 11, 
 
             /// <summary>
             /// The septile.
             /// </summary>
-            Septile = 11, 
+            Septile = 12, 
 
             /// <summary>
             /// The biseptile.
             /// </summary>
-            Biseptile = 12, 
+            Biseptile = 13, 
 
             /// <summary>
             /// The triseptile.
             /// </summary>
-            Triseptile = 13, 
+            Triseptile = 14, 
 
             /// <summary>
             /// The novile.
             /// </summary>
-            Novile = 14, 
+            Novile = 15, 
 
             /// <summary>
             /// The decile.
             /// </summary>
-            Decile = 15
+            Decile = 16
         }
 
         #endregion
