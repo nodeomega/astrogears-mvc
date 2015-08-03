@@ -2070,14 +2070,15 @@ namespace AstroGearsMVC.Controllers
                             || p.CelestialObject.CelestialObjectName == "Pallas"
                             || p.CelestialObject.CelestialObjectName == "Vesta"
                             || p.CelestialObject.CelestialObjectName == "Chiron"))
+                    .OrderBy(p => p.CelestialObjectId)
                     .ToList()
                     .Union(
                         this.GetAngleChartObjects(chartId)
+                            .OrderBy(a => a.CelestialObject.CelestialObjectName)
                             .Where(
                                 a =>
                                 a.CelestialObject.CelestialObjectName == "Ascendant"
                                 || a.CelestialObject.CelestialObjectName == "Midheaven"))
-                    .OrderBy(p => p.CelestialObjectId)
                     .ToList();
 
             var midpointsList = new List<ChartObject>();
