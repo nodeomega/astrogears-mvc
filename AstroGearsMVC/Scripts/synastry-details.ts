@@ -272,7 +272,7 @@ module SynastryDetails {
                     } else if (item.CelestialObjectTypeName === 'Angle/House Cusp') {
                         chartLine.append($('<td/>').append($('<a onclick="SynastryDetails.GetSynastryAspectsForAngleChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\', 1)" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
                     } else if (item.CelestialObjectTypeName === 'Midpoint') {
-                        chartLine.append($('<td/>').append($('<a onclick="SynastryDetails.GetSynastryAspectsForMidpointChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\', 2)" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
+                        chartLine.append($('<td/>').append($('<a onclick="SynastryDetails.GetSynastryAspectsForMidpointChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\', 1)" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
                     } else {
                         chartLine.append($('<td/>').append($('<a onclick="SynastryDetails.GetSynastryAspects(' + item.ChartObjectId + ', 1)" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
                     }

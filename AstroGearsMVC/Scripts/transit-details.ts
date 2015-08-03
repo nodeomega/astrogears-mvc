@@ -273,7 +273,7 @@ module TransitDetails {
                     } else if (item.CelestialObjectTypeName === 'Angle/House Cusp') {
                         chartLine.append($('<td/>').append($('<a href="#" onclick="TransitDetails.GetTransitAspectsForAngleChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\', 1);return false;" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
                     } else if (item.CelestialObjectTypeName === 'Midpoint') {
-                        chartLine.append($('<td/>').append($('<a href="#" onclick="TransitDetails.GetTransitAspectsForMidpointChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\', 2);return false;" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
+                        chartLine.append($('<td/>').append($('<a href="#" onclick="TransitDetails.GetTransitAspectsForMidpointChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\', 1);return false;" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
                     } else {
                         chartLine.append($('<td/>').append($('<a href="#" onclick="TransitDetails.GetTransitAspects(' + item.ChartObjectId + ', 1);return false;" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
                     }
