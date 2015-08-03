@@ -50,7 +50,12 @@ namespace AstroGearsMVC.Models
             /// <summary>
             ///     Represents the nodes.
             /// </summary>
-            Nodes = 6
+            Nodes = 6,
+
+            /// <summary>
+            ///     Represents the midpoints.
+            /// </summary>
+            Midpoint = 7
         }
 
         #endregion
@@ -105,6 +110,86 @@ namespace AstroGearsMVC.Models
         #endregion
 
         #region Public Methods and Operators
+
+        public ChartObject GetMidpoint(
+            [CanBeNull] ChartObject otherChartObject)
+        {
+            if (otherChartObject == null)
+            {
+                return null;
+            }
+
+            const int SecondsInMinutes = 60;
+            const int MinutesInDegrees = 60;
+            const int DegreesInSign = 30;
+            const int SignsInChart = 12;
+
+            var newCoordinateInSeconds = (this.CoordinateInSeconds + otherChartObject.CoordinateInSeconds) / 2;
+
+            // If the logical order of the 
+            if (Math.Abs(this.CoordinateInSeconds - otherChartObject.CoordinateInSeconds)
+                > 180 * MinutesInDegrees * SecondsInMinutes)
+            {
+                newCoordinateInSeconds += 180 * MinutesInDegrees * SecondsInMinutes;
+            }
+
+            while (newCoordinateInSeconds < 0)
+            {
+                newCoordinateInSeconds += SignsInChart * DegreesInSign * MinutesInDegrees * SecondsInMinutes;
+            }
+
+            while (newCoordinateInSeconds > SignsInChart * DegreesInSign * MinutesInDegrees * SecondsInMinutes)
+            {
+                newCoordinateInSeconds %= SignsInChart * DegreesInSign * MinutesInDegrees * SecondsInMinutes;
+            }
+
+            var newSignId = (byte)(newCoordinateInSeconds / (DegreesInSign * MinutesInDegrees * SecondsInMinutes));
+
+            var deg = (newCoordinateInSeconds / (MinutesInDegrees * SecondsInMinutes)) % DegreesInSign;
+            var min = (newCoordinateInSeconds / SecondsInMinutes) % MinutesInDegrees;
+            var sec = newCoordinateInSeconds % SecondsInMinutes;
+
+            return new ChartObject
+            {
+                EnteredChart = this.EnteredChart,
+                EnteredChartID = this.EnteredChartID,
+                Degrees = (byte)deg,
+                Minutes = (byte)min,
+                Seconds = (byte)sec,
+                SignId = newSignId,
+                Sign = new AstroGearsEntities().Signs.Find(newSignId),
+                CelestialObject =
+                    new CelestialObject
+                    {
+                        AllowableOrb = 1M,
+                        AlternateName =
+                            this.CelestialObject.AlternateName + "/" + otherChartObject.CelestialObject.AlternateName + " Midpoint",
+                        CelestialObjectId = 0,
+                        CelestialObjectName =
+                            this.CelestialObject.CelestialObjectName + "/" + otherChartObject.CelestialObject.CelestialObjectName + " Midpoint",
+                        Draconic = this.CelestialObject.Draconic && otherChartObject.CelestialObject.Draconic,
+                        CelestialObjectType =
+                            new CelestialObjectType
+                            {
+                                CelestialObjectTypeName =
+                                    "Midpoint",
+                                CelestialObjectTypeId =
+                                    (byte)ObjectTypes.Midpoint
+                            },
+                        CelestialObjectTypeId =
+                            (byte)ObjectTypes.Midpoint
+                    },
+                CelestialObjectId = this.CelestialObjectId,
+                Orientation =
+                    new Orientation
+                    {
+                        OrientationId = 1,
+                        OrientationAbbreviation =
+                            string.Empty
+                    },
+                OrientationId = 1
+            };
+        }
 
         /// <summary>
         /// Gets the draconic chart object.
@@ -317,7 +402,9 @@ namespace AstroGearsMVC.Models
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
                      || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
                      || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.FixedStar)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.FixedStar))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.FixedStar)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -409,7 +496,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -458,7 +547,9 @@ namespace AstroGearsMVC.Models
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
                      || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
                      || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.FixedStar)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.FixedStar))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.FixedStar)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -503,7 +594,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -550,7 +643,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -597,7 +692,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -644,7 +741,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -691,7 +790,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -738,7 +839,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -785,7 +888,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -832,7 +937,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -877,7 +984,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -922,7 +1031,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }
@@ -967,7 +1078,9 @@ namespace AstroGearsMVC.Models
                 thisOrb = (compare.CelestialObject.AllowableOrb + this.CelestialObject.AllowableOrb) / 2M;
             }
             else if ((compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
-                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid))
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Asteroid)
+                     || (compare.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint)
+                     || (this.CelestialObject.CelestialObjectTypeId == (byte)ObjectTypes.Midpoint))
             {
                 thisOrb = Math.Min(compare.CelestialObject.AllowableOrb, this.CelestialObject.AllowableOrb);
             }

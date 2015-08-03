@@ -135,6 +135,11 @@ textarea {
 .planet-luminary {
   font-weight: bold;
 }
+.midpoint {
+  font-weight: bold;
+  font-style: italic;
+  color: #009900;
+}
 .fixed-star {
   font-style: italic;
   color: #999;

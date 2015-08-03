@@ -69,6 +69,7 @@ namespace AstroGearsMVC.Controllers
             bool arabic,
             bool asteroids,
             bool stars,
+            bool midpoints,
             byte houseSystemId)
         {
             if (id <= 0)
@@ -97,13 +98,8 @@ namespace AstroGearsMVC.Controllers
                     .ToList()
                     .Union(chartCon.GetAngleChartObjects(secondChartId))
                     .Union(chartCon.GetArabicPartChartObjects(secondChartId, houseSystemId, arabic))
-                    .Union(
-                        chartCon.GetDraconicChartObjects(
-                            secondChartId,
-                            draconic,
-                            arabic,
-                            asteroids,
-                            houseSystemId))
+                    .Union(chartCon.GetDraconicChartObjects(secondChartId, draconic, arabic, asteroids, midpoints, houseSystemId))
+                    .Union(chartCon.GetMidpointChartObjects(secondChartId, midpoints))
                     .OrderBy(x => x.CalculatedCoordinate);
 
             var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
@@ -138,10 +134,9 @@ namespace AstroGearsMVC.Controllers
         /// <param name="arabic">if set to <c>true</c> [arabic].</param>
         /// <param name="asteroids">if set to <c>true</c> [asteroids].</param>
         /// <param name="stars">if set to <c>true</c> [stars].</param>
+        /// <param name="midpoints">if set to <c>true</c> [midpoints].</param>
         /// <param name="houseSystemId">The house system identifier.</param>
-        /// <returns>
-        /// a JSON object containing all of the objects that aspect the given Arabic Part.
-        /// </returns>
+        /// <returns>a JSON object containing all of the objects that aspect the given Arabic Part.</returns>
         [CanBeNull]
         [ValidateInput(false)]
         public JsonResult GetTransitAspectChartObjectsForAngle(
@@ -153,6 +148,7 @@ namespace AstroGearsMVC.Controllers
             bool arabic,
             bool asteroids,
             bool stars,
+            bool midpoints,
             byte houseSystemId)
         {
             if (string.IsNullOrEmpty(angleName) || string.IsNullOrEmpty(angleCoordinates) || firstChartId <= 0 || secondChartId <= 0)
@@ -190,7 +186,8 @@ namespace AstroGearsMVC.Controllers
                     .ToList()
                     .Union(comparisonAngles)
                     .Union(chartCon.GetArabicPartChartObjects(secondChartId, houseSystemId, arabic))
-                    .Union(chartCon.GetDraconicChartObjects(secondChartId, draconic, arabic, asteroids, houseSystemId))
+                    .Union(chartCon.GetDraconicChartObjects(secondChartId, draconic, arabic, asteroids, midpoints, houseSystemId))
+                    .Union(chartCon.GetMidpointChartObjects(secondChartId, midpoints))
                     .OrderBy(x => x.CalculatedCoordinate);
 
             var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
@@ -240,6 +237,7 @@ namespace AstroGearsMVC.Controllers
             bool arabic,
             bool asteroids,
             bool stars,
+            bool midpoints,
             byte houseSystemId)
         {
             if (string.IsNullOrEmpty(arabicPartName) || string.IsNullOrEmpty(arabicPartCoordinates) || firstChartId <= 0 || secondChartId <= 0)
@@ -279,7 +277,7 @@ namespace AstroGearsMVC.Controllers
                     .ToList()
                     .Union(chartCon.GetAngleChartObjects(secondChartId))
                     .Union(secondArabicParts)
-                    .Union(chartCon.GetDraconicChartObjects(secondChartId, draconic, arabic, asteroids, houseSystemId))
+                    .Union(chartCon.GetDraconicChartObjects(secondChartId, draconic, arabic, asteroids, midpoints, houseSystemId))
                     .OrderBy(x => x.CalculatedCoordinate);
 
             var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
@@ -314,10 +312,9 @@ namespace AstroGearsMVC.Controllers
         /// <param name="arabic">if set to <c>true</c> [arabic].</param>
         /// <param name="asteroids">if set to <c>true</c> [asteroids].</param>
         /// <param name="stars">if set to <c>true</c> [stars].</param>
+        /// <param name="midpoints">if set to <c>true</c> [midpoints].</param>
         /// <param name="houseSystemId">The house system identifier.</param>
-        /// <returns>
-        /// a JSON object containing all of the objects that aspect the given Draconic Object.
-        /// </returns>
+        /// <returns>a JSON object containing all of the objects that aspect the given Draconic Object.</returns>
         [CanBeNull]
         [ValidateInput(false)]
         public JsonResult GetTransitAspectChartObjectsForDraconicObject(
@@ -329,6 +326,7 @@ namespace AstroGearsMVC.Controllers
             bool arabic,
             bool asteroids,
             bool stars,
+            bool midpoints,
             byte houseSystemId)
         {
             if (string.IsNullOrEmpty(draconicName) || string.IsNullOrEmpty(draconicCoordinates) || firstChartId <= 0 || secondChartId <= 0)
@@ -338,14 +336,14 @@ namespace AstroGearsMVC.Controllers
 
             var chartCon = new EnteredChartsController();
 
-            var draconicObjects = chartCon.GetDraconicChartObjects(firstChartId, draconic, arabic, asteroids, houseSystemId);
+            var draconicObjects = chartCon.GetDraconicChartObjects(firstChartId, draconic, arabic, asteroids, midpoints, houseSystemId);
 
             if (draconicObjects.Count == 0)
             {
                 return this.Json(null, JsonRequestBehavior.AllowGet);
             }
 
-            var secondDraconicObjects = chartCon.GetDraconicChartObjects(secondChartId, draconic, arabic, asteroids, houseSystemId);
+            var secondDraconicObjects = chartCon.GetDraconicChartObjects(secondChartId, draconic, arabic, asteroids, midpoints, houseSystemId);
 
             var thisObject = draconicObjects.FirstOrDefault(
                 ap => ap.CelestialObject.CelestialObjectName == draconicName);
@@ -368,6 +366,7 @@ namespace AstroGearsMVC.Controllers
                     .Union(chartCon.GetAngleChartObjects(secondChartId))
                     .Union(chartCon.GetArabicPartChartObjects(secondChartId, houseSystemId, arabic))
                     .Union(secondDraconicObjects)
+                    .Union(chartCon.GetMidpointChartObjects(secondChartId, midpoints))
                     .OrderBy(x => x.CalculatedCoordinate);
 
             var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
@@ -386,6 +385,95 @@ namespace AstroGearsMVC.Controllers
                             aspectList[i].HtmlTextCssClass,
                             aspectList = aspectObjectLists[i]
                         });
+            }
+
+            return this.Json(thisList, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Gets the aspect chart objects for draconic object.
+        /// </summary>
+        /// <param name="firstChartId">The chart identifier.</param>
+        /// <param name="secondChartId">The second chart identifier.</param>
+        /// <param name="midpointName">Name of the draconic.</param>
+        /// <param name="midpointCoordinates">The draconic coordinates.</param>
+        /// <param name="draconic">if set to <c>true</c> [draconic].</param>
+        /// <param name="arabic">if set to <c>true</c> [arabic].</param>
+        /// <param name="asteroids">if set to <c>true</c> [asteroids].</param>
+        /// <param name="stars">if set to <c>true</c> [stars].</param>
+        /// <param name="midpoints">if set to <c>true</c> [midpoints].</param>
+        /// <param name="houseSystemId">The house system identifier.</param>
+        /// <returns>a JSON object containing all of the objects that aspect the given Draconic Object.</returns>
+        [CanBeNull]
+        [ValidateInput(false)]
+        public JsonResult GetTransitAspectChartObjectsForMidpoint(
+            int firstChartId,
+            int secondChartId,
+            [CanBeNull] string midpointName,
+            [CanBeNull] string midpointCoordinates,
+            bool draconic,
+            bool arabic,
+            bool asteroids,
+            bool stars,
+            bool midpoints,
+            byte houseSystemId)
+        {
+            if (string.IsNullOrEmpty(midpointName) || string.IsNullOrEmpty(midpointCoordinates) || firstChartId <= 0 || secondChartId <= 0)
+            {
+                return this.Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            var chartCon = new EnteredChartsController();
+
+            var midpointObjects = chartCon.GetMidpointChartObjects(firstChartId, midpoints);
+
+            if (midpointObjects.Count == 0)
+            {
+                return this.Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            var secondMidpointObjects = chartCon.GetMidpointChartObjects(secondChartId, midpoints);
+
+            var thisObject = midpointObjects.FirstOrDefault(
+                ap => ap.CelestialObject.CelestialObjectName == midpointName);
+
+            var thisChart =
+                this.db.ChartObjects.Where(x => x.EnteredChartID == secondChartId)
+                    .Where(
+                        objects =>
+                        (!objects.CelestialObject.Draconic)
+                        && (objects.CelestialObject.CelestialObjectTypeId
+                            != (byte)ChartObject.ObjectTypes.AngleHouseCusp)
+                        && (objects.CelestialObject.CelestialObjectTypeId != (byte)ChartObject.ObjectTypes.ArabicPart)
+                        && ((!asteroids
+                             && objects.CelestialObject.CelestialObjectTypeId != (byte)ChartObject.ObjectTypes.Asteroid)
+                            || asteroids)
+                        && ((!stars
+                             && objects.CelestialObject.CelestialObjectTypeId != (byte)ChartObject.ObjectTypes.FixedStar)
+                            || stars))
+                    .ToList()
+                    .Union(chartCon.GetAngleChartObjects(secondChartId))
+                    .Union(chartCon.GetArabicPartChartObjects(secondChartId, houseSystemId, arabic))
+                    .Union(chartCon.GetDraconicChartObjects(secondChartId, draconic, arabic, asteroids, midpoints, houseSystemId))
+                    .Union(secondMidpointObjects)
+                    .OrderBy(x => x.CalculatedCoordinate);
+
+            var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
+
+            var aspectObjectLists = chartCon.GetAspectObjectLists(thisChart, thisObject, secondChartId, houseSystemId);
+
+            var thisList = new List<object>();
+
+            for (var i = 0; i < aspectList.Count; i++)
+            {
+                thisList.Add(
+                    new
+                    {
+                        aspectList[i].AspectId,
+                        aspectList[i].AspectName,
+                        aspectList[i].HtmlTextCssClass,
+                        aspectList = aspectObjectLists[i]
+                    });
             }
 
             return this.Json(thisList, JsonRequestBehavior.AllowGet);

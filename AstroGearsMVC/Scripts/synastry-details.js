@@ -97,6 +97,7 @@ var SynastryDetails;
             arabic: $('#includeArabicForFirst').is(':checked'),
             asteroids: $('#includeAsteroidsForFirst').is(':checked'),
             stars: $('#includeStarsForFirst').is(':checked'),
+            midpoints: $('#includeMidpointsForFirst').is(':checked'),
             houseSystemId: $('#charthousesystems').val()
         }).done(function (data) {
             $('#firstChartTableHeading').html($('#firstEnteredChartSubjectName').html());
@@ -111,39 +112,22 @@ var SynastryDetails;
                 var chartFirstCol;
                 switch (item.CelestialObjectTypeName) {
                     case 'Arabic Part':
-                        if (item.Draconic === true) {
-                            chartFirstCol = $('<td class="arabic-part draconic"/>');
-                        }
-                        else {
-                            chartFirstCol = $('<td class="arabic-part"/>');
-                        }
+                        chartFirstCol = (item.Draconic === true) ? $('<td class="arabic-part draconic"/>') : $('<td class="arabic-part"/>');
                         break;
                     case 'Major Planet/Luminary':
-                        if (item.Draconic === true) {
-                            chartFirstCol = $('<td class="planet-luminary draconic"/>');
-                        }
-                        else {
-                            chartFirstCol = $('<td class="planet-luminary"/>');
-                        }
+                        chartFirstCol = (item.Draconic === true) ? $('<td class="planet-luminary draconic"/>') : $('<td class="planet-luminary"/>');
                         break;
                     case 'Fixed Star':
                         chartFirstCol = $('<td class="fixed-star"/>');
                         break;
                     case 'Angle/House Cusp':
-                        if (item.Draconic === true) {
-                            chartFirstCol = $('<td class="house-cusp draconic"/>');
-                        }
-                        else {
-                            chartFirstCol = $('<td class="house-cusp"/>');
-                        }
+                        chartFirstCol = (item.Draconic === true) ? $('<td class="house-cusp draconic"/>') : $('<td class="house-cusp"/>');
+                        break;
+                    case 'Midpoint':
+                        chartFirstCol = (item.Draconic === true) ? $('<td class="midpoint draconic"/>') : $('<td class="midpoint"/>');
                         break;
                     default:
-                        if (item.Draconic === true) {
-                            chartFirstCol = $('<td class="draconic"/>');
-                        }
-                        else {
-                            chartFirstCol = $('<td/>');
-                        }
+                        chartFirstCol = (item.Draconic === true) ? $('<td class="draconic"/>') : $('<td/>');
                         break;
                 }
                 chartLine.append(chartFirstCol.html(item.CelestialObjectName));
@@ -166,6 +150,9 @@ var SynastryDetails;
                 }
                 else if (item.CelestialObjectTypeName === 'Angle/House Cusp') {
                     chartLine.append($('<td/>').append($('<a onclick="SynastryDetails.GetSynastryAspectsForAngleChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\', 2)" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
+                }
+                else if (item.CelestialObjectTypeName === 'Midpoint') {
+                    chartLine.append($('<td/>').append($('<a onclick="SynastryDetails.GetSynastryAspectsForMidpointChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\', 2)" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
                 }
                 else {
                     chartLine.append($('<td/>').append($('<a onclick="SynastryDetails.GetSynastryAspects(' + item.ChartObjectId + ', 2)" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
@@ -197,6 +184,7 @@ var SynastryDetails;
             arabic: $('#includeArabicForSecond').is(':checked'),
             asteroids: $('#includeAsteroidsForSecond').is(':checked'),
             stars: $('#includeStarsForSecond').is(':checked'),
+            midpoints: $('#includeMidpointsForSecond').is(':checked'),
             houseSystemId: $('#charthousesystems').val()
         }).done(function (data) {
             $('#secondChartTableHeading').html($('#secondEnteredChartSelection option:selected').html());
@@ -211,39 +199,22 @@ var SynastryDetails;
                 var chartFirstCol;
                 switch (item.CelestialObjectTypeName) {
                     case 'Arabic Part':
-                        if (item.Draconic === true) {
-                            chartFirstCol = $('<td class="arabic-part draconic"/>');
-                        }
-                        else {
-                            chartFirstCol = $('<td class="arabic-part"/>');
-                        }
+                        chartFirstCol = (item.Draconic === true) ? $('<td class="arabic-part draconic"/>') : $('<td class="arabic-part"/>');
                         break;
                     case 'Major Planet/Luminary':
-                        if (item.Draconic === true) {
-                            chartFirstCol = $('<td class="planet-luminary draconic"/>');
-                        }
-                        else {
-                            chartFirstCol = $('<td class="planet-luminary"/>');
-                        }
+                        chartFirstCol = (item.Draconic === true) ? $('<td class="planet-luminary draconic"/>') : $('<td class="planet-luminary"/>');
                         break;
                     case 'Fixed Star':
                         chartFirstCol = $('<td class="fixed-star"/>');
                         break;
                     case 'Angle/House Cusp':
-                        if (item.Draconic === true) {
-                            chartFirstCol = $('<td class="house-cusp draconic"/>');
-                        }
-                        else {
-                            chartFirstCol = $('<td class="house-cusp"/>');
-                        }
+                        chartFirstCol = (item.Draconic === true) ? $('<td class="house-cusp draconic"/>') : $('<td class="house-cusp"/>');
+                        break;
+                    case 'Midpoint':
+                        chartFirstCol = (item.Draconic === true) ? $('<td class="midpoint draconic"/>') : $('<td class="midpoint"/>');
                         break;
                     default:
-                        if (item.Draconic === true) {
-                            chartFirstCol = $('<td class="draconic"/>');
-                        }
-                        else {
-                            chartFirstCol = $('<td/>');
-                        }
+                        chartFirstCol = (item.Draconic === true) ? $('<td class="draconic"/>') : $('<td/>');
                         break;
                 }
                 chartLine.append(chartFirstCol.html(item.CelestialObjectName));
@@ -266,6 +237,9 @@ var SynastryDetails;
                 }
                 else if (item.CelestialObjectTypeName === 'Angle/House Cusp') {
                     chartLine.append($('<td/>').append($('<a onclick="SynastryDetails.GetSynastryAspectsForAngleChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\', 1)" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
+                }
+                else if (item.CelestialObjectTypeName === 'Midpoint') {
+                    chartLine.append($('<td/>').append($('<a onclick="SynastryDetails.GetSynastryAspectsForMidpointChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\', 2)" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
                 }
                 else {
                     chartLine.append($('<td/>').append($('<a onclick="SynastryDetails.GetSynastryAspects(' + item.ChartObjectId + ', 1)" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
@@ -413,6 +387,7 @@ var SynastryDetails;
             arabic: $('#includeArabicFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             asteroids: $('#includeAsteroidsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             stars: $('#includeStarsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
+            midpoints: $('#includeMidpointsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             houseSystemId: $('#charthousesystems').val()
         }).done(function (data) {
             $.each(data, function (i, item) {
@@ -494,6 +469,7 @@ var SynastryDetails;
             arabic: $('#includeArabicFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             asteroids: $('#includeAsteroidsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             stars: $('#includeStarsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
+            midpoints: $('#includeMidpointsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             angleName: angleName,
             angleCoordinates: angleCoordinates,
             houseSystemId: $('#charthousesystems').val()
@@ -549,6 +525,7 @@ var SynastryDetails;
             arabic: $('#includeArabicFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             asteroids: $('#includeAsteroidsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             stars: $('#includeStarsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
+            midpoints: $('#includeMidpointsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             houseSystemId: $('#charthousesystems').val()
         }).done(function (data) {
             $.each(data, function (i, item) {
@@ -598,6 +575,7 @@ var SynastryDetails;
             arabic: $('#includeArabicFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             asteroids: $('#includeAsteroidsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             stars: $('#includeStarsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
+            midpoints: $('#includeMidpointsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
             houseSystemId: $('#charthousesystems').val()
         }).done(function (data) {
             $.each(data, function (i, item) {
@@ -623,43 +601,70 @@ var SynastryDetails;
         $.ajaxSetup({ cache: true });
     }
     SynastryDetails.GetSynastryAspectsForDraconicChart = GetSynastryAspectsForDraconicChart;
+    function GetSynastryAspectsForMidpointChart(midpointName, midpointCoordinates, chartToCompare) {
+        if ($('#secondEnteredChartSelection').val() === '-') {
+            return;
+        }
+        $('#synastryAspectListModal').modal('show');
+        listing1 = false;
+        listing2 = false;
+        aspects = true;
+        $.ajaxSetup({ cache: false });
+        //$('#aspectloading').show();
+        $('#firstChartSynastrySubject').html((chartToCompare === 2) ? $('#firstEnteredChartSubjectName').html() : $('#secondEnteredChartSelection option:selected').html());
+        $('#secondChartSynastrySubject').html(((chartToCompare === 1) ? $('#firstEnteredChartSubjectName').html() : $('#secondEnteredChartSelection option:selected').html()) + '\'s:');
+        $('#firstChartSynastryObject').empty();
+        $('#synastryAspectlist').empty();
+        $('#firstChartSynastryObject').html(midpointName + ' (' + midpointCoordinates + ')');
+        var jqxhr = $.getJSON("/Synastry/GetSynastryAspectChartObjectsForMidpoint", {
+            firstChartId: (chartToCompare === 2) ? $('#firstEnteredChartId').val() : $('#secondEnteredChartSelection').val(),
+            secondChartId: (chartToCompare === 2) ? $('#secondEnteredChartSelection').val() : $('#firstEnteredChartId').val(),
+            midpointName: midpointName,
+            midpointCoordinates: midpointCoordinates,
+            draconic: $('#includeDraconicFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
+            arabic: $('#includeArabicFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
+            asteroids: $('#includeAsteroidsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
+            stars: $('#includeStarsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
+            midpoints: $('#includeMidpointsFor' + ((chartToCompare === 1) ? 'First' : 'Second')).is(':checked'),
+            houseSystemId: $('#charthousesystems').val()
+        }).done(function (data) {
+            $.each(data, function (i, item) {
+                if (!item.aspectList || !item.aspectList.length) {
+                    return true;
+                }
+                var aspectHead = $('<li/>').append($('<span class="' + item.HtmlTextCssClass + '">').text(item.AspectName));
+                var aspectList = $('<ul/>');
+                $.each(item.aspectList, function (j, subitem) {
+                    var aspectLine = SetUpListItemElementForAspect(subitem);
+                    var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
+                    var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
+                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')');
+                    aspectList.append(aspectLine);
+                });
+                aspectHead.append(aspectList);
+                $('#synastryAspectlist').append(aspectHead);
+            });
+        }).fail(function (JqXHR) {
+            console.log("Aspect List Load failure..");
+        });
+        //$('#aspectloading').hide();
+        $.ajaxSetup({ cache: true });
+    }
+    SynastryDetails.GetSynastryAspectsForMidpointChart = GetSynastryAspectsForMidpointChart;
     function SetUpListItemElementForAspect(aspectItem) {
         switch (aspectItem.CelestialObjectTypeName) {
             case 'Arabic Part':
-                if (aspectItem.Draconic === true) {
-                    return $('<li class="arabic-part draconic"/>');
-                }
-                else {
-                    return $('<li class="arabic-part"/>');
-                }
-                break;
+                return (aspectItem.Draconic === true) ? $('<li class="arabic-part draconic"/>') : $('<li class="arabic-part"/>');
             case 'Major Planet/Luminary':
-                if (aspectItem.Draconic === true) {
-                    return $('<li class="planet-luminary draconic"/>');
-                }
-                else {
-                    return $('<li class="planet-luminary"/>');
-                }
-                break;
+                return (aspectItem.Draconic === true) ? $('<li class="planet-luminary draconic"/>') : $('<li class="planet-luminary"/>');
             case 'Fixed Star':
                 return $('<li class="fixed-star"/>');
-                break;
             case 'Angle/House Cusp':
-                if (aspectItem.Draconic === true) {
-                    return $('<li class="house-cusp draconic"/>');
-                }
-                else {
-                    return $('<li class="house-cusp"/>');
-                }
-                break;
+                return (aspectItem.Draconic === true) ? $('<li class="house-cusp draconic"/>') : $('<li class="house-cusp"/>');
+            case 'Midpoint':
+                return (aspectItem.Draconic === true) ? $('<li class="midpoint draconic"/>') : $('<li class="midpoint"/>');
             default:
-                if (aspectItem.Draconic === true) {
-                    return $('<li class="draconic"/>');
-                }
-                else {
-                    return $('<li/>');
-                }
-                break;
+                return (aspectItem.Draconic === true) ? $('<li class="draconic"/>') : $('<li/>');
         }
     }
     SynastryDetails.SetUpListItemElementForAspect = SetUpListItemElementForAspect;

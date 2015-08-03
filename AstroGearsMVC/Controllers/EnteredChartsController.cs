@@ -22,7 +22,7 @@ namespace AstroGearsMVC.Controllers
     using WebGrease.Css.Extensions;
 
     /// <summary>
-    ///     Entered Charts Controller.
+    /// Entered Charts Controller.
     /// </summary>
     [JsonpFilter]
     public class EnteredChartsController : Controller
@@ -53,20 +53,20 @@ namespace AstroGearsMVC.Controllers
         /// </returns>
         [CanBeNull]
         public JsonResult CreateAngleForEnteredChart(
-            int enteredChartId, 
-            byte degrees, 
-            byte signId, 
-            byte minutes, 
-            byte seconds, 
+            int enteredChartId,
+            byte degrees,
+            byte signId,
+            byte minutes,
+            byte seconds,
             byte angleId)
         {
             var newAngle = new ChartAngle
                                {
-                                   EnteredChartId = enteredChartId, 
-                                   Degrees = degrees, 
-                                   SignId = signId, 
-                                   Minutes = minutes, 
-                                   Seconds = seconds, 
+                                   EnteredChartId = enteredChartId,
+                                   Degrees = degrees,
+                                   SignId = signId,
+                                   Minutes = minutes,
+                                   Seconds = seconds,
                                    AngleId = angleId
                                };
 
@@ -88,9 +88,9 @@ namespace AstroGearsMVC.Controllers
         /// </returns>
         [CanBeNull]
         public IEnumerable<object> CreateAspectChartEnumerable(
-            [CanBeNull] ChartObject baseObject, 
-            [CanBeNull] List<ChartObject> aspectChartObjects, 
-            int chartId, 
+            [CanBeNull] ChartObject baseObject,
+            [CanBeNull] List<ChartObject> aspectChartObjects,
+            int chartId,
             byte houseSystemId)
         {
             // Get the houses if available.
@@ -110,15 +110,15 @@ namespace AstroGearsMVC.Controllers
                     new
                         {
                             x.CelestialObjectId,
-                            x.CelestialObject.CelestialObjectName, 
-                            x.Sign.SignAbbreviation, 
-                            x.Sign.Element.HtmlTextCssClass, 
-                            x.Degrees, 
-                            x.Minutes, 
-                            x.Seconds, 
-                            x.Orientation.OrientationAbbreviation, 
-                            x.CelestialObject.CelestialObjectType.CelestialObjectTypeName, 
-                            x.CelestialObject.Draconic, 
+                            x.CelestialObject.CelestialObjectName,
+                            x.Sign.SignAbbreviation,
+                            x.Sign.Element.HtmlTextCssClass,
+                            x.Degrees,
+                            x.Minutes,
+                            x.Seconds,
+                            x.Orientation.OrientationAbbreviation,
+                            x.CelestialObject.CelestialObjectType.CelestialObjectTypeName,
+                            x.CelestialObject.Draconic,
                             House =
                         (chartHouses.Count > 0)
                             ? (chartHouses.LastOrDefault(
@@ -131,7 +131,7 @@ namespace AstroGearsMVC.Controllers
                             BaseObjectValidForInterpretation = baseObject != null && (baseObject.CelestialObjectId > 0 || baseObject.AngleId != null),
                             BaseObjectCelestialObjectId = (baseObject != null) ? baseObject.CelestialObjectId : 0,
                             BaseObjectAngleId = (baseObject != null) ? baseObject.AngleId : null,
-                            ThisObjectValidForInterpretation = x.CelestialObjectId > 0  || x.AngleId != null
+                            ThisObjectValidForInterpretation = x.CelestialObjectId > 0 || x.AngleId != null
                         });
         }
 
@@ -188,12 +188,12 @@ namespace AstroGearsMVC.Controllers
         /// </returns>
         [CanBeNull]
         public JsonResult CreateHouseCuspForEnteredChart(
-            int enteredChartId, 
-            byte degrees, 
-            byte signId, 
-            byte minutes, 
-            byte seconds, 
-            byte houseSystemId, 
+            int enteredChartId,
+            byte degrees,
+            byte signId,
+            byte minutes,
+            byte seconds,
+            byte houseSystemId,
             byte houseId)
         {
             var newHouse = new ChartHouse
@@ -447,7 +447,7 @@ namespace AstroGearsMVC.Controllers
                                            OriginDateTimeUnknown = originDateTimeUnknown,
                                            ChartTypeId = chartTypeId,
                                        };
-                
+
                 this.db.EnteredCharts.Add(enteredChart);
                 this.db.SaveChanges();
 
@@ -488,24 +488,24 @@ namespace AstroGearsMVC.Controllers
                     chartAngles.Add(
                         new ChartObject
                             {
-                                EnteredChartID = chartId, 
+                                EnteredChartID = chartId,
                                 CelestialObject =
                                     new CelestialObject
                                         {
-                                            CelestialObjectName = x.HouseAngle.AngleName, 
-                                            AlternateName = x.HouseAngle.AngleName.ToUpper(), 
+                                            CelestialObjectName = x.HouseAngle.AngleName,
+                                            AlternateName = x.HouseAngle.AngleName.ToUpper(),
                                             AllowableOrb =
-                                                x.HouseAngle.AngleName == "Vertex" ? 1M : 3M, 
-                                            CelestialObjectTypeId = AngleHouseCuspTypeId, 
-                                            CelestialObjectType = angleHouseCuspType, 
+                                                x.HouseAngle.AngleName == "Vertex" ? 1M : 3M,
+                                            CelestialObjectTypeId = AngleHouseCuspTypeId,
+                                            CelestialObjectType = angleHouseCuspType,
                                             Draconic = false
-                                        }, 
-                                OrientationId = AngleOrientationId, 
-                                Orientation = angleOrientation, 
-                                SignId = x.Sign.SignId, 
-                                Sign = signs.Find(s => s.SignId == x.Sign.SignId), 
-                                Degrees = x.Degrees, 
-                                Minutes = x.Minutes, 
+                                        },
+                                OrientationId = AngleOrientationId,
+                                Orientation = angleOrientation,
+                                SignId = x.Sign.SignId,
+                                Sign = signs.Find(s => s.SignId == x.Sign.SignId),
+                                Degrees = x.Degrees,
+                                Minutes = x.Minutes,
                                 Seconds = x.Seconds,
                                 AngleId = x.AngleId
                             });
@@ -517,34 +517,34 @@ namespace AstroGearsMVC.Controllers
                 {
                     var antivertex = new ChartObject
                                          {
-                                             EnteredChartID = chartId, 
+                                             EnteredChartID = chartId,
                                              CelestialObject =
                                                  new CelestialObject
                                                      {
-                                                         CelestialObjectName = "Antivertex", 
-                                                         AlternateName = "ANTIVERTEX", 
-                                                         AllowableOrb = 1M, 
+                                                         CelestialObjectName = "Antivertex",
+                                                         AlternateName = "ANTIVERTEX",
+                                                         AllowableOrb = 1M,
                                                          CelestialObjectTypeId =
-                                                             AngleHouseCuspTypeId, 
+                                                             AngleHouseCuspTypeId,
                                                          CelestialObjectType =
-                                                             angleHouseCuspType, 
+                                                             angleHouseCuspType,
                                                          Draconic = false
-                                                     }, 
-                                             OrientationId = AngleOrientationId, 
-                                             Orientation = angleOrientation, 
+                                                     },
+                                             OrientationId = AngleOrientationId,
+                                             Orientation = angleOrientation,
                                              SignId =
                                                  vertex.SignId < 6
                                                      ? (byte)(vertex.SignId + 6)
-                                                     : (byte)(vertex.SignId - 6), 
+                                                     : (byte)(vertex.SignId - 6),
                                              Sign =
                                                  signs.Find(
                                                      s =>
                                                      s.SignId
                                                      == (vertex.SignId < 6
                                                              ? (byte)(vertex.SignId + 6)
-                                                             : (byte)(vertex.SignId - 6))), 
-                                             Degrees = vertex.Degrees, 
-                                             Minutes = vertex.Minutes, 
+                                                             : (byte)(vertex.SignId - 6))),
+                                             Degrees = vertex.Degrees,
+                                             Minutes = vertex.Minutes,
                                              Seconds = vertex.Seconds,
                                              AngleId = 3
                                          };
@@ -558,32 +558,32 @@ namespace AstroGearsMVC.Controllers
                 {
                     var descendant = new ChartObject
                                          {
-                                             EnteredChartID = chartId, 
+                                             EnteredChartID = chartId,
                                              CelestialObject =
                                                  new CelestialObject
                                                      {
-                                                         CelestialObjectName = "Descendant", 
-                                                         AlternateName = "DESCENDANT", 
-                                                         AllowableOrb = 3M, 
+                                                         CelestialObjectName = "Descendant",
+                                                         AlternateName = "DESCENDANT",
+                                                         AllowableOrb = 3M,
                                                          CelestialObjectTypeId =
-                                                             AngleHouseCuspTypeId, 
+                                                             AngleHouseCuspTypeId,
                                                          CelestialObjectType =
-                                                             angleHouseCuspType, 
+                                                             angleHouseCuspType,
                                                          Draconic = false
-                                                     }, 
-                                             OrientationId = AngleOrientationId, 
-                                             Orientation = angleOrientation, 
+                                                     },
+                                             OrientationId = AngleOrientationId,
+                                             Orientation = angleOrientation,
                                              SignId =
                                                  ascendant.SignId < 6
                                                      ? (byte)(ascendant.SignId + 6)
-                                                     : (byte)(ascendant.SignId - 6), 
+                                                     : (byte)(ascendant.SignId - 6),
                                              Sign =
                                                  this.db.Signs.Find(
                                                      ascendant.SignId < 6
                                                          ? (byte)(ascendant.SignId + 6)
-                                                         : (byte)(ascendant.SignId - 6)), 
-                                             Degrees = ascendant.Degrees, 
-                                             Minutes = ascendant.Minutes, 
+                                                         : (byte)(ascendant.SignId - 6)),
+                                             Degrees = ascendant.Degrees,
+                                             Minutes = ascendant.Minutes,
                                              Seconds = ascendant.Seconds,
                                              AngleId = 4
                                          };
@@ -597,31 +597,31 @@ namespace AstroGearsMVC.Controllers
                 {
                     var imumCoeli = new ChartObject
                                         {
-                                            EnteredChartID = chartId, 
+                                            EnteredChartID = chartId,
                                             CelestialObject =
                                                 new CelestialObject
                                                     {
-                                                        CelestialObjectName = "Imum Coeli", 
-                                                        AlternateName = "IMUM COELI", 
-                                                        AllowableOrb = 3M, 
+                                                        CelestialObjectName = "Imum Coeli",
+                                                        AlternateName = "IMUM COELI",
+                                                        AllowableOrb = 3M,
                                                         CelestialObjectTypeId =
-                                                            AngleHouseCuspTypeId, 
-                                                        CelestialObjectType = angleHouseCuspType, 
+                                                            AngleHouseCuspTypeId,
+                                                        CelestialObjectType = angleHouseCuspType,
                                                         Draconic = false
-                                                    }, 
-                                            OrientationId = AngleOrientationId, 
-                                            Orientation = angleOrientation, 
+                                                    },
+                                            OrientationId = AngleOrientationId,
+                                            Orientation = angleOrientation,
                                             SignId =
                                                 midheaven.SignId < 6
                                                     ? (byte)(midheaven.SignId + 6)
-                                                    : (byte)(midheaven.SignId - 6), 
+                                                    : (byte)(midheaven.SignId - 6),
                                             Sign =
                                                 this.db.Signs.Find(
                                                     midheaven.SignId < 6
                                                         ? (byte)(midheaven.SignId + 6)
-                                                        : (byte)(midheaven.SignId - 6)), 
-                                            Degrees = midheaven.Degrees, 
-                                            Minutes = midheaven.Minutes, 
+                                                        : (byte)(midheaven.SignId - 6)),
+                                            Degrees = midheaven.Degrees,
+                                            Minutes = midheaven.Minutes,
                                             Seconds = midheaven.Seconds,
                                             AngleId = 5
                                         };
@@ -689,11 +689,11 @@ namespace AstroGearsMVC.Controllers
                         an =>
                         new ChartObject
                             {
-                                Sign = an.Sign, 
-                                SignId = an.SignId, 
-                                Degrees = an.Degrees, 
-                                Minutes = an.Minutes, 
-                                Seconds = an.Seconds, 
+                                Sign = an.Sign,
+                                SignId = an.SignId,
+                                Degrees = an.Degrees,
+                                Minutes = an.Minutes,
+                                Seconds = an.Seconds,
                                 CelestialObject =
                                     new CelestialObject { CelestialObjectName = an.HouseAngle.AngleName }
                             })
@@ -704,11 +704,11 @@ namespace AstroGearsMVC.Controllers
                         ah =>
                         new ChartObject
                             {
-                                Sign = ah.Sign, 
-                                SignId = ah.SignId, 
-                                Degrees = ah.Degrees, 
-                                Minutes = ah.Minutes, 
-                                Seconds = ah.Seconds, 
+                                Sign = ah.Sign,
+                                SignId = ah.SignId,
+                                Degrees = ah.Degrees,
+                                Minutes = ah.Minutes,
+                                Seconds = ah.Seconds,
                                 CelestialObject =
                                     new CelestialObject { CelestialObjectName = ah.HouseCusp.HouseCuspName }
                             })
@@ -743,22 +743,22 @@ namespace AstroGearsMVC.Controllers
                 {
                     southNode = new ChartObject
                                     {
-                                        EnteredChart = northNode.EnteredChart, 
-                                        EnteredChartID = northNode.EnteredChartID, 
-                                        Degrees = northNode.Degrees, 
-                                        Minutes = northNode.Minutes, 
-                                        Seconds = northNode.Seconds, 
-                                        SignId = northNode.SignId, 
-                                        Sign = null, 
+                                        EnteredChart = northNode.EnteredChart,
+                                        EnteredChartID = northNode.EnteredChartID,
+                                        Degrees = northNode.Degrees,
+                                        Minutes = northNode.Minutes,
+                                        Seconds = northNode.Seconds,
+                                        SignId = northNode.SignId,
+                                        Sign = null,
                                         CelestialObject =
                                             new CelestialObject
                                                 {
                                                     AllowableOrb =
-                                                        northNode.CelestialObject.AllowableOrb, 
-                                                    AlternateName = null, 
-                                                    CelestialObjectId = 0, 
-                                                    CelestialObjectName = "South Node", 
-                                                    Draconic = false, 
+                                                        northNode.CelestialObject.AllowableOrb,
+                                                    AlternateName = null,
+                                                    CelestialObjectId = 0,
+                                                    CelestialObjectName = "South Node",
+                                                    Draconic = false,
                                                     CelestialObjectType =
                                                         new CelestialObjectType
                                                             {
@@ -767,28 +767,28 @@ namespace AstroGearsMVC.Controllers
                                                                     northNode
                                                                     .CelestialObject
                                                                     .CelestialObjectType
-                                                                    .CelestialObjectTypeName, 
+                                                                    .CelestialObjectTypeName,
                                                                 CelestialObjectTypeId
                                                                     =
                                                                     northNode
                                                                     .CelestialObject
                                                                     .CelestialObjectType
                                                                     .CelestialObjectTypeId
-                                                            }, 
+                                                            },
                                                     CelestialObjectTypeId =
                                                         northNode.CelestialObject
                                                         .CelestialObjectTypeId
-                                                }, 
-                                        CelestialObjectId = northNode.CelestialObjectId, 
+                                                },
+                                        CelestialObjectId = northNode.CelestialObjectId,
                                         Orientation =
                                             new Orientation
                                                 {
                                                     OrientationId =
-                                                        northNode.Orientation.OrientationId, 
+                                                        northNode.Orientation.OrientationId,
                                                     OrientationAbbreviation =
                                                         northNode.Orientation
                                                         .OrientationAbbreviation
-                                                }, 
+                                                },
                                         OrientationId = northNode.OrientationId
                                     };
                     southNode.CelestialObject.CelestialObjectName = "South Node";
@@ -911,25 +911,25 @@ namespace AstroGearsMVC.Controllers
                     newParts.Add(this.NewArabicPart(chartId, "Part of Grandparents (2)", first, saturn, second));
                     newParts.Add(
                         this.NewArabicPart(
-                            chartId, 
-                            "Part of Journeys (Water)", 
-                            first, 
+                            chartId,
+                            "Part of Journeys (Water)",
+                            first,
                             new ChartObject
                                 {
-                                    EnteredChartID = chartId, 
-                                    SignId = cancerId, 
-                                    OrientationId = 1, 
-                                    Degrees = 15, 
-                                    Minutes = 0, 
-                                    Seconds = 0, 
+                                    EnteredChartID = chartId,
+                                    SignId = cancerId,
+                                    OrientationId = 1,
+                                    Degrees = 15,
+                                    Minutes = 0,
+                                    Seconds = 0,
                                     CelestialObject =
                                         new CelestialObject
                                             {
-                                                CelestialObjectTypeId = 1, 
-                                                AllowableOrb = 1M, 
+                                                CelestialObjectTypeId = 1,
+                                                AllowableOrb = 1M,
                                                 Draconic = false
                                             }
-                                }, 
+                                },
                             saturn));
                     newParts.Add(this.NewArabicPart(chartId, "Part of Knowledge", first, moon, mercury));
                     newParts.Add(this.NewArabicPart(chartId, "Part of Life, Reincarnation", first, saturn, jupiter));
@@ -956,23 +956,23 @@ namespace AstroGearsMVC.Controllers
                     newParts.Add(this.NewArabicPart(chartId, "Part of Grandparents (2)", first, second, saturn));
                     newParts.Add(
                         this.NewArabicPart(
-                            chartId, 
-                            "Part of Journeys (Water)", 
-                            first, 
-                            saturn, 
+                            chartId,
+                            "Part of Journeys (Water)",
+                            first,
+                            saturn,
                             new ChartObject
                                 {
-                                    EnteredChartID = chartId, 
-                                    SignId = cancerId, 
-                                    OrientationId = 1, 
-                                    Degrees = 15, 
-                                    Minutes = 0, 
-                                    Seconds = 0, 
+                                    EnteredChartID = chartId,
+                                    SignId = cancerId,
+                                    OrientationId = 1,
+                                    Degrees = 15,
+                                    Minutes = 0,
+                                    Seconds = 0,
                                     CelestialObject =
                                         new CelestialObject
                                             {
-                                                CelestialObjectTypeId = 1, 
-                                                AllowableOrb = 1M, 
+                                                CelestialObjectTypeId = 1,
+                                                AllowableOrb = 1M,
                                                 Draconic = false
                                             }
                                 }));
@@ -1082,25 +1082,25 @@ namespace AstroGearsMVC.Controllers
                 newParts.Add(this.NewArabicPart(chartId, "Part of Weddings, Legal Contracts", ninth, third, venus));
                 newParts.Add(
                     this.NewArabicPart(
-                        chartId, 
-                        "Part of Widowhood", 
-                        first, 
+                        chartId,
+                        "Part of Widowhood",
+                        first,
                         new ChartObject
                             {
-                                EnteredChartID = chartId, 
-                                SignId = libraId, 
-                                OrientationId = 1, 
-                                Degrees = 8, 
-                                Minutes = 50, 
-                                Seconds = 0, 
+                                EnteredChartID = chartId,
+                                SignId = libraId,
+                                OrientationId = 1,
+                                Degrees = 8,
+                                Minutes = 50,
+                                Seconds = 0,
                                 CelestialObject =
                                     new CelestialObject
                                         {
-                                            CelestialObjectTypeId = 1, 
-                                            AllowableOrb = 1M, 
+                                            CelestialObjectTypeId = 1,
+                                            AllowableOrb = 1M,
                                             Draconic = false
                                         }
-                            }, 
+                            },
                         neptune));
 
                 return newParts;
@@ -1126,12 +1126,13 @@ namespace AstroGearsMVC.Controllers
         /// </returns>
         [CanBeNull]
         public JsonResult GetAspectChartObjects(
-            int id, 
-            int chartId, 
-            bool draconic, 
-            bool arabic, 
-            bool asteroids, 
-            bool stars, 
+            int id,
+            int chartId,
+            bool draconic,
+            bool arabic,
+            bool asteroids,
+            bool stars,
+            bool midpoints,
             byte houseSystemId)
         {
             if (id <= 0)
@@ -1160,17 +1161,19 @@ namespace AstroGearsMVC.Controllers
                     .Union(this.GetArabicPartChartObjects(thisObject.EnteredChartID, houseSystemId, arabic))
                     .Union(
                         this.GetDraconicChartObjects(
-                            thisObject.EnteredChartID, 
-                            draconic, 
-                            arabic, 
-                            asteroids, 
+                            thisObject.EnteredChartID,
+                            draconic,
+                            arabic,
+                            asteroids,
+                            midpoints,
                             houseSystemId))
+                    .Union(this.GetMidpointChartObjects(thisObject.EnteredChartID, midpoints))
                     .OrderBy(x => x.CalculatedCoordinate);
 
             ////var aspectList = this.db.Aspects.OrderBy(a => a.AspectId).ToList();
             var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
 
-            var aspectObjectLists = this.GetAspectObjectLists(thisChart, thisObject, chartId, houseSystemId); 
+            var aspectObjectLists = this.GetAspectObjectLists(thisChart, thisObject, chartId, houseSystemId);
 
             var thisList = new List<object>();
 
@@ -1199,20 +1202,20 @@ namespace AstroGearsMVC.Controllers
         /// <param name="arabic">if set to <c>true</c> [arabic].</param>
         /// <param name="asteroids">if set to <c>true</c> [asteroids].</param>
         /// <param name="stars">if set to <c>true</c> [stars].</param>
+        /// <param name="midpoints">if set to <c>true</c> [midpoints].</param>
         /// <param name="houseSystemId">The house system identifier.</param>
-        /// <returns>
-        /// a JSON object containing all of the objects that aspect the given Arabic Part.
-        /// </returns>
+        /// <returns>a JSON object containing all of the objects that aspect the given Arabic Part.</returns>
         [CanBeNull]
         [ValidateInput(false)]
         public JsonResult GetAspectChartObjectsForAngle(
-            int chartId, 
-            [CanBeNull] string angleName, 
-            [CanBeNull] string angleCoordinates, 
-            bool draconic, 
-            bool arabic, 
-            bool asteroids, 
-            bool stars, 
+            int chartId,
+            [CanBeNull] string angleName,
+            [CanBeNull] string angleCoordinates,
+            bool draconic,
+            bool arabic,
+            bool asteroids,
+            bool stars,
+            bool midpoints,
             byte houseSystemId)
         {
             if (string.IsNullOrEmpty(angleName) || string.IsNullOrEmpty(angleCoordinates) || chartId <= 0)
@@ -1246,7 +1249,8 @@ namespace AstroGearsMVC.Controllers
                     .ToList()
                     .Union(angles.Where(x => x.CelestialObject.CelestialObjectName != angleName))
                     .Union(this.GetArabicPartChartObjects(chartId, houseSystemId, arabic))
-                    .Union(this.GetDraconicChartObjects(chartId, draconic, arabic, asteroids, houseSystemId))
+                    .Union(this.GetDraconicChartObjects(chartId, draconic, arabic, asteroids, midpoints, houseSystemId))
+                    .Union(this.GetMidpointChartObjects(chartId, midpoints))
                     .OrderBy(x => x.CalculatedCoordinate);
 
             var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
@@ -1280,20 +1284,20 @@ namespace AstroGearsMVC.Controllers
         /// <param name="arabic">if set to <c>true</c> [arabic].</param>
         /// <param name="asteroids">if set to <c>true</c> [asteroids].</param>
         /// <param name="stars">if set to <c>true</c> [stars].</param>
+        /// <param name="midpoints">The midpoints.</param>
         /// <param name="houseSystemId">The house system identifier.</param>
-        /// <returns>
-        /// a JSON object containing all of the objects that aspect the given Arabic Part.
-        /// </returns>
+        /// <returns>a JSON object containing all of the objects that aspect the given Arabic Part.</returns>
         [CanBeNull]
         [ValidateInput(false)]
         public JsonResult GetAspectChartObjectsForArabicPart(
-            int chartId, 
-            [CanBeNull] string arabicPartName, 
-            [CanBeNull] string arabicPartCoordinates, 
-            bool draconic, 
-            bool arabic, 
-            bool asteroids, 
-            bool stars, 
+            int chartId,
+            [CanBeNull] string arabicPartName,
+            [CanBeNull] string arabicPartCoordinates,
+            bool draconic,
+            bool arabic,
+            bool asteroids,
+            bool stars,
+            bool midpoints,
             byte houseSystemId)
         {
             if (string.IsNullOrEmpty(arabicPartName) || string.IsNullOrEmpty(arabicPartCoordinates) || chartId <= 0)
@@ -1327,7 +1331,8 @@ namespace AstroGearsMVC.Controllers
                     .ToList()
                     .Union(this.GetAngleChartObjects(chartId))
                     .Union(arabicParts.Where(ap => ap.CelestialObject.CelestialObjectName != arabicPartName))
-                    .Union(this.GetDraconicChartObjects(chartId, draconic, arabic, asteroids, houseSystemId))
+                    .Union(this.GetDraconicChartObjects(chartId, draconic, arabic, asteroids, midpoints, houseSystemId))
+                    .Union(this.GetMidpointChartObjects(chartId, midpoints))
                     .OrderBy(x => x.CalculatedCoordinate);
 
             var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
@@ -1361,20 +1366,20 @@ namespace AstroGearsMVC.Controllers
         /// <param name="arabic">if set to <c>true</c> [arabic].</param>
         /// <param name="asteroids">if set to <c>true</c> [asteroids].</param>
         /// <param name="stars">if set to <c>true</c> [stars].</param>
+        /// <param name="midpoints">The midpoints.</param>
         /// <param name="houseSystemId">The house system identifier.</param>
-        /// <returns>
-        /// a JSON object containing all of the objects that aspect the given Draconic Object.
-        /// </returns>
+        /// <returns>a JSON object containing all of the objects that aspect the given Draconic Object.</returns>
         [CanBeNull]
         [ValidateInput(false)]
         public JsonResult GetAspectChartObjectsForDraconicObject(
-            int chartId, 
-            [CanBeNull] string draconicName, 
-            [CanBeNull] string draconicCoordinates, 
-            bool draconic, 
-            bool arabic, 
-            bool asteroids, 
-            bool stars, 
+            int chartId,
+            [CanBeNull] string draconicName,
+            [CanBeNull] string draconicCoordinates,
+            bool draconic,
+            bool arabic,
+            bool asteroids,
+            bool stars,
+            bool midpoints,
             byte houseSystemId)
         {
             if (string.IsNullOrEmpty(draconicName) || string.IsNullOrEmpty(draconicCoordinates) || chartId <= 0)
@@ -1382,7 +1387,7 @@ namespace AstroGearsMVC.Controllers
                 return this.Json(null, JsonRequestBehavior.AllowGet);
             }
 
-            var draconicObjects = this.GetDraconicChartObjects(chartId, draconic, arabic, asteroids, houseSystemId);
+            var draconicObjects = this.GetDraconicChartObjects(chartId, draconic, arabic, asteroids, midpoints, houseSystemId);
 
             if (draconicObjects.Count == 0)
             {
@@ -1410,6 +1415,7 @@ namespace AstroGearsMVC.Controllers
                     .Union(this.GetAngleChartObjects(chartId))
                     .Union(this.GetArabicPartChartObjects(chartId, houseSystemId, arabic))
                     .Union(draconicObjects.Where(ap => ap.CelestialObject.CelestialObjectName != draconicName))
+                    .Union(this.GetMidpointChartObjects(chartId, midpoints))
                     .OrderBy(x => x.CalculatedCoordinate);
 
             var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
@@ -1428,6 +1434,89 @@ namespace AstroGearsMVC.Controllers
                             aspectList[i].HtmlTextCssClass,
                             aspectList = aspectObjectLists[i]
                         });
+            }
+
+            return this.Json(thisList, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Gets the aspect chart objects for draconic object.
+        /// </summary>
+        /// <param name="chartId">The chart identifier.</param>
+        /// <param name="midpointName">Name of the draconic.</param>
+        /// <param name="midpointCoordinates">The draconic coordinates.</param>
+        /// <param name="draconic">if set to <c>true</c> [draconic].</param>
+        /// <param name="arabic">if set to <c>true</c> [arabic].</param>
+        /// <param name="asteroids">if set to <c>true</c> [asteroids].</param>
+        /// <param name="stars">if set to <c>true</c> [stars].</param>
+        /// <param name="midpoints">The midpoints.</param>
+        /// <param name="houseSystemId">The house system identifier.</param>
+        /// <returns>a JSON object containing all of the objects that aspect the given Draconic Object.</returns>
+        [CanBeNull]
+        [ValidateInput(false)]
+        public JsonResult GetAspectChartObjectsForMidpoint(
+            int chartId,
+            [CanBeNull] string midpointName,
+            [CanBeNull] string midpointCoordinates,
+            bool draconic,
+            bool arabic,
+            bool asteroids,
+            bool stars,
+            bool midpoints,
+            byte houseSystemId)
+        {
+            if (string.IsNullOrEmpty(midpointName) || string.IsNullOrEmpty(midpointCoordinates) || chartId <= 0)
+            {
+                return this.Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            var midpointChartObjects = this.GetMidpointChartObjects(chartId, midpoints);
+
+            if (midpointChartObjects.Count == 0)
+            {
+                return this.Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            var thisObject = midpointChartObjects.FirstOrDefault(
+                ap => ap.CelestialObject.CelestialObjectName == midpointName);
+
+            var thisChart =
+                this.db.ChartObjects.Where(x => x.EnteredChartID == chartId)
+                    .Where(
+                        objects =>
+                        (!objects.CelestialObject.Draconic)
+                        && (objects.CelestialObject.CelestialObjectTypeId
+                            != (byte)ChartObject.ObjectTypes.AngleHouseCusp)
+                        && (objects.CelestialObject.CelestialObjectTypeId != (byte)ChartObject.ObjectTypes.ArabicPart)
+                        && ((!asteroids
+                             && objects.CelestialObject.CelestialObjectTypeId != (byte)ChartObject.ObjectTypes.Asteroid)
+                            || asteroids)
+                        && ((!stars
+                             && objects.CelestialObject.CelestialObjectTypeId != (byte)ChartObject.ObjectTypes.FixedStar)
+                            || stars))
+                    .ToList()
+                    .Union(this.GetAngleChartObjects(chartId))
+                    .Union(this.GetArabicPartChartObjects(chartId, houseSystemId, arabic))
+                    .Union(this.GetDraconicChartObjects(chartId, draconic, arabic, asteroids, midpoints, houseSystemId))
+                    .Union(midpointChartObjects.Where(ap => ap.CelestialObject.CelestialObjectName != midpointName))
+                    .OrderBy(x => x.CalculatedCoordinate);
+
+            var aspectList = this.db.Aspects.OrderBy(a => a.DisplayOrder).ToList();
+
+            var aspectObjectLists = this.GetAspectObjectLists(thisChart, thisObject, chartId, houseSystemId);
+
+            var thisList = new List<object>();
+
+            for (var i = 0; i < aspectList.Count; i++)
+            {
+                thisList.Add(
+                    new
+                    {
+                        aspectList[i].AspectId,
+                        aspectList[i].AspectName,
+                        aspectList[i].HtmlTextCssClass,
+                        aspectList = aspectObjectLists[i]
+                    });
             }
 
             return this.Json(thisList, JsonRequestBehavior.AllowGet);
@@ -1582,14 +1671,14 @@ namespace AstroGearsMVC.Controllers
                         x =>
                         new
                             {
-                                x.ChartAngleId, 
-                                x.HouseAngle.AngleName, 
-                                x.Degrees, 
-                                x.Minutes, 
-                                x.Seconds, 
-                                x.Sign.SignAbbreviation, 
-                                x.Sign.SignId, 
-                                x.Sign.Element.HtmlTextCssClass, 
+                                x.ChartAngleId,
+                                x.HouseAngle.AngleName,
+                                x.Degrees,
+                                x.Minutes,
+                                x.Seconds,
+                                x.Sign.SignAbbreviation,
+                                x.Sign.SignId,
+                                x.Sign.Element.HtmlTextCssClass,
                                 x.AngleId
                             })
                     .ToList();
@@ -1601,20 +1690,20 @@ namespace AstroGearsMVC.Controllers
                 var antivertex =
                     new
                         {
-                            ChartAngleId = 0, 
-                            AngleName = "Antivertex", 
-                            vertex.Degrees, 
-                            vertex.Minutes, 
-                            vertex.Seconds, 
+                            ChartAngleId = 0,
+                            AngleName = "Antivertex",
+                            vertex.Degrees,
+                            vertex.Minutes,
+                            vertex.Seconds,
                             SignAbbreviation =
                                 vertex.SignId < 6
                                     ? signs[vertex.SignId + 6].SignAbbreviation
-                                    : signs[vertex.SignId - 6].SignAbbreviation, 
-                            SignId = vertex.SignId < 6 ? (byte)(vertex.SignId + 6) : (byte)(vertex.SignId - 6), 
+                                    : signs[vertex.SignId - 6].SignAbbreviation,
+                            SignId = vertex.SignId < 6 ? (byte)(vertex.SignId + 6) : (byte)(vertex.SignId - 6),
                             HtmlTextCssClass =
                                 vertex.SignId < 6
                                     ? signs[vertex.SignId + 6].Element.HtmlTextCssClass
-                                    : signs[vertex.SignId - 6].Element.HtmlTextCssClass, 
+                                    : signs[vertex.SignId - 6].Element.HtmlTextCssClass,
                             AngleId = (byte)3
                         };
 
@@ -1628,20 +1717,20 @@ namespace AstroGearsMVC.Controllers
                 var descendant =
                     new
                         {
-                            ChartAngleId = 0, 
-                            AngleName = "Descendant", 
-                            ascendant.Degrees, 
-                            ascendant.Minutes, 
-                            ascendant.Seconds, 
+                            ChartAngleId = 0,
+                            AngleName = "Descendant",
+                            ascendant.Degrees,
+                            ascendant.Minutes,
+                            ascendant.Seconds,
                             SignAbbreviation =
                                 ascendant.SignId < 6
                                     ? signs[ascendant.SignId + 6].SignAbbreviation
-                                    : signs[ascendant.SignId - 6].SignAbbreviation, 
-                            SignId = ascendant.SignId < 6 ? (byte)(ascendant.SignId + 6) : (byte)(ascendant.SignId - 6), 
+                                    : signs[ascendant.SignId - 6].SignAbbreviation,
+                            SignId = ascendant.SignId < 6 ? (byte)(ascendant.SignId + 6) : (byte)(ascendant.SignId - 6),
                             HtmlTextCssClass =
                                 ascendant.SignId < 6
                                     ? signs[ascendant.SignId + 6].Element.HtmlTextCssClass
-                                    : signs[ascendant.SignId - 6].Element.HtmlTextCssClass, 
+                                    : signs[ascendant.SignId - 6].Element.HtmlTextCssClass,
                             AngleId = (byte)4
                         };
 
@@ -1655,20 +1744,20 @@ namespace AstroGearsMVC.Controllers
                 var imumCoeli =
                     new
                         {
-                            ChartAngleId = 0, 
-                            AngleName = "Imum Coeli", 
-                            midheaven.Degrees, 
-                            midheaven.Minutes, 
-                            midheaven.Seconds, 
+                            ChartAngleId = 0,
+                            AngleName = "Imum Coeli",
+                            midheaven.Degrees,
+                            midheaven.Minutes,
+                            midheaven.Seconds,
                             SignAbbreviation =
                                 midheaven.SignId < 6
                                     ? signs[midheaven.SignId + 6].SignAbbreviation
-                                    : signs[midheaven.SignId - 6].SignAbbreviation, 
-                            SignId = midheaven.SignId < 6 ? (byte)(midheaven.SignId + 6) : (byte)(midheaven.SignId - 6), 
+                                    : signs[midheaven.SignId - 6].SignAbbreviation,
+                            SignId = midheaven.SignId < 6 ? (byte)(midheaven.SignId + 6) : (byte)(midheaven.SignId - 6),
                             HtmlTextCssClass =
                                 midheaven.SignId < 6
                                     ? signs[midheaven.SignId + 6].Element.HtmlTextCssClass
-                                    : signs[midheaven.SignId - 6].Element.HtmlTextCssClass, 
+                                    : signs[midheaven.SignId - 6].Element.HtmlTextCssClass,
                             AngleId = (byte)5
                         };
 
@@ -1686,17 +1775,17 @@ namespace AstroGearsMVC.Controllers
         /// <param name="arabic">if set to <c>true</c> [arabic].</param>
         /// <param name="asteroids">if set to <c>true</c> [asteroids].</param>
         /// <param name="stars">if set to <c>true</c> [stars].</param>
+        /// <param name="midpoints">if set to <c>true</c> [midpoints].</param>
         /// <param name="houseSystemId">The house system identifier.</param>
-        /// <returns>
-        /// JSON listing of the chart objects for the specified chart ID.
-        /// </returns>
+        /// <returns>JSON listing of the chart objects for the specified chart ID.</returns>
         [CanBeNull]
         public JsonResult GetDetailsChartListing(
-            int id, 
-            bool draconic, 
-            bool arabic, 
-            bool asteroids, 
-            bool stars, 
+            int id,
+            bool draconic,
+            bool arabic,
+            bool asteroids,
+            bool stars,
+            bool midpoints,
             byte houseSystemId)
         {
             // Get the houses if available.
@@ -1724,23 +1813,24 @@ namespace AstroGearsMVC.Controllers
                     .ToList()
                     .Union(this.GetAngleChartObjects(id))
                     .Union(this.GetArabicPartChartObjects(id, houseSystemId, arabic))
-                    .Union(this.GetDraconicChartObjects(id, draconic, arabic, asteroids, houseSystemId))
+                    .Union(this.GetDraconicChartObjects(id, draconic, arabic, asteroids, midpoints, houseSystemId))
+                    .Union(this.GetMidpointChartObjects(id, midpoints))
                     .OrderBy(objects => objects.CalculatedCoordinate)
                     .ToList()
                     .Select(
                         x =>
                         new
                             {
-                                x.ChartObjectId, 
-                                x.CelestialObject.CelestialObjectName, 
-                                x.Sign.SignAbbreviation, 
-                                x.Sign.Element.HtmlTextCssClass, 
-                                x.Degrees, 
-                                x.Minutes, 
-                                x.Seconds, 
-                                x.Orientation.OrientationAbbreviation, 
-                                x.CelestialObject.CelestialObjectType.CelestialObjectTypeName, 
-                                x.CelestialObject.Draconic, 
+                                x.ChartObjectId,
+                                x.CelestialObject.CelestialObjectName,
+                                x.Sign.SignAbbreviation,
+                                x.Sign.Element.HtmlTextCssClass,
+                                x.Degrees,
+                                x.Minutes,
+                                x.Seconds,
+                                x.Orientation.OrientationAbbreviation,
+                                x.CelestialObject.CelestialObjectType.CelestialObjectTypeName,
+                                x.CelestialObject.Draconic,
                                 House =
                             (chartHouses.Count > 0)
                                 ? (chartHouses.LastOrDefault(
@@ -1789,7 +1879,7 @@ namespace AstroGearsMVC.Controllers
                             x.Sign.Element.HtmlTextCssClass,
                             x.AngleId
                         }).ToList();
-            
+
             var vertex = draconicAngles.FirstOrDefault(x => x.AngleId == 0);
 
             if (vertex != null)
@@ -1902,13 +1992,13 @@ namespace AstroGearsMVC.Controllers
                     x =>
                     new
                         {
-                            x.ChartHouseId, 
-                            x.Degrees, 
-                            x.Minutes, 
-                            x.Seconds, 
-                            x.Sign.SignAbbreviation, 
-                            x.Sign.SignId, 
-                            x.Sign.Element.HtmlTextCssClass, 
+                            x.ChartHouseId,
+                            x.Degrees,
+                            x.Minutes,
+                            x.Seconds,
+                            x.Sign.SignAbbreviation,
+                            x.Sign.SignId,
+                            x.Sign.Element.HtmlTextCssClass,
                             x.HouseId
                         }).ToList();
 
@@ -1933,18 +2023,67 @@ namespace AstroGearsMVC.Controllers
                         x =>
                         new
                             {
-                                x.ChartHouseId, 
-                                x.Degrees, 
-                                x.Minutes, 
-                                x.Seconds, 
-                                x.Sign.SignAbbreviation, 
-                                x.Sign.SignId, 
-                                x.Sign.Element.HtmlTextCssClass, 
+                                x.ChartHouseId,
+                                x.Degrees,
+                                x.Minutes,
+                                x.Seconds,
+                                x.Sign.SignAbbreviation,
+                                x.Sign.SignId,
+                                x.Sign.Element.HtmlTextCssClass,
                                 x.HouseId
                             })
                     .ToList();
 
             return this.Json(chartHouses, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Gets the midpoints.
+        /// </summary>
+        /// <param name="chartId">The chart identifier.</param>
+        /// <param name="midpoints">if set to <c>true</c> [midpoints].</param>
+        /// <returns>A List&lt;ChartObject&gt;.</returns>
+        public List<ChartObject> GetMidpointChartObjects(int chartId, bool midpoints)
+        {
+            if (chartId <= 0 || !midpoints)
+            {
+                return new List<ChartObject>();
+            }
+
+            var northNode =
+                this.db.ChartObjects.FirstOrDefault(
+                    x => x.CelestialObject.CelestialObjectName == "True Node" && x.EnteredChartID == chartId);
+
+            if (northNode == null)
+            {
+                return new List<ChartObject>();
+            }
+
+            var planets =
+                this.db.ChartObjects.Include(ob => ob.Sign)
+                    .Where(
+                        p =>
+                        p.EnteredChartID == chartId
+                        && (p.CelestialObject.CelestialObjectTypeId == (byte)ChartObject.ObjectTypes.MajorPlanetLuminary
+                            || p.CelestialObject.CelestialObjectName == "Ceres"
+                            || p.CelestialObject.CelestialObjectName == "Juno"
+                            || p.CelestialObject.CelestialObjectName == "Pallas"
+                            || p.CelestialObject.CelestialObjectName == "Vesta"
+                            || p.CelestialObject.CelestialObjectName == "Chiron"))
+                    .OrderBy(p => p.CelestialObjectId)
+                    .ToList();
+
+            var midpointsList = new List<ChartObject>();
+
+            for (var i = 0; i < planets.Count; i++)
+            {
+                for (var j = i + 1; j < planets.Count; j++)
+                {
+                    midpointsList.Add(planets[i].GetMidpoint(planets[j]));
+                }
+            }
+
+            return midpointsList;
         }
 
         /// <summary>
@@ -1954,16 +2093,16 @@ namespace AstroGearsMVC.Controllers
         /// <param name="draconic">if set to <c>true</c> [draconic].</param>
         /// <param name="arabic">if set to <c>true</c> [arabic].</param>
         /// <param name="asteroids">if set to <c>true</c> [asteroids].</param>
+        /// <param name="midpoints">The midpoints.</param>
         /// <param name="houseSystemId">The house system identifier.</param>
-        /// <returns>
-        /// A listing of Draconic Chart objects.
-        /// </returns>
+        /// <returns>A listing of Draconic Chart objects.</returns>
         [NotNull]
         public List<ChartObject> GetDraconicChartObjects(
-            int chartId, 
-            bool draconic, 
-            bool arabic, 
-            bool asteroids, 
+            int chartId,
+            bool draconic,
+            bool arabic,
+            bool asteroids,
+            bool midpoints,
             byte houseSystemId)
         {
             if (chartId <= 0 || !draconic)
@@ -1994,6 +2133,7 @@ namespace AstroGearsMVC.Controllers
                     .ToList()
                     .Union(this.GetAngleChartObjects(chartId))
                     .Union(this.GetArabicPartChartObjects(chartId, houseSystemId, arabic))
+                    .Union(this.GetMidpointChartObjects(chartId, midpoints))
                     .ToList();
 
             ////var signList = this.db.Signs.ToList();
@@ -2109,23 +2249,23 @@ namespace AstroGearsMVC.Controllers
                         x =>
                         new
                             {
-                                x.EnteredChartID, 
-                                x.ChartObjectId, 
+                                x.EnteredChartID,
+                                x.ChartObjectId,
                                 x.CelestialObjectId,
                                 CelestialObjectName =
                             (x.CelestialObject.CelestialObjectTypeId == (byte)ChartObject.ObjectTypes.AngleHouseCusp
                              && x.CelestialObject.AlternateName != null)
                                 ? x.CelestialObject.AlternateName
-                                : x.CelestialObject.CelestialObjectName, 
-                                x.Sign.SignAbbreviation, 
-                                x.Sign.Element.HtmlTextCssClass, 
-                                x.Sign.SignId, 
-                                x.Degrees, 
-                                x.Minutes, 
-                                x.Seconds, 
-                                x.OrientationId, 
-                                x.Orientation.OrientationAbbreviation, 
-                                x.CelestialObject.CelestialObjectType.CelestialObjectTypeName, 
+                                : x.CelestialObject.CelestialObjectName,
+                                x.Sign.SignAbbreviation,
+                                x.Sign.Element.HtmlTextCssClass,
+                                x.Sign.SignId,
+                                x.Degrees,
+                                x.Minutes,
+                                x.Seconds,
+                                x.OrientationId,
+                                x.Orientation.OrientationAbbreviation,
+                                x.CelestialObject.CelestialObjectType.CelestialObjectTypeName,
                                 x.CelestialObject.Draconic
                             })
                     .ToList()
@@ -2214,10 +2354,10 @@ namespace AstroGearsMVC.Controllers
         /// <exception cref="System.ArgumentNullException">name is null</exception>
         [CanBeNull]
         public ChartObject NewArabicPart(
-            int id, 
-            [NotNull] string name, 
-            [CanBeNull] ChartObject baseChartObject, 
-            [CanBeNull] ChartObject addChartObject, 
+            int id,
+            [NotNull] string name,
+            [CanBeNull] ChartObject baseChartObject,
+            [CanBeNull] ChartObject addChartObject,
             [CanBeNull] ChartObject subtractChartObject)
         {
             if (name == null)
@@ -2268,24 +2408,24 @@ namespace AstroGearsMVC.Controllers
 
             var newPart = new ChartObject
                               {
-                                  EnteredChartID = id, 
+                                  EnteredChartID = id,
                                   CelestialObject =
                                       new CelestialObject
                                           {
-                                              CelestialObjectName = name, 
-                                              AllowableOrb = 1M, 
-                                              CelestialObjectTypeId = 3, 
+                                              CelestialObjectName = name,
+                                              AllowableOrb = 1M,
+                                              CelestialObjectTypeId = 3,
                                               CelestialObjectType =
-                                                  this.db.CelestialObjectTypes.Find(3), 
+                                                  this.db.CelestialObjectTypes.Find(3),
                                               Draconic =
                                                   baseChartObject.CelestialObject.Draconic
-                                          }, 
-                                  OrientationId = 1, 
-                                  Orientation = this.db.Orientations.Find(1), 
-                                  SignId = sign, 
-                                  Sign = this.db.Signs.Find(sign), 
-                                  Degrees = (byte)deg, 
-                                  Minutes = (byte)min, 
+                                          },
+                                  OrientationId = 1,
+                                  Orientation = this.db.Orientations.Find(1),
+                                  SignId = sign,
+                                  Sign = this.db.Signs.Find(sign),
+                                  Degrees = (byte)deg,
+                                  Minutes = (byte)min,
                                   Seconds = (byte)sec
                               };
 
@@ -2351,10 +2491,10 @@ namespace AstroGearsMVC.Controllers
         /// </returns>
         [CanBeNull]
         public JsonResult UpdateAngleForEnteredChart(
-            int chartAngleId, 
-            byte degrees, 
-            byte signId, 
-            byte minutes, 
+            int chartAngleId,
+            byte degrees,
+            byte signId,
+            byte minutes,
             byte seconds)
         {
             var updateAngle = this.db.ChartAngles.Find(chartAngleId);
@@ -2389,11 +2529,11 @@ namespace AstroGearsMVC.Controllers
         /// </returns>
         [CanBeNull]
         public JsonResult UpdateChartObjectForEnteredChart(
-            int chartObjectId, 
-            byte degrees, 
-            byte signId, 
-            byte minutes, 
-            byte seconds, 
+            int chartObjectId,
+            byte degrees,
+            byte signId,
+            byte minutes,
+            byte seconds,
             byte orientationId)
         {
             var updateObject = this.db.ChartObjects.Find(chartObjectId);
@@ -2429,11 +2569,11 @@ namespace AstroGearsMVC.Controllers
         /// </returns>
         [CanBeNull]
         public JsonResult UpdateHouseCuspForEnteredChart(
-            int chartHouseId, 
-            byte degrees, 
-            byte signId, 
-            byte minutes, 
-            byte seconds, 
+            int chartHouseId,
+            byte degrees,
+            byte signId,
+            byte minutes,
+            byte seconds,
             byte houseSystemId)
         {
             var updateHouse = this.db.ChartHouses.Find(chartHouseId);

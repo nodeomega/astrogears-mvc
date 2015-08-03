@@ -690,6 +690,7 @@ $('#saveNewAsteroids').click(function () {
                 arabic: $('#includearabic').is(':checked'),
                 asteroids: $('#includeasteroids').is(':checked'),
                 stars: $('#includestars').is(':checked'),
+                midpoints: $('#includemidpoints').is(':checked'), 
                 houseSystemId: $('#charthousesystems').val()
             }).done(function (data) {
                 $.each(data, function (i, item) {
@@ -702,35 +703,22 @@ $('#saveNewAsteroids').click(function () {
                     var chartFirstCol;
                     switch (item.CelestialObjectTypeName) {
                         case 'Arabic Part':
-                            if (item.Draconic === true) {
-                                chartFirstCol = $('<td class="arabic-part draconic"/>');
-                            } else {
-                                chartFirstCol = $('<td class="arabic-part"/>');
-                            }
+                            chartFirstCol = (item.Draconic === true) ? $('<td class="arabic-part draconic"/>') :  $('<td class="arabic-part"/>');
                             break;
                         case 'Major Planet/Luminary':
-                            if (item.Draconic === true) {
-                                chartFirstCol = $('<td class="planet-luminary draconic"/>');
-                            } else {
-                                chartFirstCol = $('<td class="planet-luminary"/>');
-                            }
+                            chartFirstCol = (item.Draconic === true) ? $('<td class="planet-luminary draconic"/>') : $('<td class="planet-luminary"/>');
                             break;
                         case 'Fixed Star':
                             chartFirstCol = $('<td class="fixed-star"/>');
                             break;
                         case 'Angle/House Cusp':
-                            if (item.Draconic === true) {
-                                chartFirstCol = $('<td class="house-cusp draconic"/>');
-                            } else {
-                                chartFirstCol = $('<td class="house-cusp"/>');
-                            }
+                            chartFirstCol = (item.Draconic === true) ? $('<td class="house-cusp draconic"/>') : $('<td class="house-cusp"/>');
+                            break;
+                        case 'Midpoint':
+                            chartFirstCol = (item.Draconic === true) ? $('<td class="midpoint draconic"/>') : $('<td class="midpoint"/>');
                             break;
                         default:
-                            if (item.Draconic === true) {
-                                chartFirstCol = $('<td class="draconic"/>');
-                            } else {
-                                chartFirstCol = $('<td/>');
-                            }
+                            chartFirstCol = (item.Draconic === true) ? $('<td class="draconic"/>') : $('<td/>');
                             break;
                     }
                     chartLine.append(chartFirstCol.html(item.CelestialObjectName));
@@ -765,6 +753,8 @@ $('#saveNewAsteroids').click(function () {
                         chartLine.append($('<td/>').append($('<a href="#" onclick="EnteredChartDetails.GetAspectsForArabicChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\');return false;" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
                     } else if (item.CelestialObjectTypeName === 'Angle/House Cusp') {
                         chartLine.append($('<td/>').append($('<a href="#" onclick="EnteredChartDetails.GetAspectsForAngleChart(' + item.AngleId + ', \'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\');return false;" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
+                    } else if (item.CelestialObjectTypeName === 'Midpoint') {
+                        chartLine.append($('<td/>').append($('<a href="#" onclick="EnteredChartDetails.GetAspectsForMidpointChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\');return false;" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
                     } else {
                         chartLine.append($('<td/>').append($('<a href="#" onclick="EnteredChartDetails.GetAspects(' + item.ChartObjectId + ');return false;" title="View Aspects"/>').append('<span class="fa fa-search"/>'))
                             .append($('<a href="#" onclick="EnteredChartDetails.OpenEditForm(' + item.ChartObjectId + ');return false;" title="Edit Coordinates"/>').append('<span class="fa fa-edit"/>')));
@@ -812,7 +802,16 @@ $('#saveNewAsteroids').click(function () {
                 return;
             });
 
-        var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjects", { id: id, chartId: $('#enteredchartid').val(), draconic: $('#includedraconic').is(':checked'), arabic: $('#includearabic').is(':checked'), asteroids: $('#includeasteroids').is(':checked'), stars: $('#includestars').is(':checked'), houseSystemId: $('#charthousesystems').val() }).done(function (data) {
+        var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjects", {
+            id: id,
+            chartId: $('#enteredchartid').val(),
+            draconic: $('#includedraconic').is(':checked'),
+            arabic: $('#includearabic').is(':checked'),
+            asteroids: $('#includeasteroids').is(':checked'),
+            stars: $('#includestars').is(':checked'),
+            midpoints: $('#includemidpoints').is(':checked'),
+            houseSystemId: $('#charthousesystems').val()
+        }).done(function (data) {
             $.each(data, function (i, item) {
                 if (!item.aspectList || !item.aspectList.length) {
                     return true;
@@ -947,7 +946,17 @@ $('#saveNewAsteroids').click(function () {
             + arabicPartCoordinates
             + ')');
 
-        var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjectsForArabicPart", { chartId: $('#enteredchartid').val(), arabicPartName: arabicPartName, arabicPartCoordinates: arabicPartCoordinates, draconic: $('#includedraconic').is(':checked'), arabic: $('#includearabic').is(':checked'), asteroids: $('#includeasteroids').is(':checked'), stars: $('#includestars').is(':checked'), houseSystemId: $('#charthousesystems').val() }).done(function (data) {
+        var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjectsForArabicPart", {
+            chartId: $('#enteredchartid').val(),
+            arabicPartName: arabicPartName,
+            arabicPartCoordinates: arabicPartCoordinates,
+            draconic: $('#includedraconic').is(':checked'),
+            arabic: $('#includearabic').is(':checked'),
+            asteroids: $('#includeasteroids').is(':checked'),
+            stars: $('#includestars').is(':checked'),
+            midpoints: $('#includemidpoints').is(':checked'),
+            houseSystemId: $('#charthousesystems').val()
+        }).done(function (data) {
             $.each(data, function (i, item) {
                 if (!item.aspectList || !item.aspectList.length) {
                     return true;
@@ -1005,7 +1014,18 @@ $('#saveNewAsteroids').click(function () {
             + angleCoordinates
             + ')');
 
-        var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjectsForAngle", { chartId: $('#enteredchartid').val(), angleName: angleName, angleCoordinates: angleCoordinates, draconic: $('#includedraconic').is(':checked'), arabic: $('#includearabic').is(':checked'), asteroids: $('#includeasteroids').is(':checked'), stars: $('#includestars').is(':checked'), houseSystemId: $('#charthousesystems').val() }).done(function (data) {
+        var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjectsForAngle", {
+            chartId: $('#enteredchartid').val(),
+            angleName: angleName,
+            angleCoordinates:
+            angleCoordinates,
+            draconic: $('#includedraconic').is(':checked'),
+            arabic: $('#includearabic').is(':checked'),
+            asteroids: $('#includeasteroids').is(':checked'),
+            stars: $('#includestars').is(':checked'),
+            midpoints: $('#includemidpoints').is(':checked'),
+            houseSystemId: $('#charthousesystems').val()
+        }).done(function (data) {
             $.each(data, function (i, item) {
                 if (!item.aspectList || !item.aspectList.length) {
                     return true;
@@ -1078,7 +1098,17 @@ $('#saveNewAsteroids').click(function () {
             + draconicCoordinates
             + ')');
 
-        var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjectsForDraconicObject", { chartId: $('#enteredchartid').val(), draconicName: draconicName, draconicCoordinates: draconicCoordinates, draconic: $('#includedraconic').is(':checked'), arabic: $('#includearabic').is(':checked'), asteroids: $('#includeasteroids').is(':checked'), stars: $('#includestars').is(':checked'), houseSystemId: $('#charthousesystems').val() }).done(function (data) {
+        var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjectsForDraconicObject", {
+            chartId: $('#enteredchartid').val(),
+            draconicName: draconicName,
+            draconicCoordinates: draconicCoordinates,
+            draconic: $('#includedraconic').is(':checked'),
+            arabic: $('#includearabic').is(':checked'),
+            asteroids: $('#includeasteroids').is(':checked'),
+            stars: $('#includestars').is(':checked'),
+            midpoints: $('#includemidpoints').is(':checked'),
+            houseSystemId: $('#charthousesystems').val()
+        }).done(function (data) {
             $.each(data, function (i, item) {
                 if (!item.aspectList || !item.aspectList.length) {
                     return true;
@@ -1121,6 +1151,74 @@ $('#saveNewAsteroids').click(function () {
         $.ajaxSetup({ cache: true });
     }
 
+    export function GetAspectsForMidpointChart(midpointName, midpointCoordinates) {
+        listing = false;
+        aspects = true;
+        $.ajaxSetup({ cache: false });
+
+        //$('#aspectloading').show();
+        $('#aspecttarget').empty();
+        $('#aspectlist').empty();
+
+        $('#aspecttarget').html('Aspects to '
+            + midpointName
+            + ' ('
+            + midpointCoordinates
+            + ')');
+
+        var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjectsForMidpoint", {
+            chartId: $('#enteredchartid').val(),
+            midpointName: midpointName,
+            midpointCoordinates: midpointCoordinates,
+            draconic: $('#includedraconic').is(':checked'),
+            arabic: $('#includearabic').is(':checked'),
+            asteroids: $('#includeasteroids').is(':checked'),
+            stars: $('#includestars').is(':checked'),
+            midpoints: $('#includemidpoints').is(':checked'),
+            houseSystemId: $('#charthousesystems').val()
+        }).done(function (data) {
+            $.each(data, function (i, item) {
+                if (!item.aspectList || !item.aspectList.length) {
+                    return true;
+                }
+
+                var aspectHead = $('<li/>').append($('<span class="' + item.HtmlTextCssClass + '">').text(item.AspectName));
+
+                var aspectList = $('<ul/>');
+                $.each(item.aspectList, function (j, subitem) {
+                    var aspectLine = SetUpListItemElementForAspect(subitem);
+
+                    var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
+                    var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
+
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')');
+                    aspectList.append(aspectLine);
+                });
+                aspectHead.append(aspectList);
+
+                $('#aspectlist').append(aspectHead);
+            });
+        }).fail(function (JqXHR) {
+            console.log("Aspect List Load failure..");
+        });
+
+        //$('#aspectloading').hide();
+        $.ajaxSetup({ cache: true });
+    }
+
     export function SetUpListItemElementForAspect(aspectItem) {
         switch (aspectItem.CelestialObjectTypeName) {
             case 'Arabic Part':
@@ -1145,6 +1243,13 @@ $('#saveNewAsteroids').click(function () {
                     return $('<li class="house-cusp draconic"/>');
                 } else {
                     return $('<li class="house-cusp"/>');
+                }
+                break;
+            case 'Midpoint':
+                if (aspectItem.Draconic === true) {
+                    return $('<li class="midpoint draconic"/>');
+                } else {
+                    return $('<li class="midpoint"/>');
                 }
                 break;
             default:
