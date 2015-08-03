@@ -2078,7 +2078,8 @@ namespace AstroGearsMVC.Controllers
                             .Where(
                                 a =>
                                 a.CelestialObject.CelestialObjectName == "Ascendant"
-                                || a.CelestialObject.CelestialObjectName == "Midheaven"))
+                                || a.CelestialObject.CelestialObjectName == "Midheaven"
+                                || a.CelestialObject.CelestialObjectName == "Vertex"))
                     .ToList();
 
             var midpointsList = new List<ChartObject>();
