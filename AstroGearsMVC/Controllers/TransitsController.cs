@@ -502,7 +502,8 @@ namespace AstroGearsMVC.Controllers
                         || (x.ChartTypeId == (byte)EnteredChart.ChartTypes.JupiterReturn)
                         || (x.ChartTypeId == (byte)EnteredChart.ChartTypes.SaturnReturn)
                         || (x.ChartTypeId == (byte)EnteredChart.ChartTypes.SolarEclipse)
-                        || (x.ChartTypeId == (byte)EnteredChart.ChartTypes.LunarEclipse)))
+                        || (x.ChartTypeId == (byte)EnteredChart.ChartTypes.LunarEclipse)
+                        || (x.ChartTypeId == (byte)EnteredChart.ChartTypes.SolarArc)))
                     .Select(x => new { x.EnteredChartId, x.SubjectName, x.ChartType.ChartTypeName });
 
             return this.Json(availableCharts, JsonRequestBehavior.AllowGet);

@@ -189,6 +189,7 @@ _Pvt_Extensions/
 ModelManifest.xml
 
 .localhistory/
+.vs/
 
 # Config files
 Web.config

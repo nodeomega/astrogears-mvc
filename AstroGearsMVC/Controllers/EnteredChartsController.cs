@@ -868,11 +868,14 @@ namespace AstroGearsMVC.Controllers
                 var cancerId = this.db.Signs.FirstOrDefault(s => s.SignName == "Cancer").SignId;
                 var libraId = this.db.Signs.FirstOrDefault(s => s.SignName == "Libra").SignId;
 
-                var isDayChart = first != null
-                                 && (seventh != null
-                                     && (sun != null
-                                         && ((sun.CalculatedCoordinate > seventh.CalculatedCoordinate)
-                                             || (sun.CalculatedCoordinate < first.CalculatedCoordinate))));
+                var isDayChart = first != null && seventh != null && sun != null &&
+                                 ((first.SignId > seventh.SignId)
+                                     ? (sun.CalculatedCoordinate < first.CalculatedCoordinate &&
+                                        sun.CalculatedCoordinate > seventh.CalculatedCoordinate)
+                                     : !(sun.CalculatedCoordinate > first.CalculatedCoordinate &&
+                                         sun.CalculatedCoordinate < seventh.CalculatedCoordinate));
+                                 //((sun.CalculatedCoordinate > seventh.CalculatedCoordinate)
+                                 // || (sun.SignId < first.SignId ? sun.CalculatedCoordinate < first.CalculatedCoordinate + 360 : sun.CalculatedCoordinate < first.CalculatedCoordinate));
 
                 ChartObject partoffortune, partofspirit;
 

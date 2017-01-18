@@ -8,7 +8,8 @@ var TransitDetails;
     var $firstChartLoading = $('#firstChartLoading').hide();
     var $secondChartLoading = $('#secondChartLoading').hide();
     var $aspectloading = $('#transitAspectsLoading').hide();
-    $(document).ajaxStart(function () {
+    $(document)
+        .ajaxStart(function () {
         if (listing1 === true) {
             $('#firstChartBody').empty();
             $firstChartLoading.show();
@@ -20,7 +21,8 @@ var TransitDetails;
         if (aspects === true) {
             $aspectloading.show();
         }
-    }).ajaxStop(function () {
+    })
+        .ajaxStop(function () {
         $firstChartLoading.hide();
         $secondChartLoading.hide();
         $aspectloading.hide();
@@ -134,7 +136,16 @@ var TransitDetails;
                 chartLine.append(chartFirstCol.html(item.CelestialObjectName));
                 var chartSecondCol = $('<td/>');
                 var orientationString = (!!item.OrientationAbbreviation) ? ' ' + item.OrientationAbbreviation : '';
-                var coordinateString = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"' + orientationString;
+                var coordinateString = item.Degrees
+                    + '° <span class="'
+                    + item.HtmlTextCssClass + '">'
+                    + item.SignAbbreviation
+                    + '</span> '
+                    + item.Minutes
+                    + '\' '
+                    + item.Seconds
+                    + '"'
+                    + orientationString;
                 chartSecondCol.html(coordinateString);
                 chartLine.append(chartSecondCol);
                 if (item.House !== 0) {
@@ -221,7 +232,16 @@ var TransitDetails;
                 chartLine.append(chartFirstCol.html(item.CelestialObjectName));
                 var chartSecondCol = $('<td/>');
                 var orientationString = (!!item.OrientationAbbreviation) ? ' ' + item.OrientationAbbreviation : '';
-                var coordinateString = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"' + orientationString;
+                var coordinateString = item.Degrees
+                    + '° <span class="'
+                    + item.HtmlTextCssClass + '">'
+                    + item.SignAbbreviation
+                    + '</span> '
+                    + item.Minutes
+                    + '\' '
+                    + item.Seconds
+                    + '"'
+                    + orientationString;
                 chartSecondCol.html(coordinateString);
                 chartLine.append(chartSecondCol);
                 if (item.House !== 0) {
@@ -275,7 +295,15 @@ var TransitDetails;
                 $('#' + angle + chartNumberIdentifier[chartNumber]).empty();
             });
             $.each(data, function (i, item) {
-                var thisHouse = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                var thisHouse = item.Degrees
+                    + '° <span class="'
+                    + item.HtmlTextCssClass + '">'
+                    + item.SignAbbreviation
+                    + '</span> '
+                    + item.Minutes
+                    + '\' '
+                    + item.Seconds
+                    + '"';
                 $('#' + houseCusps[item.HouseId] + chartNumberIdentifier[chartNumber]).html(thisHouse);
             });
         }).fail(function (jqxhr, textStatus, error) {
@@ -287,7 +315,15 @@ var TransitDetails;
                 $('#' + angle + chartNumberIdentifier[chartNumber]).empty();
             });
             $.each(data, function (i, item) {
-                var thisAngle = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                var thisAngle = item.Degrees
+                    + '° <span class="'
+                    + item.HtmlTextCssClass + '">'
+                    + item.SignAbbreviation
+                    + '</span> '
+                    + item.Minutes
+                    + '\' '
+                    + item.Seconds
+                    + '"';
                 $('#' + angles[item.AngleId] + chartNumberIdentifier[chartNumber]).html(thisAngle);
             });
         }).fail(function (jqxhr, textStatus, error) {
@@ -303,7 +339,15 @@ var TransitDetails;
                     $('#' + angle + chartNumberIdentifier[chartNumber] + 'Draconic').empty();
                 });
                 $.each(data, function (i, item) {
-                    var thisHouse = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                    var thisHouse = item.Degrees
+                        + '° <span class="'
+                        + item.HtmlTextCssClass + '">'
+                        + item.SignAbbreviation
+                        + '</span> '
+                        + item.Minutes
+                        + '\' '
+                        + item.Seconds
+                        + '"';
                     $('#' + houseCusps[item.HouseId] + chartNumberIdentifier[chartNumber] + 'Draconic').html(thisHouse);
                 });
             }).fail(function (jqxhrDraconicHouse, textStatus, error) {
@@ -315,7 +359,15 @@ var TransitDetails;
                     $('#' + angle + 'Draconic').empty();
                 });
                 $.each(data, function (i, item) {
-                    var thisAngle = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                    var thisAngle = item.Degrees
+                        + '° <span class="'
+                        + item.HtmlTextCssClass + '">'
+                        + item.SignAbbreviation
+                        + '</span> '
+                        + item.Minutes
+                        + '\' '
+                        + item.Seconds
+                        + '"';
                     $('#' + angles[item.AngleId] + chartNumberIdentifier[chartNumber] + 'Draconic').html(thisAngle);
                 });
             }).fail(function (jqxhrDraconicAngle, textStatus, error) {
@@ -375,7 +427,19 @@ var TransitDetails;
         $('#transitAspectList').empty();
         var headerJqxhr = $.getJSON("/EnteredCharts/GetSelectedAspectChartObject", { id: id }).done(function (data) {
             var orientationString = (!!data.OrientationAbbreviation) ? ' ' + data.OrientationAbbreviation : '';
-            $('#firstChartTransitObject').html(data.CelestialObjectName + ' (' + data.Degrees + '° <span class="' + data.HtmlTextCssClass + '">' + data.SignAbbreviation + '</span> ' + data.Minutes + '\' ' + data.Seconds + '"' + orientationString + ')');
+            $('#firstChartTransitObject').html(data.CelestialObjectName
+                + ' ('
+                + data.Degrees
+                + '° <span class="'
+                + data.HtmlTextCssClass + '">'
+                + data.SignAbbreviation
+                + '</span> '
+                + data.Minutes
+                + '\' '
+                + data.Seconds
+                + '"'
+                + orientationString
+                + ')');
         }).fail(function () {
             console.log("Header Load Fail.");
             return;
@@ -403,9 +467,31 @@ var TransitDetails;
                     aspectLine.attr('id', newIdName);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry((chartToCompare === 2) ? parseInt($('#firstEnteredChartTypeId').val()) : parseInt($('#secondEnteredChartTypeId').val()), subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, (chartToCompare === 2) ? parseInt($('#secondEnteredChartTypeId').val()) : parseInt($('#firstEnteredChartTypeId').val()), subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false) : null;
-                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="TransitDetails.GetInterpretation(\'#' + newIdName + '\', ' + interpretationIds[0] + ', ' + interpretationIds[1] + ', ' + interpretationIds[2] + ', ' + item.AspectId + ', ' + interpretationIds[3] + ', ' + interpretationIds[4] + ', ' + interpretationIds[5] + ');return false;"><span class="fa fa-search"></span></a>' : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')' + interpretationLink);
+                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry((chartToCompare === 2) ? parseInt($('#firstEnteredChartTypeId').val()) : parseInt($('#secondEnteredChartTypeId').val()), subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, (chartToCompare === 2) ? parseInt($('#secondEnteredChartTypeId').val()) : parseInt($('#firstEnteredChartTypeId').val()), subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false)
+                        : null;
+                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="TransitDetails.GetInterpretation(\'#' + newIdName + '\', ' +
+                        interpretationIds[0] + ', ' +
+                        interpretationIds[1] + ', ' +
+                        interpretationIds[2] + ', ' +
+                        item.AspectId + ', ' +
+                        interpretationIds[3] + ', ' +
+                        interpretationIds[4] + ', ' +
+                        interpretationIds[5] + ');return false;"><span class="fa fa-search"></span></a>' : '';
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')'
+                        + interpretationLink);
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -437,7 +523,12 @@ var TransitDetails;
         }).done(function (data) {
             if (data.length > 0) {
                 $.each(data, function (i, item) {
-                    interpretationList.append($('<li/>').html(item.Interpretation.replace(/\n/g, '<br>') + (!IsNullOrUndefined(item.CitationUrl) ? ' (' + (item.CitationUrl.substring(0, 4) === 'http' ? '<a href="' + item.CitationUrl + '" target="_blank">' + item.CitationUrl + '</a>' : item.CitationUrl) + ')' : '')));
+                    interpretationList.append($('<li/>').html(item.Interpretation.replace(/\n/g, '<br>')
+                        + (!IsNullOrUndefined(item.CitationUrl)
+                            ? ' (' + (item.CitationUrl.substring(0, 4) === 'http'
+                                ? '<a href="' + item.CitationUrl + '" target="_blank">' + item.CitationUrl + '</a>'
+                                : item.CitationUrl) + ')'
+                            : '')));
                 });
             }
             else {
@@ -464,7 +555,10 @@ var TransitDetails;
         $('#secondChartTransitSubject').html(((chartToCompare === 1) ? $('#firstEnteredChartSubjectName').html() : $('#secondEnteredChartSelection option:selected').html()) + '\'s:');
         $('#firstChartTransitObject').empty();
         $('#transitAspectList').empty();
-        $('#firstChartTransitObject').html(angleName + ' (' + angleCoordinates + ')');
+        $('#firstChartTransitObject').html(angleName
+            + ' ('
+            + angleCoordinates
+            + ')');
         var jqxhr = $.getJSON("/Transits/GetTransitAspectChartObjectsForAngle", {
             firstChartId: (chartToCompare === 2) ? $('#firstEnteredChartId').val() : $('#secondEnteredChartSelection').val(),
             secondChartId: (chartToCompare === 2) ? $('#secondEnteredChartSelection').val() : $('#firstEnteredChartId').val(),
@@ -489,9 +583,31 @@ var TransitDetails;
                     aspectLine.attr('id', newIdName);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry(parseInt($('#firstEnteredChartTypeId').val()), subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, parseInt($('#secondEnteredChartTypeId').val()), subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false) : null;
-                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="TransitDetails.GetInterpretation(\'#' + newIdName + '\', ' + interpretationIds[0] + ', ' + interpretationIds[1] + ', ' + interpretationIds[2] + ', ' + item.AspectId + ', ' + interpretationIds[3] + ', ' + interpretationIds[4] + ', ' + interpretationIds[5] + ');return false;"><span class="fa fa-search"></span></a>' : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')' + interpretationLink);
+                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry(parseInt($('#firstEnteredChartTypeId').val()), subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, parseInt($('#secondEnteredChartTypeId').val()), subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false)
+                        : null;
+                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="TransitDetails.GetInterpretation(\'#' + newIdName + '\', ' +
+                        interpretationIds[0] + ', ' +
+                        interpretationIds[1] + ', ' +
+                        interpretationIds[2] + ', ' +
+                        item.AspectId + ', ' +
+                        interpretationIds[3] + ', ' +
+                        interpretationIds[4] + ', ' +
+                        interpretationIds[5] + ');return false;"><span class="fa fa-search"></span></a>' : '';
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')'
+                        + interpretationLink);
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -518,7 +634,10 @@ var TransitDetails;
         $('#secondChartTransitSubject').html(((chartToCompare === 1) ? $('#firstEnteredChartSubjectName').html() : $('#secondEnteredChartSelection option:selected').html()) + '\'s:');
         $('#firstChartTransitObject').empty();
         $('#transitAspectList').empty();
-        $('#firstChartTransitObject').html(arabicPartName + ' (' + arabicPartCoordinates + ')');
+        $('#firstChartTransitObject').html(arabicPartName
+            + ' ('
+            + arabicPartCoordinates
+            + ')');
         var jqxhr = $.getJSON("/Transits/GetTransitAspectChartObjectsForArabicPart", {
             firstChartId: (chartToCompare === 2) ? $('#firstEnteredChartId').val() : $('#secondEnteredChartSelection').val(),
             secondChartId: (chartToCompare === 2) ? $('#secondEnteredChartSelection').val() : $('#firstEnteredChartId').val(),
@@ -541,7 +660,20 @@ var TransitDetails;
                     var aspectLine = SetUpListItemElementForAspect(subitem);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')');
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')');
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -568,7 +700,10 @@ var TransitDetails;
         $('#secondChartTransitSubject').html(((chartToCompare === 1) ? $('#firstEnteredChartSubjectName').html() : $('#secondEnteredChartSelection option:selected').html()) + '\'s:');
         $('#firstChartTransitObject').empty();
         $('#transitAspectList').empty();
-        $('#firstChartTransitObject').html(draconicName + ' (' + draconicCoordinates + ')');
+        $('#firstChartTransitObject').html(draconicName
+            + ' ('
+            + draconicCoordinates
+            + ')');
         var jqxhr = $.getJSON("/Transits/GetTransitAspectChartObjectsForDraconicObject", {
             firstChartId: (chartToCompare === 2) ? $('#firstEnteredChartId').val() : $('#secondEnteredChartSelection').val(),
             secondChartId: (chartToCompare === 2) ? $('#secondEnteredChartSelection').val() : $('#firstEnteredChartId').val(),
@@ -591,7 +726,20 @@ var TransitDetails;
                     var aspectLine = SetUpListItemElementForAspect(subitem);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')');
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')');
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -618,7 +766,10 @@ var TransitDetails;
         $('#secondChartTransitSubject').html(((chartToCompare === 1) ? $('#firstEnteredChartSubjectName').html() : $('#secondEnteredChartSelection option:selected').html()) + '\'s:');
         $('#firstChartTransitObject').empty();
         $('#transitAspectList').empty();
-        $('#firstChartTransitObject').html(midpointName + ' (' + midpointCoordinates + ')');
+        $('#firstChartTransitObject').html(midpointName
+            + ' ('
+            + midpointCoordinates
+            + ')');
         var jqxhr = $.getJSON("/Transits/GetTransitAspectChartObjectsForMidpoint", {
             firstChartId: (chartToCompare === 2) ? $('#firstEnteredChartId').val() : $('#secondEnteredChartSelection').val(),
             secondChartId: (chartToCompare === 2) ? $('#secondEnteredChartSelection').val() : $('#firstEnteredChartId').val(),
@@ -641,7 +792,20 @@ var TransitDetails;
                     var aspectLine = SetUpListItemElementForAspect(subitem);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')');
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')');
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);

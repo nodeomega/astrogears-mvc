@@ -319,7 +319,7 @@ $('#saveNewAsteroids').click(function () {
 
     export function SaveNewCelestialObject(celestialObjectName) {
         var celestialObjectType = celestialObjectName.trim().indexOf('*') === 0 ? 4 : 2;
-        var allowableOrb = celestialObjectName.trim().indexOf('*') === 0 ? 1.0 : 1.5;
+        var allowableOrb = celestialObjectName.trim().indexOf('*') === 0 ? 1.0 : 2.0;
 
         var passId;
         var jqxhr = $.getJSON("/CelestialObjects/CreateNewCelestialObject", { celestialObjectName: celestialObjectName, celestialObjectTypeId: celestialObjectType, allowableOrb: allowableOrb }).done(function (data) {
@@ -1221,44 +1221,38 @@ $('#saveNewAsteroids').click(function () {
 
     export function SetUpListItemElementForAspect(aspectItem) {
         switch (aspectItem.CelestialObjectTypeName) {
-            case 'Arabic Part':
+            case "Arabic Part":
                 if (aspectItem.Draconic === true) {
                     return $('<li class="arabic-part draconic"/>');
                 } else {
                     return $('<li class="arabic-part"/>');
                 }
-                break;
-            case 'Major Planet/Luminary':
+            case "Major Planet/Luminary":
                 if (aspectItem.Draconic === true) {
                     return $('<li class="planet-luminary draconic"/>');
                 } else {
                     return $('<li class="planet-luminary"/>');
                 }
-                break;
-            case 'Fixed Star':
+            case "Fixed Star":
                 return $('<li class="fixed-star"/>');
-                break;
-            case 'Angle/House Cusp':
+            case "Angle/House Cusp":
                 if (aspectItem.Draconic === true) {
                     return $('<li class="house-cusp draconic"/>');
                 } else {
                     return $('<li class="house-cusp"/>');
                 }
-                break;
-            case 'Midpoint':
+            case "Midpoint":
                 if (aspectItem.Draconic === true) {
                     return $('<li class="midpoint draconic"/>');
                 } else {
                     return $('<li class="midpoint"/>');
                 }
-                break;
             default:
                 if (aspectItem.Draconic === true) {
                     return $('<li class="draconic"/>');
                 } else {
-                    return $('<li/>');
+                    return $("<li/>");
                 }
-                break;
         }
     }
 

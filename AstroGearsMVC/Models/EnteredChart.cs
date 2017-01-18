@@ -41,6 +41,11 @@ namespace AstroGearsMVC.Models
             Progressed = 4, 
 
             /// <summary>
+            /// Solar Arcs
+            /// </summary>
+            SolarArc = 5,
+
+            /// <summary>
             ///     Heliocentric charts.
             /// </summary>
             Heliocentric = 9, 

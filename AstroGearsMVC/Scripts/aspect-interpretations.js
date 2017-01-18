@@ -5,13 +5,19 @@
 var AspectInterpretations;
 (function (AspectInterpretations) {
     var listing = false;
-    $('.celestial-object').autocomplete({
+    $(".celestial-object").autocomplete({
         source: function (request, response) {
-            $.getJSON('/AspectInterpretations/GetFullAutoComplete', { enteredTerm: request.term }).done(function (data) {
+            $.getJSON('/AspectInterpretations/GetFullAutoComplete', { enteredTerm: request.term })
+                .done(function (data) {
                 response($.map(data, function (item) {
-                    return { id: item.CelestialObjectId, label: item.CelestialObjectName, value: item.CelestialObjectName };
+                    return {
+                        id: item.CelestialObjectId,
+                        label: item.CelestialObjectName,
+                        value: item.CelestialObjectName
+                    };
                 }));
-            }).fail(function (ex) {
+            })
+                .fail(function (ex) {
                 console.log("AutoComplete Failed.");
             });
         },
@@ -33,12 +39,14 @@ var AspectInterpretations;
         }
     });
     var $listingLoading = $('#listingLoading').hide();
-    $(document).ajaxStart(function () {
+    $(document)
+        .ajaxStart(function () {
         if (listing === true) {
             $('#listingBody').empty();
             $listingLoading.show();
         }
-    }).ajaxStop(function () {
+    })
+        .ajaxStop(function () {
         $listingLoading.hide();
         listing = false;
     });
@@ -53,8 +61,15 @@ var AspectInterpretations;
                 var listingLine = $('<tr/>');
                 listingLine.append($('<td/>').html(item.FirstObject + ' ' + item.AspectName + ' ' + item.SecondObject));
                 listingLine.append($('<td/>').html(item.Interpretation.replace(/\n/g, '<br>')));
-                listingLine.append($('<td/>').html((!IsNullOrUndefined(item.CitationUrl) && item.CitationUrl.substring(0, 4) === 'http' ? '<a href="' + item.CitationUrl + '" target="_blank">' + item.CitationUrl + '</a>' : item.CitationUrl)));
-                listingLine.append($('<td/>').append($('<a href="#" onclick="AspectInterpretations.OpenEditForm(' + item.AspectInterpretationId + ');return false" title="Edit Aspect Interpretation"/>').append('<span class="fa fa-edit"/>').append(' Edit')).append($('<br/>')).append($('<a href="#" onclick="AspectInterpretations.OpenDeleteForm(' + item.AspectInterpretationId + ');return false" title="Delete Aspect Interpretation"/>').append('<span class="fa fa-remove error"/>').append($('<span class="error"/>').html(' Delete'))));
+                listingLine.append($('<td/>').html((!IsNullOrUndefined(item.CitationUrl) && item.CitationUrl.substring(0, 4) === 'http'
+                    ? '<a href="' + item.CitationUrl + '" target="_blank">' + item.CitationUrl + '</a>'
+                    : item.CitationUrl)));
+                listingLine
+                    .append($('<td/>')
+                    .append($('<a href="#" onclick="AspectInterpretations.OpenEditForm(' + item.AspectInterpretationId + ');return false" title="Edit Aspect Interpretation"/>').append('<span class="fa fa-edit"/>').append(' Edit'))
+                    .append($('<br/>'))
+                    .append($('<a href="#" onclick="AspectInterpretations.OpenDeleteForm(' + item.AspectInterpretationId + ');return false" title="Delete Aspect Interpretation"/>').append('<span class="fa fa-remove error"/>')
+                    .append($('<span class="error"/>').html(' Delete'))));
                 $('#listingBody').append(listingLine);
             });
             $('#pageNumber').empty();
@@ -88,7 +103,9 @@ var AspectInterpretations;
             $('#deleteSecondObject').html(data[0].SecondObject);
             $('#deleteAspect').html(data[0].AspectName);
             $('#deleteInterpretation').html(data[0].Interpretation.replace(/\n/g, '<br>'));
-            $('#deleteCitationUrl').html((!IsNullOrUndefined(data[0].CitationUrl) && data[0].CitationUrl.substring(0, 4) === 'http' ? '<a href="' + data[0].CitationUrl + '" target="_blank">' + data[0].CitationUrl + '</a>' : data[0].CitationUrl));
+            $('#deleteCitationUrl').html((!IsNullOrUndefined(data[0].CitationUrl) && data[0].CitationUrl.substring(0, 4) === 'http'
+                ? '<a href="' + data[0].CitationUrl + '" target="_blank">' + data[0].CitationUrl + '</a>'
+                : data[0].CitationUrl));
         }).fail(function (jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
             console.log('Delete Load Failure: ' + err);
@@ -329,7 +346,14 @@ var AspectInterpretations;
         $.each([$('#createAspectInterpretationTypeId1'), $('#createAspectInterpretationTypeId2'), $('#createAngle1Id'), $('#createAngle2Id')], function (i, item) {
             item.val([]);
         });
-        $.each([$('#createCelestialObject1'), $('#createCelestialObject1Id'), $('#createCelestialObject1Selected'), $('#createCelestialObject2'), $('#createCelestialObject2Id'), $('#createCelestialObject2Selected'), $('#createInterpretation'), $('#createCitationUrl')], function (i, item) {
+        $.each([$('#createCelestialObject1'),
+            $('#createCelestialObject1Id'),
+            $('#createCelestialObject1Selected'),
+            $('#createCelestialObject2'),
+            $('#createCelestialObject2Id'),
+            $('#createCelestialObject2Selected'),
+            $('#createInterpretation'),
+            $('#createCitationUrl')], function (i, item) {
             item.val('');
         });
         $('#createStatus').empty();

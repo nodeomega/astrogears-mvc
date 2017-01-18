@@ -70,7 +70,8 @@ var EnteredChartDetails;
     });
     var $chartloading = $('#chartloading').hide();
     var $aspectloading = $('#aspectloading').hide();
-    $(document).ajaxStart(function () {
+    $(document)
+        .ajaxStart(function () {
         if (listing === true) {
             $('#chartbody').empty();
             $chartloading.show();
@@ -78,7 +79,8 @@ var EnteredChartDetails;
         else if (aspects === true) {
             $aspectloading.show();
         }
-    }).ajaxStop(function () {
+    })
+        .ajaxStop(function () {
         $chartloading.hide();
         $aspectloading.hide();
         listing = false;
@@ -171,7 +173,8 @@ var EnteredChartDetails;
         $.ajaxSetup({ cache: false });
         var planets = { 1: "Sun", 2: "Moon", 3: "Mercury", 4: "Venus", 5: "Earth", 6: "Mars", 7: "Jupiter", 8: "Saturn", 9: "Uranus", 10: "Neptune", 11: "Pluto" };
         $.each(planets, function (i, planet) {
-            if ($('#new' + planet + 'Coordinates').is(":visible") && IsInRange($('#new' + planet + 'CoordinatesDegrees').val(), 0, 29) && $('#new' + planet + 'CoordinatesSigns').val() !== '---' && IsInRange($('#new' + planet + 'CoordinatesMinutes').val(), 0, 59) && IsInRange($('#new' + planet + 'CoordinatesSeconds').val(), 0, 59)) {
+            if ($('#new' + planet + 'Coordinates').is(":visible") && IsInRange($('#new' + planet + 'CoordinatesDegrees').val(), 0, 29) && $('#new' + planet + 'CoordinatesSigns').val() !== '---'
+                && IsInRange($('#new' + planet + 'CoordinatesMinutes').val(), 0, 59) && IsInRange($('#new' + planet + 'CoordinatesSeconds').val(), 0, 59)) {
                 var jqxhr = $.getJSON("/EnteredCharts/CreateChartObjectForEnteredChart", {
                     enteredChartId: $('#enteredchartid').val(),
                     degrees: $('#new' + planet + 'CoordinatesDegrees').val(),
@@ -202,7 +205,8 @@ var EnteredChartDetails;
         $.ajaxSetup({ cache: false });
         var planets = { 12: "MeanNode", 13: "TrueNode", 14: "Chiron", 15: "Lilith", 106: "Ceres", 107: "Pallas", 108: "Juno", 109: "Vesta" };
         $.each(planets, function (i, planet) {
-            if ($('#new' + planet + 'Coordinates').is(":visible") && IsInRange($('#new' + planet + 'CoordinatesDegrees').val(), 0, 29) && $('#new' + planet + 'CoordinatesSigns').val() !== '---' && IsInRange($('#new' + planet + 'CoordinatesMinutes').val(), 0, 59) && IsInRange($('#new' + planet + 'CoordinatesSeconds').val(), 0, 59)) {
+            if ($('#new' + planet + 'Coordinates').is(":visible") && IsInRange($('#new' + planet + 'CoordinatesDegrees').val(), 0, 29) && $('#new' + planet + 'CoordinatesSigns').val() !== '---'
+                && IsInRange($('#new' + planet + 'CoordinatesMinutes').val(), 0, 59) && IsInRange($('#new' + planet + 'CoordinatesSeconds').val(), 0, 59)) {
                 var jqxhr = $.getJSON("/EnteredCharts/CreateChartObjectForEnteredChart", {
                     enteredChartId: $('#enteredchartid').val(),
                     degrees: $('#new' + planet + 'CoordinatesDegrees').val(),
@@ -256,7 +260,8 @@ var EnteredChartDetails;
             else {
                 celestialObjectId = SaveNewCelestialObject(celestialObjectName);
             }
-            if (IsInRange($('#newAsteroid' + i + 'CoordinatesDegrees').val(), 0, 29) && $('#newAsteroid' + i + 'CoordinatesSigns').val() !== '---' && IsInRange($('#newAsteroid' + i + 'CoordinatesMinutes').val(), 0, 59) && IsInRange($('#newAsteroid' + i + 'CoordinatesSeconds').val(), 0, 59)) {
+            if (IsInRange($('#newAsteroid' + i + 'CoordinatesDegrees').val(), 0, 29) && $('#newAsteroid' + i + 'CoordinatesSigns').val() !== '---'
+                && IsInRange($('#newAsteroid' + i + 'CoordinatesMinutes').val(), 0, 59) && IsInRange($('#newAsteroid' + i + 'CoordinatesSeconds').val(), 0, 59)) {
                 SaveNewAsteroidOrFixedStar($('#enteredchartid').val(), celestialObjectName, celestialObjectId, $('#newAsteroid' + i + 'CoordinatesDegrees').val(), $('#newAsteroid' + i + 'CoordinatesMinutes').val(), $('#newAsteroid' + i + 'CoordinatesSeconds').val(), $('#newAsteroid' + i + 'CoordinatesSigns').val(), $('#newAsteroid' + i + 'CoordinatesOrientations').val());
             }
         }).fail(function (jqxhr, textStatus, error) {
@@ -278,7 +283,7 @@ var EnteredChartDetails;
     EnteredChartDetails.GetCelestialObjectId = GetCelestialObjectId;
     function SaveNewCelestialObject(celestialObjectName) {
         var celestialObjectType = celestialObjectName.trim().indexOf('*') === 0 ? 4 : 2;
-        var allowableOrb = celestialObjectName.trim().indexOf('*') === 0 ? 1.0 : 1.5;
+        var allowableOrb = celestialObjectName.trim().indexOf('*') === 0 ? 1.0 : 2.0;
         var passId;
         var jqxhr = $.getJSON("/CelestialObjects/CreateNewCelestialObject", { celestialObjectName: celestialObjectName, celestialObjectTypeId: celestialObjectType, allowableOrb: allowableOrb }).done(function (data) {
             passId = data;
@@ -377,18 +382,8 @@ var EnteredChartDetails;
     function SaveHouseSystemChanges() {
         $.ajaxSetup({ cache: false });
         var houseCusps = {
-            1: 'FirstHouse',
-            2: 'SecondHouse',
-            3: 'ThirdHouse',
-            4: 'FourthHouse',
-            5: 'FifthHouse',
-            6: 'SixthHouse',
-            7: 'SeventhHouse',
-            8: 'EighthHouse',
-            9: 'NinthHouse',
-            10: 'TenthHouse',
-            11: 'EleventhHouse',
-            12: 'TwelfthHouse'
+            1: 'FirstHouse', 2: 'SecondHouse', 3: 'ThirdHouse', 4: 'FourthHouse', 5: 'FifthHouse', 6: 'SixthHouse',
+            7: 'SeventhHouse', 8: 'EighthHouse', 9: 'NinthHouse', 10: 'TenthHouse', 11: 'EleventhHouse', 12: 'TwelfthHouse'
         };
         var angles = { 0: 'Vertex', 1: 'Ascendant', 2: 'Midheaven' };
         var postEnds = [];
@@ -508,7 +503,15 @@ var EnteredChartDetails;
                 $('#' + angle).empty();
             });
             $.each(data, function (i, item) {
-                var thisHouse = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                var thisHouse = item.Degrees
+                    + '° <span class="'
+                    + item.HtmlTextCssClass + '">'
+                    + item.SignAbbreviation
+                    + '</span> '
+                    + item.Minutes
+                    + '\' '
+                    + item.Seconds
+                    + '"';
                 $('#' + houseCusps[item.HouseId]).html(thisHouse);
             });
         }).fail(function (jqxhr, textStatus, error) {
@@ -520,7 +523,15 @@ var EnteredChartDetails;
                 $('#' + angle).empty();
             });
             $.each(data, function (i, item) {
-                var thisAngle = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                var thisAngle = item.Degrees
+                    + '° <span class="'
+                    + item.HtmlTextCssClass + '">'
+                    + item.SignAbbreviation
+                    + '</span> '
+                    + item.Minutes
+                    + '\' '
+                    + item.Seconds
+                    + '"';
                 $('#' + angles[item.AngleId]).html(thisAngle);
             });
         }).fail(function (jqxhr, textStatus, error) {
@@ -534,7 +545,15 @@ var EnteredChartDetails;
                     $('#' + angle + 'Draconic').empty();
                 });
                 $.each(data, function (i, item) {
-                    var thisHouse = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                    var thisHouse = item.Degrees
+                        + '° <span class="'
+                        + item.HtmlTextCssClass + '">'
+                        + item.SignAbbreviation
+                        + '</span> '
+                        + item.Minutes
+                        + '\' '
+                        + item.Seconds
+                        + '"';
                     $('#' + houseCusps[item.HouseId] + 'Draconic').html(thisHouse);
                 });
             }).fail(function (jqxhr, textStatus, error) {
@@ -546,7 +565,15 @@ var EnteredChartDetails;
                     $('#' + angle + 'Draconic').empty();
                 });
                 $.each(data, function (i, item) {
-                    var thisAngle = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                    var thisAngle = item.Degrees
+                        + '° <span class="'
+                        + item.HtmlTextCssClass + '">'
+                        + item.SignAbbreviation
+                        + '</span> '
+                        + item.Minutes
+                        + '\' '
+                        + item.Seconds
+                        + '"';
                     $('#' + angles[item.AngleId] + 'Draconic').html(thisAngle);
                 });
             }).fail(function (jqxhr, textStatus, error) {
@@ -621,7 +648,16 @@ var EnteredChartDetails;
                 chartLine.append(chartFirstCol.html(item.CelestialObjectName));
                 var chartSecondCol = $('<td/>');
                 var orientationString = (!!item.OrientationAbbreviation) ? ' ' + item.OrientationAbbreviation : '';
-                var coordinateString = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"' + orientationString;
+                var coordinateString = item.Degrees
+                    + '° <span class="'
+                    + item.HtmlTextCssClass + '">'
+                    + item.SignAbbreviation
+                    + '</span> '
+                    + item.Minutes
+                    + '\' '
+                    + item.Seconds
+                    + '"'
+                    + orientationString;
                 chartSecondCol.html(coordinateString);
                 chartLine.append(chartSecondCol);
                 if (item.House != 0) {
@@ -643,7 +679,8 @@ var EnteredChartDetails;
                     chartLine.append($('<td/>').append($('<a href="#" onclick="EnteredChartDetails.GetAspectsForMidpointChart(\'' + item.CelestialObjectName + '\', \'' + coordinateString.replace(/\'/g, '\\&#39;').replace(/"/g, '&quot;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;') + '\');return false;" title="View Aspects"/>').append('<span class="fa fa-search"/>')));
                 }
                 else {
-                    chartLine.append($('<td/>').append($('<a href="#" onclick="EnteredChartDetails.GetAspects(' + item.ChartObjectId + ');return false;" title="View Aspects"/>').append('<span class="fa fa-search"/>')).append($('<a href="#" onclick="EnteredChartDetails.OpenEditForm(' + item.ChartObjectId + ');return false;" title="Edit Coordinates"/>').append('<span class="fa fa-edit"/>')));
+                    chartLine.append($('<td/>').append($('<a href="#" onclick="EnteredChartDetails.GetAspects(' + item.ChartObjectId + ');return false;" title="View Aspects"/>').append('<span class="fa fa-search"/>'))
+                        .append($('<a href="#" onclick="EnteredChartDetails.OpenEditForm(' + item.ChartObjectId + ');return false;" title="Edit Coordinates"/>').append('<span class="fa fa-edit"/>')));
                 }
                 $('#chartbody').append(chartLine);
             });
@@ -664,7 +701,20 @@ var EnteredChartDetails;
         $('#aspectlist').empty();
         var headerJqxhr = $.getJSON("/EnteredCharts/GetSelectedAspectChartObject", { id: id }).done(function (data) {
             var orientationString = (!!data.OrientationAbbreviation) ? ' ' + data.OrientationAbbreviation : '';
-            $('#aspecttarget').html('Aspects to ' + data.CelestialObjectName + ' (' + data.Degrees + '° <span class="' + data.HtmlTextCssClass + '">' + data.SignAbbreviation + '</span> ' + data.Minutes + '\' ' + data.Seconds + '"' + orientationString + ')');
+            $('#aspecttarget').html('Aspects to '
+                + data.CelestialObjectName
+                + ' ('
+                + data.Degrees
+                + '° <span class="'
+                + data.HtmlTextCssClass + '">'
+                + data.SignAbbreviation
+                + '</span> '
+                + data.Minutes
+                + '\' '
+                + data.Seconds
+                + '"'
+                + orientationString
+                + ')');
         }).fail(function () {
             console.log("Header Load Fail.");
             return;
@@ -691,9 +741,25 @@ var EnteredChartDetails;
                     aspectLine.attr('id', newIdName);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry(subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false) : null;
-                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="EnteredChartDetails.GetInterpretation(\'#' + newIdName + '\', ' + interpretationIds[0] + ', ' + interpretationIds[1] + ', ' + item.AspectId + ', ' + interpretationIds[2] + ', ' + interpretationIds[3] + ');return false;"><span class="fa fa-search"></span></a>' : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')' + interpretationLink);
+                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry(subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false)
+                        : null;
+                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="EnteredChartDetails.GetInterpretation(\'#' + newIdName + '\', ' +
+                        interpretationIds[0] + ', ' + interpretationIds[1] + ', ' + item.AspectId + ', ' + interpretationIds[2] + ', ' + interpretationIds[3] + ');return false;"><span class="fa fa-search"></span></a>' : '';
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')'
+                        + interpretationLink);
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -723,7 +789,12 @@ var EnteredChartDetails;
         }).done(function (data) {
             if (data.length > 0) {
                 $.each(data, function (i, item) {
-                    interpretationList.append($('<li/>').html(item.Interpretation.replace(/\n/g, '<br>') + (!IsNullOrUndefined(item.CitationUrl) ? ' (' + (item.CitationUrl.substring(0, 4) === 'http' ? '<a href="' + item.CitationUrl + '" target="_blank">' + item.CitationUrl + '</a>' : item.CitationUrl) + ')' : '')));
+                    interpretationList.append($('<li/>').html(item.Interpretation.replace(/\n/g, '<br>')
+                        + (!IsNullOrUndefined(item.CitationUrl)
+                            ? ' (' + (item.CitationUrl.substring(0, 4) === 'http'
+                                ? '<a href="' + item.CitationUrl + '" target="_blank">' + item.CitationUrl + '</a>'
+                                : item.CitationUrl) + ')'
+                            : '')));
                 });
             }
             else {
@@ -772,7 +843,11 @@ var EnteredChartDetails;
         //$('#aspectloading').show();
         $('#aspecttarget').empty();
         $('#aspectlist').empty();
-        $('#aspecttarget').html('Aspects to ' + arabicPartName + ' (' + arabicPartCoordinates + ')');
+        $('#aspecttarget').html('Aspects to '
+            + arabicPartName
+            + ' ('
+            + arabicPartCoordinates
+            + ')');
         var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjectsForArabicPart", {
             chartId: $('#enteredchartid').val(),
             arabicPartName: arabicPartName,
@@ -794,7 +869,20 @@ var EnteredChartDetails;
                     var aspectLine = SetUpListItemElementForAspect(subitem);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')');
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')');
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -814,7 +902,11 @@ var EnteredChartDetails;
         //$('#aspectloading').show();
         $('#aspecttarget').empty();
         $('#aspectlist').empty();
-        $('#aspecttarget').html('Aspects to ' + angleName + ' (' + angleCoordinates + ')');
+        $('#aspecttarget').html('Aspects to '
+            + angleName
+            + ' ('
+            + angleCoordinates
+            + ')');
         var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjectsForAngle", {
             chartId: $('#enteredchartid').val(),
             angleName: angleName,
@@ -838,9 +930,25 @@ var EnteredChartDetails;
                     aspectLine.attr('id', newIdName);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry(subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false) : null;
-                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="EnteredChartDetails.GetInterpretation(\'#' + newIdName + '\', ' + interpretationIds[0] + ', ' + interpretationIds[1] + ', ' + item.AspectId + ', ' + interpretationIds[2] + ', ' + interpretationIds[3] + ');return false;"><span class="fa fa-search"></span></a>' : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')' + interpretationLink);
+                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry(subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false)
+                        : null;
+                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="EnteredChartDetails.GetInterpretation(\'#' + newIdName + '\', ' +
+                        interpretationIds[0] + ', ' + interpretationIds[1] + ', ' + item.AspectId + ', ' + interpretationIds[2] + ', ' + interpretationIds[3] + ');return false;"><span class="fa fa-search"></span></a>' : '';
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')'
+                        + interpretationLink);
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -860,7 +968,11 @@ var EnteredChartDetails;
         //$('#aspectloading').show();
         $('#aspecttarget').empty();
         $('#aspectlist').empty();
-        $('#aspecttarget').html('Aspects to ' + draconicName + ' (' + draconicCoordinates + ')');
+        $('#aspecttarget').html('Aspects to '
+            + draconicName
+            + ' ('
+            + draconicCoordinates
+            + ')');
         var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjectsForDraconicObject", {
             chartId: $('#enteredchartid').val(),
             draconicName: draconicName,
@@ -882,7 +994,20 @@ var EnteredChartDetails;
                     var aspectLine = SetUpListItemElementForAspect(subitem);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')');
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')');
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -902,7 +1027,11 @@ var EnteredChartDetails;
         //$('#aspectloading').show();
         $('#aspecttarget').empty();
         $('#aspectlist').empty();
-        $('#aspecttarget').html('Aspects to ' + midpointName + ' (' + midpointCoordinates + ')');
+        $('#aspecttarget').html('Aspects to '
+            + midpointName
+            + ' ('
+            + midpointCoordinates
+            + ')');
         var jqxhr = $.getJSON("/EnteredCharts/GetAspectChartObjectsForMidpoint", {
             chartId: $('#enteredchartid').val(),
             midpointName: midpointName,
@@ -924,7 +1053,20 @@ var EnteredChartDetails;
                     var aspectLine = SetUpListItemElementForAspect(subitem);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')');
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')');
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -939,49 +1081,43 @@ var EnteredChartDetails;
     EnteredChartDetails.GetAspectsForMidpointChart = GetAspectsForMidpointChart;
     function SetUpListItemElementForAspect(aspectItem) {
         switch (aspectItem.CelestialObjectTypeName) {
-            case 'Arabic Part':
+            case "Arabic Part":
                 if (aspectItem.Draconic === true) {
                     return $('<li class="arabic-part draconic"/>');
                 }
                 else {
                     return $('<li class="arabic-part"/>');
                 }
-                break;
-            case 'Major Planet/Luminary':
+            case "Major Planet/Luminary":
                 if (aspectItem.Draconic === true) {
                     return $('<li class="planet-luminary draconic"/>');
                 }
                 else {
                     return $('<li class="planet-luminary"/>');
                 }
-                break;
-            case 'Fixed Star':
+            case "Fixed Star":
                 return $('<li class="fixed-star"/>');
-                break;
-            case 'Angle/House Cusp':
+            case "Angle/House Cusp":
                 if (aspectItem.Draconic === true) {
                     return $('<li class="house-cusp draconic"/>');
                 }
                 else {
                     return $('<li class="house-cusp"/>');
                 }
-                break;
-            case 'Midpoint':
+            case "Midpoint":
                 if (aspectItem.Draconic === true) {
                     return $('<li class="midpoint draconic"/>');
                 }
                 else {
                     return $('<li class="midpoint"/>');
                 }
-                break;
             default:
                 if (aspectItem.Draconic === true) {
                     return $('<li class="draconic"/>');
                 }
                 else {
-                    return $('<li/>');
+                    return $("<li/>");
                 }
-                break;
         }
     }
     EnteredChartDetails.SetUpListItemElementForAspect = SetUpListItemElementForAspect;
@@ -993,10 +1129,6 @@ var EnteredChartDetails;
         });
     }
     EnteredChartDetails.GetAsteroidAndFixedStartAutocomplete = GetAsteroidAndFixedStartAutocomplete;
-    $(document).ready(function () {
-        GetListing($('#enteredchartid').val());
-        GetHouseListing($('#enteredchartid').val());
-        HideAddButtons($('#enteredchartid').val());
-    });
+    $(document).ready(function () { GetListing($('#enteredchartid').val()); GetHouseListing($('#enteredchartid').val()); HideAddButtons($('#enteredchartid').val()); });
 })(EnteredChartDetails || (EnteredChartDetails = {}));
 //# sourceMappingURL=entered-chart-details.js.map

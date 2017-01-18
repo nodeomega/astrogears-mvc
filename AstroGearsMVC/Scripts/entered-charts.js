@@ -23,16 +23,18 @@ var EnteredCharts;
             self.pages = ko.observable(0);
         }
         return EnteredChartListingResult;
-    })();
+    }());
     EnteredCharts.EnteredChartListingResult = EnteredChartListingResult;
     EnteredCharts.listingResult = new EnteredChartListingResult();
     var $listingLoading = $("#listingLoading").hide();
-    $(document).ajaxStart(function () {
+    $(document)
+        .ajaxStart(function () {
         if (listing === true) {
             $("#listingBody").empty();
             $listingLoading.show();
         }
-    }).ajaxStop(function () {
+    })
+        .ajaxStop(function () {
         $listingLoading.hide();
         listing = false;
     });
@@ -51,7 +53,31 @@ var EnteredCharts;
                     listingLine.append($("<td/>").html(item.SubjectLocation));
                     listingLine.append($("<td/>").html(item.OriginDateTimeString));
                     listingLine.append($("<td/>").html(item.ChartTypeName));
-                    listingLine.append($("<td/>").append($("<a href=\"#\" onclick=\"EnteredCharts.OpenEditForm(" + item.EnteredChartId + ");return false;\" title=\"Edit Entered Chart Data\"/>").append("<span class=\"fa fa-edit\"/>").append(" Edit")).append($("<br/>")).append($("<a href=\"/EnteredCharts/Details/" + item.EnteredChartId + "\" title=\"Details\"/>").append("<span class=\"fa fa-search\"/>").append(" Details")).append($("<br/>")).append($("<a href=\"/EnteredCharts/Transits/" + item.EnteredChartId + "\" title=\"Transits\"/>").append("<span class=\"fa fa-arrows-alt\"/>").append(" Transits")).append($("<br/>")).append($("<a href=\"/EnteredCharts/Synastry/" + item.EnteredChartId + "\" title=\"Synastry\"/>").append("<span class=\"fa fa-star-half-o\"/>").append(" Synastry")).append($("<br/>")).append($("<a href=\"#\" onclick=\"EnteredCharts.OpenDeleteForm(" + item.EnteredChartId + ");return false;\" title=\"Delete Entered Chart\"/>").append("<span class=\"fa fa-remove error\"/>").append($("<span class=\"error\"/>").html(" Delete"))));
+                    listingLine
+                        .append($("<td/>")
+                        .append($("<a href=\"#\" onclick=\"EnteredCharts.OpenEditForm("
+                        + item.EnteredChartId
+                        + ");return false;\" title=\"Edit Entered Chart Data\"/>")
+                        .append("<span class=\"fa fa-edit\"/>")
+                        .append(" Edit"))
+                        .append($("<br/>"))
+                        .append($("<a href=\"/EnteredCharts/Details/" + item.EnteredChartId + "\" title=\"Details\"/>")
+                        .append("<span class=\"fa fa-search\"/>")
+                        .append(" Details"))
+                        .append($("<br/>"))
+                        .append($("<a href=\"/EnteredCharts/Transits/" + item.EnteredChartId + "\" title=\"Transits\"/>")
+                        .append("<span class=\"fa fa-arrows-alt\"/>")
+                        .append(" Transits"))
+                        .append($("<br/>"))
+                        .append($("<a href=\"/EnteredCharts/Synastry/" + item.EnteredChartId + "\" title=\"Synastry\"/>")
+                        .append("<span class=\"fa fa-star-half-o\"/>")
+                        .append(" Synastry"))
+                        .append($("<br/>"))
+                        .append($("<a href=\"#\" onclick=\"EnteredCharts.OpenDeleteForm("
+                        + item.EnteredChartId
+                        + ");return false;\" title=\"Delete Entered Chart\"/>")
+                        .append("<span class=\"fa fa-remove error\"/>")
+                        .append($("<span class=\"error\"/>").html(" Delete"))));
                     $("#listingBody").append(listingLine);
                 });
             }
@@ -60,7 +86,8 @@ var EnteredCharts;
             $("#pageNumber").empty();
             $("#totalPages").text(data[1]);
             for (var i = 1; i <= parseInt(data[1], 10); i++) {
-                $("#pageNumber").append($((i === page) ? "<option selected=\"selected\"/>" : "<option/>").val(i.toString()).text(i.toString()));
+                $("#pageNumber").append($((i === page) ? "<option selected=\"selected\"/>" : "<option/>")
+                    .val(i.toString()).text(i.toString()));
             }
         }).fail(function (jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
@@ -129,7 +156,8 @@ var EnteredCharts;
             listing = true;
             $("#listingBody").empty();
             $listingLoading.show();
-            $.when(GetEnteredChartsListing(parseInt($("#pageNumber").val(), 10), parseInt($("#resultsPerPage").val(), 10))).done(function () {
+            $.when(GetEnteredChartsListing(parseInt($("#pageNumber").val(), 10), parseInt($("#resultsPerPage").val(), 10)))
+                .done(function () {
                 $listingLoading.show();
                 listing = false;
             });
@@ -155,7 +183,8 @@ var EnteredCharts;
                 listing = true;
                 $("#listingBody").empty();
                 $listingLoading.show();
-                $.when(GetEnteredChartsListing(parseInt($("#pageNumber").val(), 10), parseInt($("#resultsPerPage").val(), 10))).done(function () {
+                $.when(GetEnteredChartsListing(parseInt($("#pageNumber").val(), 10), parseInt($("#resultsPerPage").val(), 10)))
+                    .done(function () {
                     $listingLoading.show();
                     listing = false;
                 });
@@ -184,7 +213,8 @@ var EnteredCharts;
                 listing = true;
                 $("#listingBody").empty();
                 $listingLoading.show();
-                $.when(GetEnteredChartsListing(parseInt($("#pageNumber").val(), 10), parseInt($("#resultsPerPage").val(), 10))).done(function () {
+                $.when(GetEnteredChartsListing(parseInt($("#pageNumber").val(), 10), parseInt($("#resultsPerPage").val(), 10)))
+                    .done(function () {
                     $listingLoading.show();
                     listing = false;
                 });
@@ -202,7 +232,8 @@ var EnteredCharts;
         $.getJSON("/EnteredCharts/GetChartTypesList").done(function (data) {
             $.each([$("#createChartTypeId"), $("#editChartTypeId")], function (i, list) {
                 $.each(data, function (j, item) {
-                    list.append($("<option value=\"" + item.ChartTypeId + "\"" + ((j === 0) ? " selected=\"selected\"" : "") + "/>").html(item.ChartTypeName));
+                    list.append($("<option value=\"" + item.ChartTypeId + "\"" + ((j === 0) ? " selected=\"selected\"" : "") + "/>")
+                        .html(item.ChartTypeName));
                 });
             });
         }).fail(function (jqxhr, textStatus, error) {

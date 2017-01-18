@@ -68,14 +68,8 @@ namespace AstroGearsMVC.Models
         /// <value>
         ///     The calculated coordinate.
         /// </value>
-        public decimal CalculatedCoordinate
-        {
-            get
-            {
-                return ((decimal)this.SignId * 30) + this.Degrees + ((decimal)this.Minutes / 60)
-                       + ((decimal)this.Seconds / 3600);
-            }
-        }
+        public decimal CalculatedCoordinate => (decimal) SignId*30 + Degrees + (decimal) Minutes/60
+                                               + (decimal) Seconds/3600;
 
         /// <summary>
         ///     Gets the coordinate in seconds.
@@ -83,13 +77,7 @@ namespace AstroGearsMVC.Models
         /// <value>
         ///     The coordinate in seconds.
         /// </value>
-        public int CoordinateInSeconds
-        {
-            get
-            {
-                return (((this.SignId * 30) + this.Degrees) * 3600) + (this.Minutes * 60) + this.Seconds;
-            }
-        }
+        public int CoordinateInSeconds => (SignId*30 + Degrees)*3600 + Minutes*60 + Seconds;
 
         /// <summary>
         /// Gets or sets the angle identifier.

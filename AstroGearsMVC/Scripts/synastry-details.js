@@ -8,7 +8,8 @@ var SynastryDetails;
     var $firstChartLoading = $('#firstChartLoading').hide();
     var $secondChartLoading = $('#secondChartLoading').hide();
     var $aspectloading = $('#synastryAspectsLoading').hide();
-    $(document).ajaxStart(function () {
+    $(document)
+        .ajaxStart(function () {
         if (listing1 === true) {
             $('#firstChartBody').empty();
             $firstChartLoading.show();
@@ -20,7 +21,8 @@ var SynastryDetails;
         if (aspects === true) {
             $aspectloading.show();
         }
-    }).ajaxStop(function () {
+    })
+        .ajaxStop(function () {
         $firstChartLoading.hide();
         $secondChartLoading.hide();
         $aspectloading.hide();
@@ -133,7 +135,16 @@ var SynastryDetails;
                 chartLine.append(chartFirstCol.html(item.CelestialObjectName));
                 var chartSecondCol = $('<td/>');
                 var orientationString = (!!item.OrientationAbbreviation) ? ' ' + item.OrientationAbbreviation : '';
-                var coordinateString = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"' + orientationString;
+                var coordinateString = item.Degrees
+                    + '° <span class="'
+                    + item.HtmlTextCssClass + '">'
+                    + item.SignAbbreviation
+                    + '</span> '
+                    + item.Minutes
+                    + '\' '
+                    + item.Seconds
+                    + '"'
+                    + orientationString;
                 chartSecondCol.html(coordinateString);
                 chartLine.append(chartSecondCol);
                 if (item.House !== 0) {
@@ -220,7 +231,16 @@ var SynastryDetails;
                 chartLine.append(chartFirstCol.html(item.CelestialObjectName));
                 var chartSecondCol = $('<td/>');
                 var orientationString = (!!item.OrientationAbbreviation) ? ' ' + item.OrientationAbbreviation : '';
-                var coordinateString = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"' + orientationString;
+                var coordinateString = item.Degrees
+                    + '° <span class="'
+                    + item.HtmlTextCssClass + '">'
+                    + item.SignAbbreviation
+                    + '</span> '
+                    + item.Minutes
+                    + '\' '
+                    + item.Seconds
+                    + '"'
+                    + orientationString;
                 chartSecondCol.html(coordinateString);
                 chartLine.append(chartSecondCol);
                 if (item.House !== 0) {
@@ -274,7 +294,15 @@ var SynastryDetails;
                 $('#' + angle + chartNumberIdentifier[chartNumber]).empty();
             });
             $.each(data, function (i, item) {
-                var thisHouse = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                var thisHouse = item.Degrees
+                    + '° <span class="'
+                    + item.HtmlTextCssClass + '">'
+                    + item.SignAbbreviation
+                    + '</span> '
+                    + item.Minutes
+                    + '\' '
+                    + item.Seconds
+                    + '"';
                 $('#' + houseCusps[item.HouseId] + chartNumberIdentifier[chartNumber]).html(thisHouse);
             });
         }).fail(function (jqxhr, textStatus, error) {
@@ -286,7 +314,15 @@ var SynastryDetails;
                 $('#' + angle + chartNumberIdentifier[chartNumber]).empty();
             });
             $.each(data, function (i, item) {
-                var thisAngle = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                var thisAngle = item.Degrees
+                    + '° <span class="'
+                    + item.HtmlTextCssClass + '">'
+                    + item.SignAbbreviation
+                    + '</span> '
+                    + item.Minutes
+                    + '\' '
+                    + item.Seconds
+                    + '"';
                 $('#' + angles[item.AngleId] + chartNumberIdentifier[chartNumber]).html(thisAngle);
             });
         }).fail(function (jqxhr, textStatus, error) {
@@ -302,7 +338,15 @@ var SynastryDetails;
                     $('#' + angle + chartNumberIdentifier[chartNumber] + 'Draconic').empty();
                 });
                 $.each(data, function (i, item) {
-                    var thisHouse = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                    var thisHouse = item.Degrees
+                        + '° <span class="'
+                        + item.HtmlTextCssClass + '">'
+                        + item.SignAbbreviation
+                        + '</span> '
+                        + item.Minutes
+                        + '\' '
+                        + item.Seconds
+                        + '"';
                     $('#' + houseCusps[item.HouseId] + chartNumberIdentifier[chartNumber] + 'Draconic').html(thisHouse);
                 });
             }).fail(function (jqxhrDraconicHouse, textStatus, error) {
@@ -314,7 +358,15 @@ var SynastryDetails;
                     $('#' + angle + 'Draconic').empty();
                 });
                 $.each(data, function (i, item) {
-                    var thisAngle = item.Degrees + '° <span class="' + item.HtmlTextCssClass + '">' + item.SignAbbreviation + '</span> ' + item.Minutes + '\' ' + item.Seconds + '"';
+                    var thisAngle = item.Degrees
+                        + '° <span class="'
+                        + item.HtmlTextCssClass + '">'
+                        + item.SignAbbreviation
+                        + '</span> '
+                        + item.Minutes
+                        + '\' '
+                        + item.Seconds
+                        + '"';
                     $('#' + angles[item.AngleId] + chartNumberIdentifier[chartNumber] + 'Draconic').html(thisAngle);
                 });
             }).fail(function (jqxhrDraconicAngle, textStatus, error) {
@@ -374,7 +426,19 @@ var SynastryDetails;
         $('#synastryAspectlist').empty();
         var headerJqxhr = $.getJSON("/EnteredCharts/GetSelectedAspectChartObject", { id: id }).done(function (data) {
             var orientationString = (!!data.OrientationAbbreviation) ? ' ' + data.OrientationAbbreviation : '';
-            $('#firstChartSynastryObject').html(data.CelestialObjectName + ' (' + data.Degrees + '° <span class="' + data.HtmlTextCssClass + '">' + data.SignAbbreviation + '</span> ' + data.Minutes + '\' ' + data.Seconds + '"' + orientationString + ')');
+            $('#firstChartSynastryObject').html(data.CelestialObjectName
+                + ' ('
+                + data.Degrees
+                + '° <span class="'
+                + data.HtmlTextCssClass + '">'
+                + data.SignAbbreviation
+                + '</span> '
+                + data.Minutes
+                + '\' '
+                + data.Seconds
+                + '"'
+                + orientationString
+                + ')');
         }).fail(function () {
             console.log("Header Load Fail.");
             return;
@@ -402,9 +466,25 @@ var SynastryDetails;
                     aspectLine.attr('id', newIdName);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry(subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false) : null;
-                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="SynastryDetails.GetInterpretation(\'#' + newIdName + '\', ' + interpretationIds[0] + ', ' + interpretationIds[1] + ', ' + item.AspectId + ', ' + interpretationIds[2] + ', ' + interpretationIds[3] + ');return false;"><span class="fa fa-search"></span></a>' : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')' + interpretationLink);
+                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry(subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false)
+                        : null;
+                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="SynastryDetails.GetInterpretation(\'#' + newIdName + '\', ' +
+                        interpretationIds[0] + ', ' + interpretationIds[1] + ', ' + item.AspectId + ', ' + interpretationIds[2] + ', ' + interpretationIds[3] + ');return false;"><span class="fa fa-search"></span></a>' : '';
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')'
+                        + interpretationLink);
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -434,7 +514,12 @@ var SynastryDetails;
         }).done(function (data) {
             if (data.length > 0) {
                 $.each(data, function (i, item) {
-                    interpretationList.append($('<li/>').html(item.Interpretation.replace(/\n/g, '<br>') + (!IsNullOrUndefined(item.CitationUrl) ? ' (' + (item.CitationUrl.substring(0, 4) === 'http' ? '<a href="' + item.CitationUrl + '" target="_blank">' + item.CitationUrl + '</a>' : item.CitationUrl) + ')' : '')));
+                    interpretationList.append($('<li/>').html(item.Interpretation.replace(/\n/g, '<br>')
+                        + (!IsNullOrUndefined(item.CitationUrl)
+                            ? ' (' + (item.CitationUrl.substring(0, 4) === 'http'
+                                ? '<a href="' + item.CitationUrl + '" target="_blank">' + item.CitationUrl + '</a>'
+                                : item.CitationUrl) + ')'
+                            : '')));
                 });
             }
             else {
@@ -461,7 +546,10 @@ var SynastryDetails;
         $('#secondChartSynastrySubject').html(((chartToCompare === 1) ? $('#firstEnteredChartSubjectName').html() : $('#secondEnteredChartSelection option:selected').html()) + '\'s:');
         $('#firstChartSynastryObject').empty();
         $('#synastryAspectlist').empty();
-        $('#firstChartSynastryObject').html(angleName + ' (' + angleCoordinates + ')');
+        $('#firstChartSynastryObject').html(angleName
+            + ' ('
+            + angleCoordinates
+            + ')');
         var jqxhr = $.getJSON("/Synastry/GetSynastryAspectChartObjectsForAngle", {
             firstChartId: (chartToCompare === 2) ? $('#firstEnteredChartId').val() : $('#secondEnteredChartSelection').val(),
             secondChartId: (chartToCompare === 2) ? $('#secondEnteredChartSelection').val() : $('#firstEnteredChartId').val(),
@@ -486,9 +574,25 @@ var SynastryDetails;
                     aspectLine.attr('id', newIdName);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry(subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false) : null;
-                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="SynastryDetails.GetInterpretation(\'#' + newIdName + '\', ' + interpretationIds[0] + ', ' + interpretationIds[1] + ', ' + item.AspectId + ', ' + interpretationIds[2] + ', ' + interpretationIds[3] + ');return false;"><span class="fa fa-search"></span></a>' : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')' + interpretationLink);
+                    var interpretationIds = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? SetUpIdsForEntry(subitem.BaseObjectCelestialObjectId, (subitem.BaseObjectCelestialObjectId !== 0) ? true : false, subitem.BaseObjectAngleId, (!IsNullOrUndefined(subitem.BaseObjectAngleId)) ? true : false, subitem.CelestialObjectId, (subitem.CelestialObjectId !== 0) ? true : false, subitem.AngleId, (!IsNullOrUndefined(subitem.AngleId)) ? true : false)
+                        : null;
+                    var interpretationLink = (subitem.BaseObjectValidForInterpretation && subitem.ThisObjectValidForInterpretation) ? ' <a href="#" onclick="SynastryDetails.GetInterpretation(\'#' + newIdName + '\', ' +
+                        interpretationIds[0] + ', ' + interpretationIds[1] + ', ' + item.AspectId + ', ' + interpretationIds[2] + ', ' + interpretationIds[3] + ');return false;"><span class="fa fa-search"></span></a>' : '';
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')'
+                        + interpretationLink);
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -515,7 +619,10 @@ var SynastryDetails;
         $('#secondChartSynastrySubject').html(((chartToCompare === 1) ? $('#firstEnteredChartSubjectName').html() : $('#secondEnteredChartSelection option:selected').html()) + '\'s:');
         $('#firstChartSynastryObject').empty();
         $('#synastryAspectlist').empty();
-        $('#firstChartSynastryObject').html(arabicPartName + ' (' + arabicPartCoordinates + ')');
+        $('#firstChartSynastryObject').html(arabicPartName
+            + ' ('
+            + arabicPartCoordinates
+            + ')');
         var jqxhr = $.getJSON("/Synastry/GetSynastryAspectChartObjectsForArabicPart", {
             firstChartId: (chartToCompare === 2) ? $('#firstEnteredChartId').val() : $('#secondEnteredChartSelection').val(),
             secondChartId: (chartToCompare === 2) ? $('#secondEnteredChartSelection').val() : $('#firstEnteredChartId').val(),
@@ -538,7 +645,20 @@ var SynastryDetails;
                     var aspectLine = SetUpListItemElementForAspect(subitem);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')');
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')');
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -565,7 +685,10 @@ var SynastryDetails;
         $('#secondChartSynastrySubject').html(((chartToCompare === 1) ? $('#firstEnteredChartSubjectName').html() : $('#secondEnteredChartSelection option:selected').html()) + '\'s:');
         $('#firstChartSynastryObject').empty();
         $('#synastryAspectlist').empty();
-        $('#firstChartSynastryObject').html(draconicName + ' (' + draconicCoordinates + ')');
+        $('#firstChartSynastryObject').html(draconicName
+            + ' ('
+            + draconicCoordinates
+            + ')');
         var jqxhr = $.getJSON("/Synastry/GetSynastryAspectChartObjectsForDraconicObject", {
             firstChartId: (chartToCompare === 2) ? $('#firstEnteredChartId').val() : $('#secondEnteredChartSelection').val(),
             secondChartId: (chartToCompare === 2) ? $('#secondEnteredChartSelection').val() : $('#firstEnteredChartId').val(),
@@ -588,7 +711,20 @@ var SynastryDetails;
                     var aspectLine = SetUpListItemElementForAspect(subitem);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')');
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')');
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);
@@ -615,7 +751,10 @@ var SynastryDetails;
         $('#secondChartSynastrySubject').html(((chartToCompare === 1) ? $('#firstEnteredChartSubjectName').html() : $('#secondEnteredChartSelection option:selected').html()) + '\'s:');
         $('#firstChartSynastryObject').empty();
         $('#synastryAspectlist').empty();
-        $('#firstChartSynastryObject').html(midpointName + ' (' + midpointCoordinates + ')');
+        $('#firstChartSynastryObject').html(midpointName
+            + ' ('
+            + midpointCoordinates
+            + ')');
         var jqxhr = $.getJSON("/Synastry/GetSynastryAspectChartObjectsForMidpoint", {
             firstChartId: (chartToCompare === 2) ? $('#firstEnteredChartId').val() : $('#secondEnteredChartSelection').val(),
             secondChartId: (chartToCompare === 2) ? $('#secondEnteredChartSelection').val() : $('#firstEnteredChartId').val(),
@@ -638,7 +777,20 @@ var SynastryDetails;
                     var aspectLine = SetUpListItemElementForAspect(subitem);
                     var orientationString = (!!subitem.OrientationAbbreviation) ? ' ' + subitem.OrientationAbbreviation : '';
                     var houseString = (subitem.House != 0) ? ' | House ' + subitem.House : '';
-                    aspectLine.html(subitem.CelestialObjectName + ' (' + subitem.Degrees + '° <span class="' + subitem.HtmlTextCssClass + '">' + subitem.SignAbbreviation + '</span> ' + subitem.Minutes + '\' ' + subitem.Seconds + '"' + orientationString + houseString + ')');
+                    aspectLine.html(subitem.CelestialObjectName
+                        + ' ('
+                        + subitem.Degrees
+                        + '° <span class="'
+                        + subitem.HtmlTextCssClass + '">'
+                        + subitem.SignAbbreviation
+                        + '</span> '
+                        + subitem.Minutes
+                        + '\' '
+                        + subitem.Seconds
+                        + '"'
+                        + orientationString
+                        + houseString
+                        + ')');
                     aspectList.append(aspectLine);
                 });
                 aspectHead.append(aspectList);

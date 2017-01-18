@@ -169,11 +169,7 @@
                     <h4 class="modal-title">New Planet Coordinates</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="container">
-                        @Html.Partial("_NewCelestialObjectCoordinates", new[,] { { "Sun", "Sun", "1" }, { "Moon", "Moon", "2" }, { "Mercury", "Mercury", "3" }, { "Venus", "Venus", "4" }, { "Earth", "Earth", "5" },
-                                                                                 { "Mars", "Mars", "6" },{ "Jupiter", "Jupiter", "7" },{ "Saturn", "Saturn", "8" },{ "Uranus", "Uranus", "9" },{ "Neptune", "Neptune", "10" },
-                                                                                 { "Pluto", "Pluto", "11" }})
-                    </div>
+                    @Html.Partial("_NewCelestialObjectCoordinates", new[,] { { "Sun", "Sun", "1" }, { "Moon", "Moon", "2" }, { "Mercury", "Mercury", "3" }, { "Venus", "Venus", "4" }, { "Earth", "Earth", "5" }, { "Mars", "Mars", "6" }, { "Jupiter", "Jupiter", "7" }, { "Saturn", "Saturn", "8" }, { "Uranus", "Uranus", "9" }, { "Neptune", "Neptune", "10" }, { "Pluto", "Pluto", "11" } })
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -193,11 +189,7 @@
                     <h4 class="modal-title">New Secondary Coordinates</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="container">
-                        @Html.Partial("_NewCelestialObjectCoordinates", new[,] { { "MeanNode", "Mean Node", "12" },{ "TrueNode", "True Node", "13" },{ "Chiron", "Chiron", "14" },
-                                                                                 { "Lilith", "Lilith", "15" },{ "Ceres", "Ceres", "106" },{ "Pallas", "Pallas", "107" },
-                                                                                 { "Juno", "Juno", "108" },{ "Vesta", "Vesta", "109" } })
-                    </div>
+                    @Html.Partial("_NewCelestialObjectCoordinates", new[,] { { "MeanNode", "Mean Node", "12" }, { "TrueNode", "True Node", "13" }, { "Chiron", "Chiron", "14" }, { "Lilith", "Lilith", "15" }, { "Ceres", "Ceres", "106" }, { "Pallas", "Pallas", "107" }, { "Juno", "Juno", "108" }, { "Vesta", "Vesta", "109" } })
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -220,9 +212,7 @@
                     <p>
                         <em>(Start all Fixed Stars with *, otherwise it will be saved as an asteroid.)</em>
                     </p>
-                    <div class="container">
-                        @Html.Partial("_NewAsteroidCoordinates", 10)
-                    </div>
+                    @Html.Partial("_NewAsteroidCoordinates", 10)
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -241,7 +231,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">Edit House Cusps/Angles</h4>
                 </div>
-                <div class="modal-body container">
+                <div class="modal-body">
                     <div class="col-md-12">
                         <label id="editHouseSystemLabel">House System</label>
                         <select id="editHouseSystem" disabled="disabled">

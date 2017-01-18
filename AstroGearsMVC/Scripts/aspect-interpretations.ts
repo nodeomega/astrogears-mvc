@@ -4,18 +4,25 @@
 /// <reference path="common-library.ts" />
 
 module AspectInterpretations {
-    var listing: boolean = false;
+    var listing = false;
 
-    $('.celestial-object').autocomplete({
-        source: function (request, response) {
-            $.getJSON('/AspectInterpretations/GetFullAutoComplete', { enteredTerm: request.term }).done(function (data) {
-                response($.map(data, function (item) {
-                    return { id: item.CelestialObjectId, label: item.CelestialObjectName, value: item.CelestialObjectName };
-                }));
-            }).fail(function (ex) {
-                    console.log("AutoComplete Failed.");
+    $(".celestial-object").autocomplete({
+        source: (request, response) => {
+            $.getJSON('/AspectInterpretations/GetFullAutoComplete', { enteredTerm: request.term })
+                .done(function(data) {
+                    response($.map(data,
+                        function(item) {
+                            return {
+                                id: item.CelestialObjectId,
+                                label: item.CelestialObjectName,
+                                value: item.CelestialObjectName
+                            };
+                        }));
                 })
-    },
+                .fail(function(ex) {
+                    console.log("AutoComplete Failed.");
+                });
+        },
         minLength: 2,
         select: function (event, ui) {
             //console.log(ui.item ?
